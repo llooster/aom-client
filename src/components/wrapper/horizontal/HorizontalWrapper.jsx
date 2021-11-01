@@ -1,13 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledHorizontalWrapper = styled.div.attrs((props) => ({
-    width: props.width || "transparent",
-    height: props.height || "transparent",
-    backgroundColor: props.backColor || "white",
-    justifyContent: props.justifyContent || "center",
-    alignItems: props.alignItems || "center",
-}))`
+const StyledHorizontalWrapper = styled.div.attrs(
+    ({ width, height, backColor, justifyContent, alignItems, padding }) => ({
+        width: width || "transparent",
+        height: height || "transparent",
+        padding: padding || "0",
+        backgroundColor: backColor || "white",
+        justifyContent: justifyContent || "center",
+        alignItems: alignItems || "center",
+    })
+)`
     width: ${(props) => props.width};
     height: ${(props) => props.height};
     background-color: ${(props) => props.backgroundColor};
