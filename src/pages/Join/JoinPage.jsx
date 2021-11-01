@@ -16,7 +16,7 @@ function JoinPage() {
                 <Title text="모두의 관리" />
                 <VerticalWrapper
                     width="100%"
-                    height="150px"
+                    height="149px"
                     justifyContent="space-around"
                     alignItems="flex-start"
                 >
