@@ -17,7 +17,7 @@ function JoinPage() {
                 <Title text="모두의 관리" />
                 <VerticalWrapper
                     width="100%"
-                    height="149px"
+                    height="120px"
                     justifyContent="space-around"
                     alignItems="flex-start"
                 >
@@ -28,9 +28,21 @@ function JoinPage() {
                         placeholder="password 입력"
                     />
                 </VerticalWrapper>
-                <HorizontalWrapper>
-                    <ButtonBox text="Back" type="" />
-                    <ButtonBox text="Join" type="/join" />
+                <HorizontalWrapper width="100%" justifyContent="space-between">
+                    <ButtonBox
+                        text="Back"
+                        type=""
+                        width="185px"
+                        height="35px"
+                        fontSize="15px"
+                    />
+                    <ButtonBox
+                        text="Join"
+                        type="/join"
+                        width="185px"
+                        height="35px"
+                        fontSize="15px"
+                    />
                 </HorizontalWrapper>
             </VerticalWrapper>
         </VerticalWrapper>
