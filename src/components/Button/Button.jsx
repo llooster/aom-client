@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { darken, lighten } from "polished";
+import { Link } from "react-router-dom";
 
-// const LoginButtons = styled.button.attrs((props) => ({
-//     background: props.text === "Login" ? "blue" : "yellow",
-// }))`
-const Buttons = styled.button`
+const Buttons = styled(Link)`
     box-sizing: border-box;
 
     /* background-color: white; */
     text-decoration: none;
     outline: none;
     border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     font-weight: bold;
     cursor: pointer;
     user-select: none;
     width: 185px;
     height: 35px;
-    font-size: 13px;
+    font-size: 15px;
     color: #77b4ff;
     border: solid #77b4ff 1px;
     background: white;
@@ -34,11 +36,10 @@ const Buttons = styled.button`
 `;
 
 function ButtonBox(props) {
-    const [path, setPath] = useState(props.type);
-    console.log("path :>> ", path);
+    const { type, text } = props;
     return (
         <>
-            <Buttons to={path}>{props.text}</Buttons>
+            <Buttons to={type}>{text}</Buttons>
         </>
     );
 }

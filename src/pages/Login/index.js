@@ -1,3 +1,3 @@
-import LoginBox from "./Login.jsx";
+import LoginPage from "./LoginPage.jsx";
 
-export default LoginBox;
+export default LoginPage;

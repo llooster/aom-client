@@ -1,3 +1,3 @@
-import Join from "./Join.jsx";
+import JoinPage from "./JoinPage.jsx";
 
-export default Join;
+export default JoinPage;
