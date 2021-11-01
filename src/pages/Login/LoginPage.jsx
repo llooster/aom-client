@@ -5,9 +5,22 @@ import Title from "../../components/title";
 import InputBox from "../../components/input";
 import ButtonBox from "../../components/button";
 import { useSelector, useDispatch } from "react-redux";
+import { updateId, updatePassword } from "../../Redux/reducers/loginReducer";
 
 function LoginPage() {
     const dispatch = useDispatch();
+    const id = useSelector((state) => state.login.id);
+
+    console.log("Id : ", id);
+
+    const onUpdateId = (e) => {
+        dispatch(updateId({ id: e.target.value }));
+    };
+
+    const onUpdatePassword = (e) => {
+        dispatch(updatePassword({ password: e.target.value }));
+    };
+
     return (
         <VerticalWrapper width="100%" height="100vh" backColor="">
             <VerticalWrapper
@@ -25,14 +38,16 @@ function LoginPage() {
                 >
                     <InputBox
                         type="text"
+                        value={id}
                         name="ID"
                         placeholder="ID 입력"
-                        onChange={() => dispatch({ type: "input" })}
+                        onChange={onUpdateId}
                     />
                     <InputBox
                         type="password"
                         name="PW"
                         placeholder="password 입력"
+                        onChange={onUpdatePassword}
                     />
                 </VerticalWrapper>
                 <HorizontalWrapper width="100%" justifyContent="space-between">

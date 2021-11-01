@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const StyledTextLabel = styled.div`
@@ -25,12 +25,16 @@ const StyledInputs = styled.input.attrs(({ type, placeholder }) => ({
 `;
 
 function InputBox(props) {
-    const { name, type, placeholder } = props;
-
+    const { name, type, value, placeholder, onChange } = props;
     return (
         <>
             <StyledTextLabel>{name}</StyledTextLabel>
-            <StyledInputs type={type} placeholder={placeholder}></StyledInputs>
+            <StyledInputs
+                type={type}
+                value={value}
+                placeholder={placeholder}
+                onChange={onChange}
+            />
         </>
     );
 }
