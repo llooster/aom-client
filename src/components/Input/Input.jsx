@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const StyledTextLabel = styled.div`
@@ -15,25 +15,26 @@ const StyledInputs = styled.input.attrs(({ type, placeholder }) => ({
     placeholder: placeholder,
 }))`
     box-sizing: border-box;
-    /* width: ${(props) => props.width}; */
     width: 100%;
-    background-color: transparent;
+    background-color: white;
     height: 35px;
-    color: rgb(96, 96, 96);
     font-size: 15px;
     border: solid gray 0.5px;
-    /* margin: 0 10px; */
     outline: none;
     border-radius: 5px;
 `;
 
 function InputBox(props) {
-    const { name, type, placeholder } = props;
-
+    const { name, type, value, placeholder, onChange } = props;
     return (
         <>
             <StyledTextLabel>{name}</StyledTextLabel>
-            <StyledInputs type={type} placeholder={placeholder}></StyledInputs>
+            <StyledInputs
+                type={type}
+                value={value}
+                placeholder={placeholder}
+                onChange={onChange}
+            />
         </>
     );
 }

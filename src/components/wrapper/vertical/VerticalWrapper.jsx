@@ -19,10 +19,10 @@ export const StyledVerticalWrapper = styled.div.attrs(
     align-items: ${(props) => props.alignItems};
 
     box-sizing: border-box;
-    margin: 0;
 
     display: flex;
     flex-direction: column;
+    /* border-radius: 10px; */
 `;
 
 const VerticalWrapper = (props) => {
