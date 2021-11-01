@@ -11,9 +11,10 @@ function JoinPage() {
             <VerticalWrapper
                 width="400px"
                 height="350px"
+                padding="10px"
                 justifyContent="space-around"
             >
-                <Title text="모두의 관리 " />
+                <Title text="모두의 관리" />
                 <VerticalWrapper
                     width="100%"
                     height="149px"

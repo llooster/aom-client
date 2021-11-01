@@ -30,6 +30,7 @@ const VerticalWrapper = (props) => {
         children,
         width,
         height,
+        padding,
         backColor,
         justifyContent,
         alignItems,
@@ -38,6 +39,7 @@ const VerticalWrapper = (props) => {
         <StyledVerticalWrapper
             width={width}
             height={height}
+            padding={padding}
             backColor={backColor}
             justifyContent={justifyContent}
             alignItems={alignItems}
