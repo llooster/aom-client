@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import MainContent from "./mainContent";
+import {
+    ModalBox,
+    HorizontalWrapper,
+    VerticalWrapper,
+    Input,
+    Title,
+} from "../../components";
 import { useSelector, useDispatch } from "react-redux";
-import { addMember, removeMember } from "../../redux/reducers/membersReducer";
+import {
+    newName,
+    newAge,
+    newId,
+    addMember,
+    removeMember,
+} from "../../redux/reducers/membersReducer";
 
 const Container = styled.div`
     /* box-sizing: border-box; */
@@ -18,9 +31,7 @@ const Container = styled.div`
     /* Container자식 컴포넌트의 row의 길이 */
     grid-template-areas:
         "main main main main"
-        /* "content content content content"; */
         "content content content content";
-    /* "footer footer footer footer"; */
     text-align: center;
     grid-gap: 5px;
 `;
@@ -53,27 +64,60 @@ const Button = styled.button`
     height: 30px;
 `;
 
+let idValue = 15;
 export default function HomePage() {
     const dispatch = useDispatch();
     const members = useSelector((state) => state.members.originMembers);
-    const checkedMembers = useSelector((state) => state.members.selected);
+    const selectedMembers = useSelector((state) => state.members.selected);
+    const newbie = useSelector((state) => state.members.newbie);
+    const newbieName = useSelector((state) => state.members.newbie.firstName);
+    const newbieAge = useSelector((state) => state.members.newbie.age);
 
     const remove = () => {
-        // console.log("checkedMembers :>> ", checkedMembers);
-        //members == 기존 멤버 배열, checkedMembers == 삭제할 멤버 배열
-        let recentMember = members.filter(
-            (member, index1) =>
-                member !=
-                checkedMembers.map((item, index2) => checkedMembers[index2])
-        );
-        console.log("recentMember :>> ", recentMember);
+        let recentMember = members.filter((x) => !selectedMembers.includes(x));
+        dispatch(removeMember({ updateMembers: recentMember }));
     };
+
+    const updateName = (e) => {
+        dispatch(newId({ id: ++idValue }));
+        dispatch(newName({ firstName: e.target.value }));
+    };
+    const updateAge = (e) => {
+        dispatch(newAge({ age: e.target.value }));
+    };
+    const updateMember = () => {
+        dispatch(addMember({ newMember: newbie }));
+        setModal(false);
+    };
+
+    const [modal, setModal] = useState(false);
 
     return (
         <Container>
             <Main>
                 Main
                 <Button onClick={remove}>Remove</Button>
+                <Button onClick={() => setModal(true)}>New Member</Button>
+                <ModalBox width="200px" height="20%" visible={modal}>
+                    <VerticalWrapper alignItems="center">
+                        <Title text="New Member"></Title>
+                        <Button onClick={updateMember}>add</Button>
+                        <Input
+                            onChange={updateName}
+                            type="text"
+                            value={newbieName}
+                            name="Name"
+                            placeholder="name"
+                        ></Input>
+                        <Input
+                            name="Age"
+                            type="number"
+                            value={newbieAge}
+                            onChange={updateAge}
+                            placeholder="age"
+                        ></Input>
+                    </VerticalWrapper>
+                </ModalBox>
             </Main>
             <ContentBox>
                 <MainContentBox>
