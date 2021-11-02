@@ -15,19 +15,31 @@ const store = createStore(
 );
 
 function App() {
-    return  <Provider store={store}>
-                <Reset />
-                <BrowserRouter>
-                    <Switch>
-                        <DefaultRouter exact path={"/"} component={LoginPage} layout={DefaultLayout} />
-                        <DefaultRouter exact path={"/join"} component={JoinPage} layout={DefaultLayout} />
-                        <MainLayout>
-                            <Route path={"/lessons"} component={LessonsPage} />
-                            <Route path={"/members"} component={MemberPage} />
-                        </MainLayout>
-                    </Switch>
-                </BrowserRouter>
-            </Provider>;
+    return (
+        <Provider store={store}>
+            <Reset />
+            <BrowserRouter>
+                <Switch>
+                    <DefaultRouter
+                        exact
+                        path={"/"}
+                        component={LoginPage}
+                        layout={DefaultLayout}
+                    />
+                    <DefaultRouter
+                        exact
+                        path={"/join"}
+                        component={JoinPage}
+                        layout={DefaultLayout}
+                    />
+                    <MainLayout>
+                        <Route path={"/lessons"} component={LessonsPage} />
+                        <Route path={"/members"} component={MemberPage} />
+                    </MainLayout>
+                </Switch>
+            </BrowserRouter>
+        </Provider>
+    );
 }
 
 export default App;

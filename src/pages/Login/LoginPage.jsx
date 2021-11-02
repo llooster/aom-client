@@ -1,6 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { VerticalWrapper, HorizontalWrapper, Title, Input, Button } from "../../components";
+import {
+    VerticalWrapper,
+    HorizontalWrapper,
+    Title,
+    Input,
+    Button,
+} from "../../components";
 import { updateLoginId, updateLoginPassword } from "../../redux/login";
 
 function LoginPage() {
@@ -8,8 +14,8 @@ function LoginPage() {
     const id = useSelector((state) => state.login.id);
     const password = useSelector((state) => state.login.password);
 
-    console.log("Id : ", id);
-    console.log("pw : ", password);
+    // console.log("Id : ", id);
+    // console.log("pw : ", password);
 
     const updateId = (e) => {
         dispatch(updateLoginId({ id: e.target.value }));
