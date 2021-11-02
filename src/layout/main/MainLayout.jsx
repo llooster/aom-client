@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Menu from "../components/menu";
 import { useSelector, useDispatch } from "react-redux";
+import { Menu } from "../../components";
 
 const Container = styled.div`
     /* box-sizing: border-box; */

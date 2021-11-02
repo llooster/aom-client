@@ -1,14 +1,10 @@
 import React from "react";
-import VerticalWrapper from "../../components/wrapper/vertical";
-import HorizontalWrapper from "../../components/wrapper/horizontal";
-import Title from "../../components/title";
-import InputBox from "../../components/input";
-import ButtonBox from "../../components/button";
 import { useSelector, useDispatch } from "react-redux";
+import { VerticalWrapper, HorizontalWrapper, Title, Input, Button } from '../../components';
 import {
     updateJoinId,
     updateJoinPassword,
-} from "../../Redux/reducers/joinReducer";
+} from "../../redux/reducers/joinReducer";
 
 function JoinPage() {
     const dispatch = useDispatch();
@@ -40,13 +36,13 @@ function JoinPage() {
                     justifyContent="space-around"
                     alignItems="flex-start"
                 >
-                    <InputBox
+                    <Input
                         onChange={updateId}
                         type="text"
                         name="ID"
                         placeholder="ID 입력"
                     />
-                    <InputBox
+                    <Input
                         onChange={updatePassword}
                         type="password"
                         name="PW"
@@ -54,14 +50,14 @@ function JoinPage() {
                     />
                 </VerticalWrapper>
                 <HorizontalWrapper width="100%" justifyContent="space-between">
-                    <ButtonBox
+                    <Button
                         text="Back"
                         type=""
                         width="185px"
                         height="35px"
                         fontSize="15px"
                     />
-                    <ButtonBox
+                    <Button
                         text="Join"
                         // type="/join"
                         width="185px"

@@ -1,17 +1,12 @@
 import React, { useState } from "react";
-import LoginPage from "./pages/login";
-import JoinPage from "./pages/join";
-import MainLayout from "./mainLayout";
-import LessonsPage from "./pages/lessons";
-import MembersPage from "./pages/members";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Reset } from "styled-reset";
-
 import { useSelector, useDispatch } from "react-redux";
+import { LoginPage, JoinPage, LessonsPage, MemberPage } from "./pages";
+import { MainLayout } from "./layout";
+
 
 function App() {
-    let [login, setLogin] = useState("");
-    let [join, setJoin] = useState("/join");
 
     // const counter = useSelector((state) => state.counter);
     // const name = useSelector((state) => state.name);
@@ -37,13 +32,12 @@ function App() {
             <Reset />
             <BrowserRouter>
                 <Switch>
-                    {/* <Route exact path={""} component={LoginPage} /> */}
+                    <Route exact path={""} component={LoginPage} />
                     {/* <Route path={"/join"} component={JoinPage} /> */}
-
                     {/* <Route path={"/lesson"} component={LessonsPage} />*/}
                     <MainLayout>
                         <Route path={"/lessons"} component={LessonsPage} />
-                        <Route path={"/members"} component={MembersPage} />
+                        <Route path={"/members"} component={MemberPage} />
                     </MainLayout>
                 </Switch>
             </BrowserRouter>

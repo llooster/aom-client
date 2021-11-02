@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import VerticalWrapper from "../../components/wrapper/vertical";
-import HorizontalWrapper from "../../components/wrapper/horizontal";
-import Menu from "../../components/menu";
 import { useSelector, useDispatch } from "react-redux";
+import { VerticalWrapper, HorizontalWrapper, Menu } from "../../components";
 
 const Container = styled.div`
     /* box-sizing: border-box; */

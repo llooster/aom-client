@@ -1,0 +1,2 @@
+export const UPDATE_LOGINID         = "UPDATE_LOGINID";
+export const UPDATE_LOGINPASSWORD   = "UPDATE_LOGINPASSWORD";
