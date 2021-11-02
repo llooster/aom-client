@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import LoginPage from "./pages/login";
 import JoinPage from "./pages/join";
-import MainPage from "./pages/main";
+import MainLayout from "./mainLayout";
+import LessonsPage from "./pages/lessons";
+import MembersPage from "./pages/members";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Reset } from "styled-reset";
 
@@ -37,7 +39,12 @@ function App() {
                 <Switch>
                     {/* <Route exact path={""} component={LoginPage} /> */}
                     {/* <Route path={"/join"} component={JoinPage} /> */}
-                    <Route path={""} component={MainPage} />
+
+                    {/* <Route path={"/lesson"} component={LessonsPage} />*/}
+                    <MainLayout>
+                        <Route path={"/lessons"} component={LessonsPage} />
+                        <Route path={"/members"} component={MembersPage} />
+                    </MainLayout>
                 </Switch>
             </BrowserRouter>
         </>

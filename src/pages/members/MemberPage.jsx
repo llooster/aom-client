@@ -8,18 +8,20 @@ import { useSelector, useDispatch } from "react-redux";
 const Container = styled.div`
     /* box-sizing: border-box; */
     display: grid;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     color: white;
     min-width: 1000px;
+    /* background-color: gray; */
 
     grid-template-rows: 10%;
+    grid-template-columns: 20%;
     /* Container자식 컴포넌트의 row의 길이 */
     grid-template-areas:
-        "nav nav nav nav"
-        "sidebar main main main"
-        "sidebar content content content"
-        "footer footer footer footer";
+        "main main main main"
+        /* "content content content content"; */
+        "content content content content";
+    /* "footer footer footer footer"; */
     text-align: center;
     grid-gap: 5px;
 `;
@@ -31,6 +33,7 @@ const NavBar = styled.nav`
 `;
 const Main = styled.main`
     background: #afa1a8;
+    /* height: 30%; */
     color: white;
     grid-area: main;
     padding: 0.25rem;
@@ -52,11 +55,12 @@ const ContentBox = styled.div`
 const Content1 = styled.div`
     background: #a6b8b9;
     padding: 0.25rem;
-    width: 32%;
+    width: 100%;
     height: 100%;
 `;
 const Content2 = styled(Content1)``;
 const Content3 = styled(Content1)``;
+
 const Footer = styled.footer`
     background: #ff9637;
     grid-area: footer;
@@ -66,20 +70,14 @@ const Footer = styled.footer`
 function HomePage() {
     return (
         <Container>
-            <NavBar>
-                NavBar
-                <Menu />
-            </NavBar>
             <Main>Main</Main>
-            <SideBar>SideBar</SideBar>
             <ContentBox>
                 <HorizontalWrapper justifyContent="space-around">
                     <Content1>Content1</Content1>
-                    <Content2>Content2</Content2>
-                    <Content3>Content3</Content3>
+                    {/* <Content2>Content2</Content2>
+                    <Content3>Content3</Content3> */}
                 </HorizontalWrapper>
             </ContentBox>
-            <Footer>Footer</Footer>
         </Container>
     );
 }
