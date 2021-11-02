@@ -26,12 +26,13 @@ const StyledInputs = styled.input.attrs(({ type, placeholder }) => ({
 
 function InputBox(props) {
     const { name, type, value, placeholder, onChange } = props;
+
     return (
         <>
             <StyledTextLabel>{name}</StyledTextLabel>
             <StyledInputs
                 type={type}
-                value={value}
+                value={value || ""}
                 placeholder={placeholder}
                 onChange={onChange}
             />

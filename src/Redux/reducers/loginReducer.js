@@ -1,28 +1,28 @@
 import { handleActions, createAction } from "redux-actions";
 
-const UPDATE_ID = "UPDATE_ID";
-const UPDATE_PASSWORD = "UPDATE_PASSWORD";
+const UPDATE_LOGINID = "UPDATE_LOGINID";
+const UPDATE_LOGINPASSWORD = "UPDATE_LOGINPASSWORD";
 
-export const updateId = createAction(UPDATE_ID);
-export const updatePassword = createAction(UPDATE_PASSWORD);
+export const updateLoginId = createAction(UPDATE_LOGINID);
+export const updateLoginPassword = createAction(UPDATE_LOGINPASSWORD);
 
-const initialState = {
-    id: null,
-    password: null,
+const initLoginState = {
+    id: undefined,
+    password: undefined,
 };
 
 const loginReducer = handleActions(
     {
-        [UPDATE_ID]: (state, action) => ({
+        [UPDATE_LOGINID]: (state, action) => ({
             ...state,
             id: action.payload.id,
         }),
-        [UPDATE_PASSWORD]: (state, action) => ({
+        [UPDATE_LOGINPASSWORD]: (state, action) => ({
             ...state,
             password: action.payload.password,
         }),
     },
-    initialState
+    initLoginState
 );
 
 export default loginReducer;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LoginPage from "./pages/login";
 import JoinPage from "./pages/join";
+import MainPage from "./pages/main";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Reset } from "styled-reset";
 
@@ -31,12 +32,12 @@ function App() {
             <button onClick={() => dispatch({ type: "LastName" })}>
                 LastName
             </button> */}
-
             <Reset />
             <BrowserRouter>
                 <Switch>
-                    <Route exact path={""} component={LoginPage} />
-                    <Route path={"/join"} component={JoinPage} />
+                    {/* <Route exact path={""} component={LoginPage} /> */}
+                    {/* <Route path={"/join"} component={JoinPage} /> */}
+                    <Route path={""} component={MainPage} />
                 </Switch>
             </BrowserRouter>
         </>
