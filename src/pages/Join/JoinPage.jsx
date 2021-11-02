@@ -4,10 +4,29 @@ import HorizontalWrapper from "../../components/wrapper/horizontal";
 import Title from "../../components/title";
 import InputBox from "../../components/input";
 import ButtonBox from "../../components/button";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    updateJoinId,
+    updateJoinPassword,
+} from "../../Redux/reducers/joinReducer";
 
 function JoinPage() {
+    const dispatch = useDispatch();
+    const id = useSelector((state) => state.join.id);
+    const password = useSelector((state) => state.join.password);
+
+    console.log("Id :>> ", id);
+    console.log("password :>> ", password);
+
+    const updateId = (e) => {
+        dispatch(updateJoinId({ id: e.target.value }));
+    };
+    const updatePassword = (e) => {
+        dispatch(updateJoinPassword({ password: e.target.value }));
+    };
+
     return (
-        <VerticalWrapper width="100%" height="100vh" backColor="#eeeeee">
+        <VerticalWrapper width="100%" height="100vh" backColor="">
             <VerticalWrapper
                 width="400px"
                 height="350px"
@@ -21,8 +40,14 @@ function JoinPage() {
                     justifyContent="space-around"
                     alignItems="flex-start"
                 >
-                    <InputBox type="text" name="ID" placeholder="ID 입력" />
                     <InputBox
+                        onChange={updateId}
+                        type="text"
+                        name="ID"
+                        placeholder="ID 입력"
+                    />
+                    <InputBox
+                        onChange={updatePassword}
                         type="password"
                         name="PW"
                         placeholder="password 입력"
@@ -38,7 +63,7 @@ function JoinPage() {
                     />
                     <ButtonBox
                         text="Join"
-                        type="/join"
+                        // type="/join"
                         width="185px"
                         height="35px"
                         fontSize="15px"

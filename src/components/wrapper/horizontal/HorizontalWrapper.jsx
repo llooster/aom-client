@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 const StyledHorizontalWrapper = styled.div.attrs(
     ({ width, height, backColor, justifyContent, alignItems, padding }) => ({
-        width: width || "transparent",
-        height: height || "transparent",
+        width: width || "100%",
+        height: height || "100%",
         padding: padding || "0",
         backgroundColor: backColor || "white",
         justifyContent: justifyContent || "center",

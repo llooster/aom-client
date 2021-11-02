@@ -5,20 +5,25 @@ import Title from "../../components/title";
 import InputBox from "../../components/input";
 import ButtonBox from "../../components/button";
 import { useSelector, useDispatch } from "react-redux";
-import { updateId, updatePassword } from "../../Redux/reducers/loginReducer";
+import {
+    updateLoginId,
+    updateLoginPassword,
+} from "../../Redux/reducers/loginReducer";
 
 function LoginPage() {
     const dispatch = useDispatch();
     const id = useSelector((state) => state.login.id);
+    const password = useSelector((state) => state.login.password);
 
     console.log("Id : ", id);
+    console.log("pw : ", password);
 
-    const onUpdateId = (e) => {
-        dispatch(updateId({ id: e.target.value }));
+    const updateId = (e) => {
+        dispatch(updateLoginId({ id: e.target.value }));
     };
 
-    const onUpdatePassword = (e) => {
-        dispatch(updatePassword({ password: e.target.value }));
+    const updatePassword = (e) => {
+        dispatch(updateLoginPassword({ password: e.target.value }));
     };
 
     return (
@@ -37,23 +42,24 @@ function LoginPage() {
                     alignItems="flex-start"
                 >
                     <InputBox
+                        onChange={updateId}
                         type="text"
                         value={id}
                         name="ID"
                         placeholder="ID 입력"
-                        onChange={onUpdateId}
                     />
                     <InputBox
+                        onChange={updatePassword}
                         type="password"
+                        value={password}
                         name="PW"
                         placeholder="password 입력"
-                        onChange={onUpdatePassword}
                     />
                 </VerticalWrapper>
                 <HorizontalWrapper width="100%" justifyContent="space-between">
                     <ButtonBox
                         text="Login"
-                        type=""
+                        // type=""
                         width="185px"
                         height="35px"
                         fontSize="15px"
