@@ -19,9 +19,7 @@ function LoginPage() {
         dispatch(updateLoginPassword({ password: e.target.value }));
     };
 
-    return (
-        <VerticalWrapper width="100%" height="100vh" backColor="">
-            <VerticalWrapper
+    return  <VerticalWrapper
                 width="400px"
                 height="350px"
                 padding="10px"
@@ -66,8 +64,6 @@ function LoginPage() {
                     />
                 </HorizontalWrapper>
             </VerticalWrapper>
-        </VerticalWrapper>
-    );
 }
 
 export default LoginPage;
