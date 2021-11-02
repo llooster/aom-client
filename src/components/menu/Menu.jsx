@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 const NewBox = styled(Box)`
     box-sizing: border-box;
+    background-color: transparent;
 `;
 
 export default function CenteredTabs() {
@@ -21,8 +22,8 @@ export default function CenteredTabs() {
         >
             <Tabs value={value} onChange={handleChange} centered>
                 <Tab label="Lessons" />
-                <Tab label="Item Two" />
-                <Tab label="Item Three" />
+                <Tab label="Member" />
+                <Tab label="A&P" />
             </Tabs>
         </NewBox>
     );
