@@ -1,4 +1,5 @@
 export { default as Button } from "./button/Button.jsx";
+export { default as Footer } from "./footer/Footer.jsx";
 export { default as Input } from "./input/Input.jsx";
 export { default as Menu } from "./menu/Menu.jsx";
 export { default as Title } from "./title/Title.jsx";
