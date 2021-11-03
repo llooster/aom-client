@@ -6,45 +6,73 @@ import {
     selectLessons,
     removeLessons,
     newName,
+    newDate,
     newTime,
     newAddress,
     addLesson,
+    cancelModal,
 } from "../../../redux/reducers/lessonsReducer";
 import { ModalBox, Input, Title } from "../../../components";
+import Member from "./member";
 
 const Button = styled.button`
     width: 100px;
     height: 30px;
 `;
 
-const columns = [
-    {
-        title: "Name",
-        dataIndex: "name",
-        render: (text) => <a>{text}</a>,
-    },
-    {
-        title: "Time",
-        dataIndex: "time",
-    },
-    {
-        title: "Address",
-        dataIndex: "address",
-    },
-];
-
 let keyValue = 5;
 export default function MainContent(props) {
+    const [memberView, setMemberView] = useState(true);
+    const columns = [
+        {
+            title: "Name",
+            dataIndex: "name",
+            render: (text) => (
+                <a>
+                    {text}
+                    <ModalBox
+                        // onClick={closeModal}
+                        width="400px"
+                        height="auto"
+                        visible={memberView}
+                    >
+                        <Title
+                            width="100%"
+                            height="30px"
+                            text="Member"
+                            fontSize="20px"
+                        />
+                        <Member></Member>
+                    </ModalBox>
+                </a>
+            ),
+        },
+        {
+            title: "Date",
+            dataIndex: "date",
+        },
+        {
+            title: "Time",
+            dataIndex: "time",
+        },
+        {
+            title: "Address",
+            dataIndex: "address",
+        },
+    ];
     const dispatch = useDispatch();
     const lessons = useSelector((state) => state.lessons.originLessons);
     const selectedLessons = useSelector((state) => state.lessons.selected);
-    const newLesson = useSelector((state) => state.lessons.newLesson);
+    let newLesson = useSelector((state) => state.lessons.newLesson);
     const name = useSelector((state) => state.lessons.newLesson.name);
+    const date = useSelector((state) => state.lessons.newLesson.date);
     const time = useSelector((state) => state.lessons.newLesson.time);
     const address = useSelector((state) => state.lessons.newLesson.address);
 
     const [selectionType, setSelectionType] = useState("checkbox");
     const [modal, setModal] = useState(false);
+
+    const members = lessons.map((lesson) => lesson.members);
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
@@ -65,28 +93,97 @@ export default function MainContent(props) {
     const openModal = () => {
         setModal(true);
     };
-    const add = () => {
-        dispatch(addLesson({ newLesson: newLesson }));
+    const closeModal = () => {
         setModal(false);
+        dispatch(cancelModal());
     };
 
-    const updateName = (e) => {
-        dispatch(newName({ name: e.target.value }));
+    const add = () => {
+        newLesson = {
+            key: keyValue++,
+            ...newLesson,
+        };
+        dispatch(addLesson({ newLesson: newLesson }));
+        closeModal();
     };
-    const updateTime = (e) => {
-        dispatch(newTime({ time: e.target.value }));
-    };
-    const updateAddress = (e) => {
-        dispatch(newAddress({ address: e.target.value }));
-    };
+
     const clickLesson = (e) => {
         console.log("e :>> ", e.target);
+    };
+
+    const updateInputValue = (e) => {
+        let id = e.currentTarget.id;
+        let value = e.currentTarget.value;
+        let func = {
+            name: newName,
+            date: newDate,
+            time: newTime,
+            address: newAddress,
+        };
+        dispatch(
+            func[id]({
+                [`${id}`]: value,
+            })
+        );
+    };
+    console.log("members :>> ", members);
+
+    const renderInputs = () => {
+        let inputValues = [
+            {
+                id: "name",
+                type: "text",
+                value: name,
+                name: "Class Name",
+                placehoder: "name",
+            },
+            {
+                id: "date",
+                type: "text",
+                value: date,
+                name: "Lesson Date",
+                placehoder: "date",
+            },
+            {
+                id: "time",
+                type: "text",
+                value: time,
+                name: "Lesson Time",
+                placehoder: "time",
+            },
+            {
+                id: "address",
+                type: "text",
+                value: address,
+                name: "Lesson Address",
+                placehoder: "address",
+            },
+        ];
+
+        return inputValues.map((input, index) => {
+            return (
+                <Input
+                    key={index}
+                    id={input.id}
+                    type={input.type}
+                    value={input.value}
+                    name={input.name}
+                    placeholder={input.placehoder}
+                    onChange={updateInputValue}
+                />
+            );
+        });
     };
     // console.log("newLesson :>> ", newLesson);
     return (
         <>
             <div>
-                <ModalBox width="200px" height="auto" visible={modal}>
+                <ModalBox
+                    onClick={closeModal}
+                    width="200px"
+                    height="auto"
+                    visible={modal}
+                >
                     <Title
                         width="auto"
                         height="40px"
@@ -94,27 +191,7 @@ export default function MainContent(props) {
                         fontSize="20px"
                     ></Title>
                     <Button onClick={add}>add</Button>
-                    <Input
-                        onChange={updateName}
-                        type="text"
-                        value={name}
-                        name="Class Name"
-                        placeholder="name"
-                    />
-                    <Input
-                        onChange={updateTime}
-                        type="text"
-                        value={time}
-                        name="Time"
-                        placeholder="time"
-                    />
-                    <Input
-                        onChange={updateAddress}
-                        type="text"
-                        value={address}
-                        name="Address"
-                        placeholder="Address"
-                    />
+                    {renderInputs()}
                 </ModalBox>
                 <Radio.Group
                     onChange={({ target: { value } }) => {
@@ -124,6 +201,7 @@ export default function MainContent(props) {
                 />
 
                 <Divider>
+                    <span>Lesson</span>
                     <Button onClick={openModal}>add</Button>
                     <Button onClick={remove}>remove</Button>
                 </Divider>

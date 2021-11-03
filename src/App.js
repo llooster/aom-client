@@ -6,7 +6,13 @@ import { Provider } from "react-redux";
 import { DefaultRouter, PrivateRouter } from "./router";
 import rootReducer from "./redux";
 import { DefaultLayout, MainLayout } from "./layout";
-import { LoginPage, JoinPage, LessonsPage, MemberPage } from "./pages";
+import {
+    LoginPage,
+    JoinPage,
+    LessonsPage,
+    MemberPage,
+    DashboardPage,
+} from "./pages";
 import "./App.scss";
 
 const store = createStore(
@@ -42,6 +48,12 @@ function App() {
                         exact
                         path={"/members"}
                         component={MemberPage}
+                        layout={MainLayout}
+                    />
+                    <DefaultRouter
+                        exact
+                        path={"/dashboard"}
+                        component={DashboardPage}
                         layout={MainLayout}
                     />
                 </Switch>

@@ -3,14 +3,13 @@ import styled from "styled-components";
 
 const StyledTextLabel = styled.div`
     box-sizing: border-box;
-    /* background-color: #ffff58; */
     color: gray;
-    /* margin: 0 10px; */
     font-size: 14px;
     width: 100%;
 `;
 
-const StyledInputs = styled.input.attrs(({ type, placeholder }) => ({
+const StyledInputs = styled.input.attrs(({ type, placeholder, id }) => ({
+    id: id,
     type: type,
     placeholder: placeholder,
 }))`
@@ -26,12 +25,13 @@ const StyledInputs = styled.input.attrs(({ type, placeholder }) => ({
 `;
 
 function InputBox(props) {
-    const { name, type, value, placeholder, onChange } = props;
+    const { name, type, value, placeholder, onChange, id } = props;
 
     return (
         <>
             <StyledTextLabel>{name}</StyledTextLabel>
             <StyledInputs
+                id={id}
                 type={type}
                 value={value || ""}
                 placeholder={placeholder}
