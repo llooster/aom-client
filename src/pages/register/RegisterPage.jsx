@@ -1,8 +1,7 @@
 import React from "react";
+import { Row, Col } from 'antd';
 import { useSelector, useDispatch } from "react-redux";
 import {
-    VerticalWrapper,
-    HorizontalWrapper,
     Title,
     Input,
     Button,
@@ -11,6 +10,7 @@ import {
     updateJoinId,
     updateJoinPassword,
 } from "../../redux/reducers/joinReducer";
+import "./RegisterPage.scss";
 
 const RegisterPage = (props) => {
     const dispatch = useDispatch();
@@ -27,56 +27,49 @@ const RegisterPage = (props) => {
         dispatch(updateJoinPassword({ password: e.target.value }));
     };
 
-    return (
-        <VerticalWrapper
-            width="400px"
-            height="350px"
-            padding="10px"
-            justifyContent="space-around"
-        >
-            <Title
-                width="100%"
-                height="100px"
-                fontSize="80px"
-                text="모두의 관리"
-            />
-            <VerticalWrapper
-                width="100%"
-                height="120px"
-                justifyContent="space-around"
-                alignItems="flex-start"
-            >
-                <Input
-                    onChange={updateId}
-                    type="text"
-                    name="ID"
-                    placeholder="ID 입력"
-                />
-                <Input
-                    onChange={updatePassword}
-                    type="password"
-                    name="PW"
-                    placeholder="password 입력"
-                />
-            </VerticalWrapper>
-            <HorizontalWrapper width="100%" justifyContent="space-between">
-                <Button
-                    text="Back"
-                    to="/login"
-                    width="185px"
-                    height="35px"
-                    fontSize="15px"
-                />
-                <Button
-                    text="Join"
-                    // type="/join"
-                    width="185px"
-                    height="35px"
-                    fontSize="15px"
-                />
-            </HorizontalWrapper>
-        </VerticalWrapper>
-    );
+    return  <Row className="RegisterPage">
+                <Col className="container" xs={18} sm={12} lg={8} span={8}>
+                    <Col className="title" span={24}>
+                        <Title
+                            className="sub-title"
+                            fontSize="1rem"
+                            text="Sign up"
+                        />                  
+                        <Title
+                            className="main-title"
+                            fontSize="2rem"
+                            text="모두의 관리"
+                        />                           
+                    </Col>
+                    <Col className="form" span={24}>
+                        <span className="guide">Sign up with ...</span>
+                        <Input
+                            type="text"
+                            name="ID"
+                            placeholder="ID 입력"
+                            onChange={updateId}
+                        />
+                        <Input
+                            type="password"
+                            name="PW"
+                            placeholder="password 입력"
+                            onChange={updatePassword}
+                        />
+                        <Button
+                            className="btn-register"
+                            text="Register"
+                            type="/login"
+                        />                    
+                    </Col>
+                    <Col className="footer" span={24}>
+                        <Button
+                            className="btn-back"
+                            text="Already have an account?"
+                            to="/login"
+                        />                    
+                    </Col>                               
+                </Col>
+            </Row>
 }
 
 export default RegisterPage;
