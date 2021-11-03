@@ -5,9 +5,9 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { DefaultRouter, PrivateRouter } from "./router";
 import rootReducer from "./redux";
-
 import { DefaultLayout, MainLayout } from "./layout";
 import { LoginPage, JoinPage, LessonsPage, MemberPage } from "./pages";
+import "./App.scss";
 
 const store = createStore(
     rootReducer,
