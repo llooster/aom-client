@@ -8,11 +8,12 @@
     min-height: 100vh;
 
     .header {
-        min-height: 48px;
+        height: 48px;
         padding: 16px 24px;
     }
 
     .content {
+        height: 100%;
         min-height: calc(100vh - 48px);
         padding: 20px 24px;
         border-radius: 12px 12px 0px 0px;

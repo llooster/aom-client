@@ -13,7 +13,7 @@ const MainLayout = (props) => {
         </Col>
         <Col xs={24} sm={18} className="container">
             <div className="header">HEADER</div>
-            <div className="content">CONTENT</div>
+            <div className="content">{children}</div>
         </Col>
     </Row>
 }

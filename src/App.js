@@ -32,10 +32,18 @@ function App() {
                         component={JoinPage}
                         layout={DefaultLayout}
                     />
-                    <MainLayout>
-                        <Route path={"/lessons"} component={LessonsPage} />
-                        <Route path={"/members"} component={MemberPage} />
-                    </MainLayout>
+                    <DefaultRouter
+                        exact
+                        path={"/lessons"}
+                        component={LessonsPage}
+                        layout={MainLayout}
+                    />
+                    <DefaultRouter
+                        exact
+                        path={"/members"}
+                        component={MemberPage}
+                        layout={MainLayout}
+                    />                    
                 </Switch>
             </BrowserRouter>
         </Provider>
