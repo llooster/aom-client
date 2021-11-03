@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import MainContent from "./mainContent";
 import { useSelector, useDispatch } from "react-redux";
-import { VerticalWrapper, HorizontalWrapper, Menu } from "../../components";
+import {
+    VerticalWrapper,
+    HorizontalWrapper,
+    Menu,
+    Calendar,
+} from "../../components";
 
 const Container = styled.div`
     /* box-sizing: border-box; */
@@ -68,12 +74,14 @@ function HomePage() {
     return (
         <Container>
             <Main>Main</Main>
-            <SideBar>SideBar</SideBar>
+            <SideBar>
+                <Calendar></Calendar>
+            </SideBar>
             <ContentBox>
                 <HorizontalWrapper justifyContent="space-around">
-                    <Content1>Content1</Content1>
-                    {/* <Content2>Content2</Content2>
-                    <Content3>Content3</Content3> */}
+                    <Content1>
+                        <MainContent></MainContent>
+                    </Content1>
                 </HorizontalWrapper>
             </ContentBox>
         </Container>
