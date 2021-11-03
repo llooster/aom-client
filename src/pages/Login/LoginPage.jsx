@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Row, Col } from 'antd';
 import {
     VerticalWrapper,
     HorizontalWrapper,
@@ -8,6 +9,7 @@ import {
     Button,
 } from "../../components";
 import { updateLoginId, updateLoginPassword } from "../../redux/login";
+import "./LoginPage.scss";
 
 const LoginPage = () => {
     const dispatch = useDispatch();
@@ -22,58 +24,51 @@ const LoginPage = () => {
         dispatch(updateLoginPassword({ password: e.target.value }));
     };
 
-    return (
-        <VerticalWrapper
-            width="400px"
-            height="350px"
-            padding="10px"
-            justifyContent="space-around"
-        >
-            <Title
-                width="100%"
-                height="100px"
-                fontSize="80px"
-                text="모두의 관리"
-            />
-            <VerticalWrapper
-                width="100%"
-                height="120px"
-                justifyContent="space-around"
-                alignItems="flex-start"
-            >
-                <Input
-                    onChange={updateId}
-                    type="text"
-                    value={id}
-                    name="ID"
-                    placeholder="ID 입력"
-                />
-                <Input
-                    onChange={updatePassword}
-                    type="password"
-                    value={password}
-                    name="PW"
-                    placeholder="password 입력"
-                />
-            </VerticalWrapper>
-            <HorizontalWrapper width="100%" justifyContent="space-between">
-                <Button
-                    text="Login"
-                    to="/dashboard"
-                    width="185px"
-                    height="35px"
-                    fontSize="15px"
-                />
-                <Button
-                    text="Register"
-                    to="/register"
-                    width="185px"
-                    height="35px"
-                    fontSize="15px"
-                />
-            </HorizontalWrapper>
-        </VerticalWrapper>
-    );
+    return  <Row className="LoginPage">
+                <Col className="container" xs={18} sm={12} lg={8} span={8}>
+                    <Col className="title" span={24}>
+                        <Title
+                            className="sub-title"
+                            fontSize="1rem"
+                            text="Hi, Welcome Back"
+                        />
+                        <Title
+                            className="main-title"
+                            fontSize="2rem"
+                            text="모두의 관리"
+                        />
+                    </Col>
+                    <Col className="form" span={24}>
+                        <span className="guide">Sign in with Your ID</span>
+                        <Input
+                            type="text"
+                            value={id}
+                            name="ID"
+                            placeholder="ID 입력"
+                            onChange={updateId}
+                        />
+                        <Input
+                            type="password"
+                            value={password}
+                            name="PW"
+                            placeholder="password 입력"
+                            onChange={updatePassword}
+                        />
+                        <Button
+                            className="btn-login"
+                            text="Login"
+                            to="/dashboard"
+                        />                        
+                    </Col>
+                    <Col className="footer" span={24}>
+                        <Button
+                            className="btn-register"
+                            text="Register"
+                            to="/register"
+                        />
+                    </Col>
+                </Col>
+            </Row>;
 }
 
 export default LoginPage;

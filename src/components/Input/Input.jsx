@@ -24,20 +24,19 @@ const StyledInputs = styled.input.attrs(({ type, placeholder }) => ({
     border-radius: 5px;
 `;
 
-function InputBox(props) {
+const InputBox = (props) => {
+    
     const { name, type, value, placeholder, onChange } = props;
 
-    return (
-        <>
-            <StyledTextLabel>{name}</StyledTextLabel>
-            <StyledInputs
-                type={type}
-                value={value || ""}
-                placeholder={placeholder}
-                onChange={onChange}
-            />
-        </>
-    );
+    return  <div className="input input-aom">
+                <StyledTextLabel className="label">{name}</StyledTextLabel>
+                <StyledInputs
+                    type={type}
+                    value={value || ""}
+                    placeholder={placeholder}
+                    onChange={onChange}
+                />
+            </div>
 }
 
 export default InputBox;
