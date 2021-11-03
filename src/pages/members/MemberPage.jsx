@@ -3,7 +3,6 @@ import styled from "styled-components";
 import MainContent from "./mainContent";
 import {
     ModalBox,
-    HorizontalWrapper,
     VerticalWrapper,
     Input,
     Title,

@@ -11,8 +11,8 @@ const Header = (props) => {
     const [isOpen, setOpen] = useState(false);
 
     const renderMenus = () => {
-        return menus.map((menu) => {
-            return <a className="menu">
+        return menus.map((menu, index) => {
+            return <a key={index} href="#!" className="menu">
                 <div className="menu-icon">
                     <Icon icon={menu.icon} />
                 </div>
@@ -25,7 +25,7 @@ const Header = (props) => {
 
     return <header className="Header">
         <div className="toolbar">
-            <a className="user" onClick={() => setOpen(!isOpen)}>
+            <a href="#!" className="user" onClick={() => setOpen(!isOpen)}>
                 <img className="img img-user" src={"/images/user.png"} alt="user" />
             </a>
             {
