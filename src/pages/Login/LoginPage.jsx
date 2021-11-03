@@ -9,7 +9,7 @@ import {
 } from "../../components";
 import { updateLoginId, updateLoginPassword } from "../../redux/login";
 
-function LoginPage() {
+const LoginPage = () => {
     const dispatch = useDispatch();
     const id = useSelector((state) => state.login.id);
     const password = useSelector((state) => state.login.password);
@@ -59,14 +59,14 @@ function LoginPage() {
             <HorizontalWrapper width="100%" justifyContent="space-between">
                 <Button
                     text="Login"
-                    // type=""
+                    to="/dashboard"
                     width="185px"
                     height="35px"
                     fontSize="15px"
                 />
                 <Button
-                    text="Join"
-                    type="/join"
+                    text="Register"
+                    to="/register"
                     width="185px"
                     height="35px"
                     fontSize="15px"

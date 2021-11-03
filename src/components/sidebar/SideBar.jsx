@@ -22,18 +22,18 @@ const renderMenus = (currentPath) => {
             </div>
             {
                 menus[label].map((item) => {
-                    return <Link 
-                            key={item.path} 
-                            className={item.path === currentPath ? "menu-item selected" : "menu-item"}
-                            to={item.path}
-                        >
-                        <div className="menu-icon">
-                            <Icon icon={item.icon} />
-                        </div>
-                        <div className="menu-label">
-                            <span>{item.label}</span>
-                        </div>
-                    </Link>
+                    return  <Link 
+                                key={item.path} 
+                                className={item.path === currentPath ? "menu-item selected" : "menu-item"}
+                                to={item.path}
+                            >
+                                <div className="menu-icon">
+                                    <Icon icon={item.icon} />
+                                </div>
+                                <div className="menu-label">
+                                    <span>{item.label}</span>
+                                </div>
+                            </Link>
                 })
             }
         </div>

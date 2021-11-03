@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Icon } from '../../components';
 import "./Header.scss";
 
 const menus = [
-    { "icon": "barChart", "label": "Logout" }
+    { "path": "/login", "icon": "barChart", "label": "Logout" }
 ];
 
 const Header = (props) => {
@@ -12,14 +13,18 @@ const Header = (props) => {
 
     const renderMenus = () => {
         return menus.map((menu, index) => {
-            return <a key={index} href="#!" className="menu">
-                <div className="menu-icon">
-                    <Icon icon={menu.icon} />
-                </div>
-                <div className="menu-label">
-                    <span>{menu.label}</span>
-                </div>
-            </a>
+            return  <Link 
+                        key={index} 
+                        className="menu"
+                        to={menu.path}
+                    >    
+                        <div className="menu-icon">
+                            <Icon icon={menu.icon} />
+                        </div>
+                        <div className="menu-label">
+                            <span>{menu.label}</span>
+                        </div>
+                    </Link>
         });
     }
 

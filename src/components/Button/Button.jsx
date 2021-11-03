@@ -41,11 +41,11 @@ const StyledButtons = styled(Link).attrs(({ width, height, fontSize }) => ({
 `;
 
 function ButtonBox(props) {
-    const { type, text, width, height, fontSize } = props;
+    const { to, text, width, height, fontSize } = props;
     return (
         <>
             <StyledButtons
-                to={type}
+                to={to}
                 width={width}
                 height={height}
                 fontSize={fontSize}

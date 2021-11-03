@@ -12,7 +12,7 @@ import {
     updateJoinPassword,
 } from "../../redux/reducers/joinReducer";
 
-function JoinPage() {
+const RegisterPage = (props) => {
     const dispatch = useDispatch();
     const id = useSelector((state) => state.join.id);
     const password = useSelector((state) => state.join.password);
@@ -62,7 +62,7 @@ function JoinPage() {
             <HorizontalWrapper width="100%" justifyContent="space-between">
                 <Button
                     text="Back"
-                    type=""
+                    to="/login"
                     width="185px"
                     height="35px"
                     fontSize="15px"
@@ -79,4 +79,4 @@ function JoinPage() {
     );
 }
 
-export default JoinPage;
+export default RegisterPage;
