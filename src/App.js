@@ -44,6 +44,12 @@ function App() {
                         component={MemberPage}
                         layout={MainLayout}
                     />
+                    <DefaultRouter
+                        exact
+                        path={"/dashboard"}
+                        component={MemberPage} // A&P Page
+                        layout={MainLayout}
+                    />                    
                 </Switch>
             </BrowserRouter>
         </Provider>
