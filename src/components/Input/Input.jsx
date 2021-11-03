@@ -22,6 +22,7 @@ const StyledInputs = styled.input.attrs(({ type, placeholder }) => ({
     border: solid gray 0.5px;
     outline: none;
     border-radius: 5px;
+    color: gray;
 `;
 
 const InputBox = (props) => {
