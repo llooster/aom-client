@@ -9,26 +9,12 @@ import {
 } from "../../../redux/reducers/membersReducer";
 
 const columns = [
-    // { field: "id", headerName: "ID", width: 90 },
-    // {
-    //     field: "Name",
-    //     headerName: "name",
-    //     width: 150,
-    //     editable: true,
-    // },
-    // {
-    //     field: "lastName",
-    //     headerName: "Last name",
-    //     width: 150,
-    //     editable: true,
-    // },
     {
         field: "name",
         headerName: "Name",
         description: "This column has a value getter and is not sortable.",
-        sortable: false,
         width: 160,
-        valueGetter: (params) => params.getValue(params.id, "firstName"),
+        valueGetter: (params) => params.row.name,
     },
     {
         field: "age",
@@ -42,7 +28,7 @@ const columns = [
         headerName: "Lessons",
         type: "number",
         width: 200,
-        editable: true,
+        valueGetter: (params) => params.row.lessons,
     },
     {
         field: "memo",
@@ -65,6 +51,8 @@ export default function MainContent(props) {
         let recentMember = ids.map((id) => members[id - 1]);
         checking(recentMember);
     };
+    // console.log("columns :>> ", columns[0].valueGetter);
+
     return (
         <div style={{ height: "100%", width: "100%" }}>
             <DataGrid

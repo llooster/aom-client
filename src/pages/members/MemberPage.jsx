@@ -40,6 +40,7 @@ const Main = styled.main`
     background: #afa1a8;
     /* height: 30%; */
     color: white;
+    height: 100%;
     grid-area: main;
     padding: 0.25rem;
 `;

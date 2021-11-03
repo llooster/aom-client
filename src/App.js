@@ -5,9 +5,9 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { DefaultRouter, PrivateRouter } from "./router";
 import rootReducer from "./redux";
-
 import { DefaultLayout, MainLayout } from "./layout";
 import { LoginPage, JoinPage, LessonsPage, MemberPage } from "./pages";
+import "./App.scss";
 
 const store = createStore(
     rootReducer,
@@ -32,10 +32,18 @@ function App() {
                         component={JoinPage}
                         layout={DefaultLayout}
                     />
-                    <MainLayout>
-                        <Route path={"/lessons"} component={LessonsPage} />
-                        <Route path={"/members"} component={MemberPage} />
-                    </MainLayout>
+                    <DefaultRouter
+                        exact
+                        path={"/lessons"}
+                        component={LessonsPage}
+                        layout={MainLayout}
+                    />
+                    <DefaultRouter
+                        exact
+                        path={"/members"}
+                        component={MemberPage}
+                        layout={MainLayout}
+                    />
                 </Switch>
             </BrowserRouter>
         </Provider>
