@@ -43,7 +43,7 @@ function App() {
                         path={"/members"}
                         component={MemberPage}
                         layout={MainLayout}
-                    />                    
+                    />
                 </Switch>
             </BrowserRouter>
         </Provider>

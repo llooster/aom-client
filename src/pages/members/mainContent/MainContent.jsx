@@ -9,18 +9,12 @@ import {
 } from "../../../redux/reducers/membersReducer";
 
 const columns = [
-    { field: "id", headerName: "ID", width: 90 },
     {
-        field: "firstName",
-        headerName: "First name",
-        width: 150,
-        editable: true,
-    },
-    {
-        field: "lastName",
-        headerName: "Last name",
-        width: 150,
-        editable: true,
+        field: "name",
+        headerName: "Name",
+        description: "This column has a value getter and is not sortable.",
+        width: 160,
+        valueGetter: (params) => params.row.name,
     },
     {
         field: "age",
@@ -30,15 +24,11 @@ const columns = [
         editable: true,
     },
     {
-        field: "fullName",
-        headerName: "Full name",
-        description: "This column has a value getter and is not sortable.",
-        sortable: false,
-        width: 160,
-        valueGetter: (params) =>
-            `${params.getValue(params.id, "firstName") || ""} ${
-                params.getValue(params.id, "lastName") || ""
-            }`,
+        field: "class",
+        headerName: "Lessons",
+        type: "number",
+        width: 200,
+        valueGetter: (params) => params.row.lessons,
     },
     {
         field: "memo",
@@ -51,19 +41,18 @@ const columns = [
 export default function MainContent(props) {
     const dispatch = useDispatch();
     const members = useSelector((state) => state.members.originMembers);
-    const checkedMember = useSelector((state) => state.members.selected);
+    const selectedMembers = useSelector((state) => state.members.selected);
+    const newMember = useSelector((state) => state.members.newMember);
 
     const checking = (e) => {
-        console.log("e :>> ", e);
-        dispatch(getMember({ checkedMember: e }));
+        dispatch(getMember({ selectedMembers: e }));
     };
     const getId = (ids) => {
-        // ids == 선택된 id의 배열
-        // ex) 2, 4, 5 선택 -> ids == [2, 4, 5]
-        let selectedMembers = ids.map((id) => members[id - 1]);
-        checking(selectedMembers);
+        let recentMember = ids.map((id) => members[id - 1]);
+        checking(recentMember);
     };
-    console.log("checkedMember :>> ", checkedMember);
+    // console.log("columns :>> ", columns[0].valueGetter);
+
     return (
         <div style={{ height: "100%", width: "100%" }}>
             <DataGrid

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { VerticalWrapper, HorizontalWrapper, Menu } from '../../components';
+import { VerticalWrapper, HorizontalWrapper, Menu } from "../../components";
 
 const Container = styled.div`
     /* box-sizing: border-box; */
@@ -12,7 +12,7 @@ const Container = styled.div`
     min-width: 1000px;
     /* background-color: gray; */
 
-    grid-template-rows: 20%;
+    grid-template-rows: 10%;
     grid-template-columns: 20%;
     /* Container자식 컴포넌트의 row의 길이 */
     grid-template-areas:
@@ -30,7 +30,7 @@ const NavBar = styled.nav`
 `;
 const Main = styled.main`
     background: #afa1a8;
-    height: 30%;
+    height: 100%;
     color: white;
     grid-area: main;
     padding: 0.25rem;
@@ -52,7 +52,7 @@ const ContentBox = styled.div`
 const Content1 = styled.div`
     background: #a6b8b9;
     padding: 0.25rem;
-    width: 32%;
+    width: 100%;
     height: 100%;
 `;
 const Content2 = styled(Content1)``;
@@ -72,8 +72,8 @@ function HomePage() {
             <ContentBox>
                 <HorizontalWrapper justifyContent="space-around">
                     <Content1>Content1</Content1>
-                    <Content2>Content2</Content2>
-                    <Content3>Content3</Content3>
+                    {/* <Content2>Content2</Content2>
+                    <Content3>Content3</Content3> */}
                 </HorizontalWrapper>
             </ContentBox>
         </Container>
