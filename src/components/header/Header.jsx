@@ -4,11 +4,7 @@ import "./Header.scss";
 const Header = (props) => {
     return <header className="Header">
         <div className="toolbar">
-            <div className="logo">LOGO</div>
-            <div className="menu">
-                <img className="img user"/>
-                <img className="img setting"/>
-            </div>
+            <img className="img img-user" src={"/images/user.png"} alt="user" />
         </div>
     </header>
 }
