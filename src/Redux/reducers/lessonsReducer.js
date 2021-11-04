@@ -44,7 +44,7 @@ const initLessonsState = {
         {
             key: 3,
             name: "baseball",
-            date: "목요일",
+            date: "금요일",
             time: 32,
             address: "강의실1",
             members: [
@@ -56,7 +56,7 @@ const initLessonsState = {
         {
             key: 4,
             name: "Jiu-Jitsu",
-            date: "금요일",
+            date: "목요일",
             time: 99,
             address: "강의실2",
             members: [
@@ -64,6 +64,19 @@ const initLessonsState = {
                 { id: 8, lessons: [""], name: "Rossini", age: 36 },
                 { id: 9, lessons: [""], name: "Harvey", age: 65 },
                 { id: 10, lessons: [""], name: "Harvey1", age: 6 },
+            ],
+        },
+        {
+            key: 5,
+            name: "Jiu-do",
+            date: "목요일",
+            time: 99,
+            address: "강의실2",
+            members: [
+                { id: 11, lessons: [""], name: "Ferrara8", age: 44 },
+                { id: 12, lessons: [""], name: "Rossini8", age: 36 },
+                { id: 13, lessons: [""], name: "Harve8", age: 65 },
+                { id: 14, lessons: [""], name: "Harvey8", age: 6 },
             ],
         },
     ],
