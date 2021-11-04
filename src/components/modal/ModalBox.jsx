@@ -1,6 +1,8 @@
 import React from "react";
+import { Row, Col } from 'antd';
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import "./ModalBox.scss";
 
 const ModalOverlay = styled.div`
     box-sizing: border-box;
@@ -27,19 +29,12 @@ const ModalWrapper = styled.div`
     outline: 0;
 `;
 
-const ModalInner = styled.div.attrs(({ width, height }) => ({
-    width: width || "400px",
-    height: height || "250px",
-}))`
-    width: ${(props) => props.width};
-    height: ${(props) => props.height};
-
+const ModalInner = styled.div`
     box-sizing: border-box;
     position: relative;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
     background-color: #aaa;
     border-radius: 10px;
-    width: 360px;
     max-width: 480px;
     top: 50%;
     transform: translateY(-50%);
@@ -48,31 +43,28 @@ const ModalInner = styled.div.attrs(({ width, height }) => ({
     /* background-color: red; */
 `;
 
-export default function ModalBox({
-    className,
+const ModalBox = ({
+    className = "",
     visible,
-    children,
-    width,
-    height,
-}) {
-    // console.log(width, height);
-    return (
-        <>
-            <ModalOverlay visible={visible} />
-            <ModalWrapper className={className} tabIndex="-1" visible={visible}>
-                <ModalInner
-                    width={width}
-                    height={height}
-                    tabIndex="0"
-                    className="modal-inner"
-                >
-                    {children}
-                </ModalInner>
-            </ModalWrapper>
-        </>
-    );
+    children
+}) => {
+    return  <Row className={`ModalBox modal ${className}`}>
+                <Col span={6}>
+                    <ModalOverlay visible={visible} />
+                    <ModalWrapper tabIndex="-1" visible={visible}>
+                        <ModalInner
+                            tabIndex="0"
+                            className="modal-inner"
+                        >
+                            {children}
+                        </ModalInner>
+                    </ModalWrapper>
+                </Col>
+            </Row>
 }
 
 ModalBox.propTypes = {
     visible: PropTypes.bool,
 };
+
+export default ModalBox;

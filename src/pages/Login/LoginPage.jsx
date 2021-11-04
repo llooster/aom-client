@@ -7,6 +7,7 @@ import {
     Title,
     Input,
     Button,
+    Link
 } from "../../components";
 import { updateLoginId, updateLoginPassword } from "../../redux/login";
 import "./LoginPage.scss";
@@ -44,26 +45,28 @@ const LoginPage = () => {
                             type="text"
                             value={id}
                             name="ID"
-                            placeholder="ID 입력"
+                            placeholder="Please input ID"
                             onChange={updateId}
                         />
                         <Input
                             type="password"
                             value={password}
                             name="PW"
-                            placeholder="password 입력"
+                            placeholder="Please input Password"
                             onChange={updatePassword}
                         />
-                        <Button
+                        <Link
                             className="btn-login"
-                            text="Login"
+                            type="primary"
+                            label="Login"
                             to="/dashboard"
                         />                        
                     </Col>
                     <Col className="footer" span={24}>
-                        <Button
-                            className="btn-register"
-                            text="Register"
+                        <Link
+                            className="link-register"
+                            type="none"
+                            label="Don't have an account ?"
                             to="/register"
                         />
                     </Col>

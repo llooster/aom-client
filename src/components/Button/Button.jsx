@@ -1,60 +1,22 @@
 import React from "react";
-import styled from "styled-components";
-import { darken, lighten } from "polished";
-import { Link } from "react-router-dom";
+import "./Button.scss";
 
-const StyledButtons = styled(Link).attrs(({ width, height, fontSize }) => ({
-    width: width || "transparent",
-    height: height || "transparent",
-    fontSize: fontSize || "15px",
-}))`
-    width: ${(props) => props.width};
-    height: ${(props) => props.height};
-    font-size: ${(props) => props.fontSize};
-
-    box-sizing: border-box;
-
-    /* background-color: white; */
-    text-decoration: none;
-    outline: none;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    cursor: pointer;
-    user-select: none;
-    color: #77b4ff;
-    border: solid #77b4ff 1px;
-    background: white;
-    &:hover {
-        background: ${lighten(0.01, "#77b4ff")};
-        border: none;
-        color: white;
-    }
-    &:active {
-        background: ${darken(0.1, "#77b4ff")};
-        border: none;
-        color: white;
-    }
-`;
-
-function ButtonBox(props) {
-    const { to, text, width, height, fontSize, className } = props;
-    return (
-        <>
-            <StyledButtons
-                className={className}
-                to={to}
-                width={width}
-                height={height}
-                fontSize={fontSize}
+const Button = (props) => {
+    
+    const { 
+        className = "",
+        type = "primary", 
+        to = undefined,
+        label, 
+        onClick 
+    } = props;
+    
+    return  <button
+                className={`${className} btn ${type}`}
+                onClick={onClick}
             >
-                {text}
-            </StyledButtons>
-        </>
-    );
+                {label}
+            </button>
 }
 
-export default ButtonBox;
+export default Button;

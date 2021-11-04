@@ -1,0 +1,42 @@
+.btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 5px;
+        box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+        background: none;
+        padding: 6px 16px;
+        margin: 5px;
+        font-size: 12px;
+        transition: all 0.2s;
+    }
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.btn.primary {
+    color: rgb(30, 136, 229);
+    border: 1px solid rgb(30, 136, 229);
+}
+
+.btn.primary:hover {
+    color: white;
+    background-color: rgb(30, 136, 229);
+}
+
+.btn.danger {
+    color: rgb(224, 67, 54);
+    border: 1px solid rgb(224, 67, 54);
+}
+
+.btn.danger:hover {
+    color: white;
+    background-color: rgb(224, 67, 54);
+}
+
+.btn.none {
+    background: none;
+    box-shadow: none;
+}

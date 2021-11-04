@@ -10,6 +10,7 @@ $popup-padding-vertical: 16px;
     background-color: rgba(255, 255, 255, 0.72);
     position: sticky;
     top: 0;
+    z-index: 555;
 
     .toolbar {
         margin-left: auto;

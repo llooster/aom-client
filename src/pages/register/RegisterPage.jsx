@@ -5,6 +5,7 @@ import {
     Title,
     Input,
     Button,
+    Link
 } from "../../components";
 import {
     updateJoinId,
@@ -55,16 +56,18 @@ const RegisterPage = (props) => {
                             placeholder="password 입력"
                             onChange={updatePassword}
                         />
-                        <Button
+                        <Link
                             className="btn-register"
-                            text="Register"
-                            type="/login"
+                            type="primary"
+                            label="Register"
+                            to="/login"
                         />                    
                     </Col>
                     <Col className="footer" span={24}>
-                        <Button
-                            className="btn-back"
-                            text="Already have an account?"
+                        <Link
+                            className="link-back"
+                            type="none"
+                            label="Already have an account?"
                             to="/login"
                         />                    
                     </Col>                               
