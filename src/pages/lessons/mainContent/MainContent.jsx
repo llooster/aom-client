@@ -11,6 +11,7 @@ import lessonsReducer, {
     newAddress,
     addLesson,
     cancelModal,
+    newMember,
 } from "../../../redux/reducers/lessonsReducer";
 import { ModalBox, Input, Title } from "../../../components";
 import Member from "./member";
@@ -23,17 +24,24 @@ const Button = styled.button`
 let keyValue = 5;
 export default function MainContent(props) {
     const [memberView, setMemberView] = useState(false);
+    let [includedMembers, setIncludedMembers] = useState("");
+    const [selectedLessonName, setSelectedLessonName] = useState("");
+    const clickLesson = (e) => {
+        setMemberView(true);
+        setSelectedLessonName(e.target.name);
+    };
+
     const columns = [
         {
             title: "Name",
             dataIndex: "name",
             render: (text) => (
-                <a>
+                <a name={text} onClick={clickLesson}>
                     {text}
                     <ModalBox
                         // onClick={closeModal}
                         width="400px"
-                        height="auto"
+                        height="500px"
                         visible={memberView}
                     >
                         <Title
@@ -42,7 +50,7 @@ export default function MainContent(props) {
                             text="Member"
                             fontSize="20px"
                         />
-                        <Member></Member>
+                        <Member name={includedMembers}></Member>
                     </ModalBox>
                 </a>
             ),
@@ -61,7 +69,11 @@ export default function MainContent(props) {
         },
         {
             title: "Students",
-            dataIndex: ["members"].length,
+            dataIndex: "members",
+            render: (text) => {
+                setIncludedMembers(text);
+                return <a>{`${text.length}`}</a>;
+            },
         },
     ];
     const dispatch = useDispatch();
@@ -76,15 +88,13 @@ export default function MainContent(props) {
     // 새로 입력하는 레슨의 데이터
     let newLesson = useSelector((state) => state.lessons.newLesson);
     // 새로 입력한 레슨
+    // 레슨의 key, members 객체
+    const [selectionType, setSelectionType] = useState("checkbox");
+    const [modal, setModal] = useState(false);
     const students = lessons.map((lesson) => ({
         key: lesson.key,
         members: lesson.members,
-        number: lesson.members.length,
     }));
-    console.log(`students`, students);
-    const [selectionType, setSelectionType] = useState("checkbox");
-    const [modal, setModal] = useState(false);
-
     const members = lessons.map((lesson) => lesson.members);
 
     const rowSelection = {
@@ -102,25 +112,22 @@ export default function MainContent(props) {
         );
         dispatch(removeLessons({ updatedLessons: updatedLessons }));
     };
+    const add = () => {
+        newLesson = {
+            key: keyValue++,
+            ...newLesson,
+            members: [],
+        };
+        dispatch(addLesson({ newLesson: newLesson }));
+        closeModal();
+    };
+
     const openModal = () => {
         setModal(true);
     };
     const closeModal = () => {
         setModal(false);
         dispatch(cancelModal());
-    };
-
-    const add = () => {
-        newLesson = {
-            key: keyValue++,
-            ...newLesson,
-        };
-        dispatch(addLesson({ newLesson: newLesson }));
-        closeModal();
-    };
-
-    const clickLesson = (e) => {
-        console.log("e :>> ", e.target);
     };
 
     const updateInputValue = (e) => {
@@ -138,7 +145,6 @@ export default function MainContent(props) {
             })
         );
     };
-    // console.log("members :>> ", members);
 
     const renderInputs = () => {
         let inputValues = [
@@ -172,21 +178,18 @@ export default function MainContent(props) {
             },
         ];
 
-        return inputValues.map((input, index) => {
-            return (
-                <Input
-                    key={index}
-                    id={input.id}
-                    type={input.type}
-                    value={input.value}
-                    name={input.name}
-                    placeholder={input.placehoder}
-                    onChange={updateInputValue}
-                />
-            );
-        });
+        return inputValues.map((input, index) => (
+            <Input
+                key={index}
+                id={input.id}
+                type={input.type}
+                value={input.value}
+                name={input.name}
+                placeholder={input.placehoder}
+                onChange={updateInputValue}
+            />
+        ));
     };
-    // console.log("newLesson :>> ", newLesson);
     return (
         <>
             <div>
@@ -225,7 +228,7 @@ export default function MainContent(props) {
                     }}
                     columns={columns}
                     dataSource={lessons}
-                    onClick={clickLesson}
+                    // onClick={clickLesson}
                 />
             </div>
         </>

@@ -1,0 +1,50 @@
+@import "public/styles/Color.scss";
+
+.RegisterPage {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    .container {
+        padding: 36px 24px 18px 24px;
+        border-radius: 12px;
+        border: 1px solid $color-base-line;
+
+        .title {
+            color: $color-black;
+            padding: 24px 0px;
+            margin-bottom: 36px;
+            border-bottom: 1px solid $color-base-line;
+
+            .sub-title {
+                margin-bottom: 12px;
+            }
+        }
+    }
+
+    .form {
+        margin-bottom: 18px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid $color-base-line;
+
+        .guide {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 18px;
+            font-size: 15px;
+        }
+       
+        .btn-register {
+            width: 100%;
+            font-size: 16px;
+        }
+    }
+
+    .footer {
+        .link-back {
+            width: 100%;
+            font-size: 16px;
+        }
+    }
+}

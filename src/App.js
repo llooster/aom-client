@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Switch } from "react-router-dom";
 import { Reset } from "styled-reset";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { DefaultRouter, PrivateRouter } from "./router";
+import { DefaultRouter } from "./router";
 import rootReducer from "./redux";
 import { DefaultLayout, MainLayout } from "./layout";
 import {
     LoginPage,
-    JoinPage,
+    RegisterPage,
     LessonsPage,
     MemberPage,
     DashboardPage,
@@ -28,14 +28,14 @@ function App() {
                 <Switch>
                     <DefaultRouter
                         exact
-                        path={"/"}
+                        path={("/", "/login")}
                         component={LoginPage}
                         layout={DefaultLayout}
                     />
                     <DefaultRouter
                         exact
-                        path={"/join"}
-                        component={JoinPage}
+                        path={"/register"}
+                        component={RegisterPage}
                         layout={DefaultLayout}
                     />
                     <DefaultRouter

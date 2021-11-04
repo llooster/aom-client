@@ -1,77 +1,78 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from 'antd';
+import { useSelector, useDispatch } from "react-redux";
 import {
-    VerticalWrapper,
-    HorizontalWrapper,
     Title,
     Input,
     Button,
     Link
 } from "../../components";
-import { updateLoginId, updateLoginPassword } from "../../redux/login";
-import "./LoginPage.scss";
+import {
+    updateJoinId,
+    updateJoinPassword,
+} from "../../redux/reducers/joinReducer";
+import "./RegisterPage.scss";
 
-const LoginPage = () => {
+const RegisterPage = (props) => {
     const dispatch = useDispatch();
-    const id = useSelector((state) => state.login.id);
-    const password = useSelector((state) => state.login.password);
+    const id = useSelector((state) => state.join.id);
+    const password = useSelector((state) => state.join.password);
+
+    console.log("Id :>> ", id);
+    console.log("password :>> ", password);
 
     const updateId = (e) => {
-        dispatch(updateLoginId({ id: e.target.value }));
+        dispatch(updateJoinId({ id: e.target.value }));
     };
-
     const updatePassword = (e) => {
-        dispatch(updateLoginPassword({ password: e.target.value }));
+        dispatch(updateJoinPassword({ password: e.target.value }));
     };
 
-    return  <Row className="LoginPage">
+    return  <Row className="RegisterPage">
                 <Col className="container" xs={18} sm={12} lg={8} span={8}>
                     <Col className="title" span={24}>
                         <Title
                             className="sub-title"
                             fontSize="1rem"
-                            text="Hi, Welcome Back"
-                        />
+                            text="Sign up"
+                        />                  
                         <Title
                             className="main-title"
                             fontSize="2rem"
                             text="모두의 관리"
-                        />
+                        />                           
                     </Col>
                     <Col className="form" span={24}>
-                        <span className="guide">Sign in with Your ID</span>
+                        <span className="guide">Sign up with ...</span>
                         <Input
                             type="text"
-                            value={id}
                             name="ID"
-                            placeholder="Please input ID"
+                            placeholder="ID 입력"
                             onChange={updateId}
                         />
                         <Input
                             type="password"
-                            value={password}
                             name="PW"
-                            placeholder="Please input Password"
+                            placeholder="password 입력"
                             onChange={updatePassword}
                         />
                         <Link
-                            className="btn-login"
+                            className="btn-register"
                             type="primary"
-                            label="Login"
-                            to="/dashboard"
-                        />                        
+                            label="Register"
+                            to="/login"
+                        />                    
                     </Col>
                     <Col className="footer" span={24}>
                         <Link
-                            className="link-register"
+                            className="link-back"
                             type="none"
-                            label="Don't have an account ?"
-                            to="/register"
-                        />
-                    </Col>
+                            label="Already have an account?"
+                            to="/login"
+                        />                    
+                    </Col>                               
                 </Col>
-            </Row>;
+            </Row>
 }
 
-export default LoginPage;
+export default RegisterPage;

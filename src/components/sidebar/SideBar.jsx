@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useLocation } from 'react-router-dom';
 import { Col } from 'antd';
 import { Icon } from "../../components";
 import "./SideBar.scss";
@@ -13,7 +14,7 @@ const menus = {
     ]
 }
 
-const renderMenus = () => {
+const renderMenus = (currentPath) => {
     return Object.keys(menus).map((label) => {
         return <div key={label} className="menu">
             <div className="label">
@@ -21,26 +22,36 @@ const renderMenus = () => {
             </div>
             {
                 menus[label].map((item) => {
-                    return <a key={item.path} className="menu-item">
-                        <div className="menu-icon">
-                            <Icon icon={item.icon} />
-                        </div>
-                        <div className="menu-label">
-                            <span>{item.label}</span>
-                        </div>
-                    </a>
+                    return  <Link 
+                                key={item.path} 
+                                className={item.path === currentPath ? "menu-item selected" : "menu-item"}
+                                to={item.path}
+                            >
+                                <div className="menu-icon">
+                                    <Icon icon={item.icon} />
+                                </div>
+                                <div className="menu-label">
+                                    <span>{item.label}</span>
+                                </div>
+                            </Link>
                 })
             }
         </div>
     });
 }
 
-const SideBar = () => {
+
+
+const SideBar = (props) => {
+
+    const location = useLocation();
+    const { pathname } = location;
+
     return <Col span={24} className="SideBar">
         <div className="logo">
             AOM
         </div>
-        {renderMenus()}
+        {renderMenus(pathname)}
     </Col> 
 }
 

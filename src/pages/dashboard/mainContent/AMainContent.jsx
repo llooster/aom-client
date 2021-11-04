@@ -14,7 +14,7 @@ export default function AMainContent(props) {
             <FormGroup>
                 <FormControlLabel
                     control={<Checkbox defaultChecked={true} />}
-                    label="Label"
+                    label="출석"
                 />
                 <FormControlLabel
                     control={<Checkbox defaultChecked={true} />}

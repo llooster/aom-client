@@ -8,6 +8,7 @@ const NEW_TIME = "NEW_TIME";
 const NEW_ADDRESS = "NEW_ADDRESS";
 const ADD_LESSON = "ADD_LESSON";
 const CANCEL_MODAL = "CANCEL_MODAL";
+const NEW_MEMBER = "NEW_MEMBER";
 
 export const selectLessons = createAction(SELECT_LESSONS);
 export const removeLessons = createAction(REMOVE_LESSONS);
@@ -17,6 +18,7 @@ export const newTime = createAction(NEW_TIME);
 export const newAddress = createAction(NEW_ADDRESS);
 export const addLesson = createAction(ADD_LESSON);
 export const cancelModal = createAction(CANCEL_MODAL);
+export const newMember = createAction(NEW_MEMBER);
 
 const initLessonsState = {
     originLessons: [
@@ -67,6 +69,7 @@ const initLessonsState = {
     ],
     selected: [],
     newLesson: {},
+    newMember: {},
 };
 
 const lessonsReducer = handleActions(
@@ -118,6 +121,7 @@ const lessonsReducer = handleActions(
             ...state,
             newLesson: {},
         }),
+        [NEW_MEMBER]: (state, action) => ({}),
     },
     initLessonsState
 );

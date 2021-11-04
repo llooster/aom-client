@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from 'antd';
-import { Icon, SideBar } from "../../components";
+import { Header, SideBar } from "../../components";
 import "./MainLayout.scss";
 
 const MainLayout = (props) => {
@@ -12,7 +12,7 @@ const MainLayout = (props) => {
             <SideBar/>
         </Col>
         <Col xs={24} sm={18} className="container">
-            <div className="header">HEADER</div>
+            <Header />
             <div className="content">{children}</div>
         </Col>
     </Row>

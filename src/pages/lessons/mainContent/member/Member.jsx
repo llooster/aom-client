@@ -2,15 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Transfer, Switch } from "antd";
 
-export default function Member() {
+export default function Member({ name }) {
     const [oneWay, setOneWay] = useState(false);
-    // const [members, setMembers] = useState([]);
-    let getMembers = useSelector((state) => state.members.originMembers);
-    // [{key: '1', title: 'content2', description: 'description of content2', chosen: true}
-    // {key: '2', title: 'content3', description: 'description of content3', chosen: true}]
-
     const [targetKeys, setTargetKeys] = useState([]);
-    getMembers = getMembers.map(
+    let allMembers = useSelector((state) => state.members.originMembers);
+    // let includedKeys = name.map((members) => members.id);
+    console.log("name :>> ", name);
+    let [targetMembers, setTargetMembers] = useState("");
+    allMembers = allMembers.map(
         (originMember) =>
             (originMember = {
                 ...originMember,
@@ -18,39 +17,21 @@ export default function Member() {
                 key: `${originMember.id}`,
             })
     );
-    const targetMember = useSelector(
-        (state) => state.lessons.originLessons[0].members
-    );
-    const newTargetKeys = getMembers.map((originMember) => originMember.id);
-    useEffect(() => {
-        // const newTargetKeys = [];
-        // const newmembers = [];
-        // for (let i = 0; i < 15; i++) {
-        //     const data = {
-        //         key: i.toString(),
-        //         title: `content${i + 1}`,
-        //         description: `description of content${i + 1}`,
-        //         chosen: Math.random() * 2 > 1,
-        //     };
-        //     if (data.chosen) {
-        //         newTargetKeys.push(data.key);
-        //     }
-        //     newmembers.push(data);
-        // }
-        // setTargetKeys(newTargetKeys);
-        // setMembers(newmembers);
-    }, []);
+
+    // // console.log("name :>> ", name);
+    // [{key: '1', title: 'content2', description: 'description of content2', chosen: true}
+    // {key: '2', title: 'content3', description: 'description of content3', chosen: true}]
+
+    const newTargetKeys = allMembers.map((originMember) => originMember.id);
+    console.log("newTargetKeys :>> ", newTargetKeys);
 
     const onChange = (newTargetKeys, direction, moveKeys) => {
-        // console.log(newTargetKeys, direction, moveKeys);
         setTargetKeys(newTargetKeys);
     };
 
-    console.log("targetKeys :>> ", targetKeys);
-
     return (
         <Transfer
-            dataSource={getMembers}
+            dataSource={allMembers}
             targetKeys={targetKeys}
             onChange={onChange}
             render={(item) => item.title}

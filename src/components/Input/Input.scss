@@ -1,0 +1,26 @@
+@import "public/styles/Color.scss";
+
+.Input {
+    position: relative;
+    width: 100%;
+    padding: 12px 18px 2px 18px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    border: 1px solid $color-base-line;
+    color: black;
+
+    .label {
+        color: $color-input-label;
+    }
+    
+    input {
+        border: none;
+        background: none;   
+        padding: 0px;
+    }
+
+    input::placeholder { 
+        color: $color-input-placeholder;
+        opacity: 0.3;
+    }
+}
