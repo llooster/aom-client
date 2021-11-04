@@ -26,13 +26,14 @@ const StyledInputs = styled.input.attrs(({ type, placeholder, id }) => ({
     color: gray;
 `;
 const InputBox = (props) => {
-    const { name, type, value, placeholder, onChange } = props;
+    const { id, name, type, value, placeholder, onChange } = props;
 
     return (
         <Row className="Input">
             <Col span={24}>
                 <StyledTextLabel className="label">{name}</StyledTextLabel>
                 <StyledInputs
+                    id={id}
                     type={type}
                     value={value || ""}
                     placeholder={placeholder}

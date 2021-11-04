@@ -1,90 +1,54 @@
-import React from "react";
-import styled from "styled-components";
-import MainContent from "./mainContent";
+import React, { useState } from "react";
+import { Row, Col } from 'antd';
 import { useSelector, useDispatch } from "react-redux";
-import {
-    VerticalWrapper,
-    HorizontalWrapper,
-    Menu,
-    Calendar,
-} from "../../components";
+import { Button } from "../../components";
+import { removeLessons } from "../../redux/reducers/lessonsReducer";
+import LessonModal from "./modal/LessonModal.jsx";
+import LessonContent from "./content/LessonContent";
+import "./LessonPage.scss";
 
-const Container = styled.div`
-    /* box-sizing: border-box; */
-    display: grid;
-    width: 100%;
-    height: 100%;
-    color: white;
-    min-width: 1000px;
-    /* background-color: gray; */
+const HomePage = () => {
+    
+    const [isOpened, setModal] = useState(false);
 
-    grid-template-rows: 10%;
-    grid-template-columns: 20%;
-    /* Container자식 컴포넌트의 row의 길이 */
-    grid-template-areas:
-        "main main main main"
-        "content content content content";
-    /* "footer footer footer footer"; */
-    text-align: center;
-    grid-gap: 5px;
-`;
+    const lessons = useSelector((state) => state.lessons.originLessons);
+    const selectedLessons = useSelector((state) => state.lessons.selected);
 
-const NavBar = styled.nav`
-    background: #aaaaf5;
-    grid-area: nav;
-    padding: 0.25rem;
-`;
-const Main = styled.main`
-    background: #afa1a8;
-    height: 100%;
-    color: white;
-    grid-area: main;
-    padding: 0.25rem;
-`;
-// const SideBar = styled.div`
-//     background: #9aaab7;
-//     grid-area: sidebar;
-//     padding: 0.25rem;
-// `;
+    const dispatch = useDispatch();
 
-const ContentBox = styled.div`
-    display: flex;
-    gap: 0.25rem;
-    padding: 0.25rem;
-    align-items: center;
-    grid-area: content;
-    justify-content: center;
-`;
-const Content1 = styled.div`
-    background: #a6b8b9;
-    padding: 0.25rem;
-    width: 100%;
-    height: 100%;
-`;
-const Content2 = styled(Content1)``;
-const Content3 = styled(Content1)``;
+    const openModal = () => {
+        setModal(true);
+    };
 
-const Footer = styled.footer`
-    background: #ff9637;
-    grid-area: footer;
-    padding: 0.25rem;
-`;
+    const closeModal = () => {
+        setModal(false);
+    }
 
-function HomePage() {
-    return (
-        <Container>
-            <Main>Main</Main>
-            {/* <SideBar>
-                <Calendar></Calendar>
-            </SideBar> */}
-            <ContentBox>
-                <HorizontalWrapper justifyContent="space-around">
-                    <Content1>
-                        <MainContent></MainContent>
-                    </Content1>
-                </HorizontalWrapper>
-            </ContentBox>
-        </Container>
-    );
+    const remove = () => {
+        let updatedLessons = lessons.filter(
+            (item) => !selectedLessons.includes(item)
+        );
+        dispatch(removeLessons({ updatedLessons: updatedLessons }));
+    };
+
+    return  <Row className="LessonPage">
+                <Col span={24}>
+                    <Col className="header" span={24}>
+                        <span className="title">Lesson</span>
+                    </Col>
+                    <Col className="sub-header" span={24}>
+                        <Button className="btn-remove" type="danger" label="REMOVE" onClick={remove} />
+                        <Button className="btn-add" type="primary" label="ADD" onClick={openModal} />
+                    </Col>
+                    <Col className="table" span={24}>
+                        <LessonContent />
+                    </Col>
+                </Col>
+                <LessonModal
+                    isOpened={isOpened}
+                    closeModal={closeModal}
+                />
+            </Row>
 }
+
 export default HomePage;

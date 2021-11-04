@@ -7,7 +7,7 @@ export default function Member({ name }) {
     const [targetKeys, setTargetKeys] = useState([]);
     let allMembers = useSelector((state) => state.members.originMembers);
     // let includedKeys = name.map((members) => members.id);
-    console.log("name :>> ", name);
+    
     let [targetMembers, setTargetMembers] = useState("");
     allMembers = allMembers.map(
         (originMember) =>
@@ -23,7 +23,6 @@ export default function Member({ name }) {
     // {key: '2', title: 'content3', description: 'description of content3', chosen: true}]
 
     const newTargetKeys = allMembers.map((originMember) => originMember.id);
-    console.log("newTargetKeys :>> ", newTargetKeys);
 
     const onChange = (newTargetKeys, direction, moveKeys) => {
         setTargetKeys(newTargetKeys);

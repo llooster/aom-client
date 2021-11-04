@@ -18,9 +18,6 @@ const RegisterPage = (props) => {
     const id = useSelector((state) => state.join.id);
     const password = useSelector((state) => state.join.password);
 
-    console.log("Id :>> ", id);
-    console.log("password :>> ", password);
-
     const updateId = (e) => {
         dispatch(updateJoinId({ id: e.target.value }));
     };

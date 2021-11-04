@@ -1,14 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from 'antd';
-import {
-    VerticalWrapper,
-    HorizontalWrapper,
-    Title,
-    Input,
-    Button,
-    Link
-} from "../../components";
+import { Title, Input, Link } from "../../components";
 import { updateLoginId, updateLoginPassword } from "../../redux/login";
 import "./LoginPage.scss";
 

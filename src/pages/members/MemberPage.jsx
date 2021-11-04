@@ -54,8 +54,8 @@ const MemberPage = () => {
                         <span className="title">Members</span>
                     </Col>
                     <Col className="sub-header" span={24}>
-                        <Button className="btn-remove" type="danger" label={"REMOVE"} onClick={remove} />
-                        <Button className="btn-add" label={"ADD MEMBER"} onClick={() => setModal(true)}/>
+                        <Button className="btn-remove" type="danger" label="REMOVE" onClick={remove} />
+                        <Button className="btn-add" label="ADD MEMBER" onClick={() => setModal(true)}/>
                     </Col>
                     <Col className="table" span={24}>
                         <MainContent />

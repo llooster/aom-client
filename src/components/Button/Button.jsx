@@ -5,7 +5,6 @@ const Button = (props) => {
     const {
         className = "",
         type = "primary",
-        to = undefined,
         label,
         onClick,
     } = props;
