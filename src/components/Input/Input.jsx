@@ -1,18 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { Col, Row } from 'antd';
+import { Col, Row } from "antd";
 import "./Input.scss";
 
 const StyledTextLabel = styled.div`
     box-sizing: border-box;
-    /* background-color: #ffff58; */
     color: gray;
-    /* margin: 0 10px; */
     font-size: 14px;
     width: 100%;
 `;
 
-const StyledInputs = styled.input.attrs(({ type, placeholder }) => ({
+const StyledInputs = styled.input.attrs(({ type, placeholder, id }) => ({
+    id: id,
     type: type,
     placeholder: placeholder,
 }))`
@@ -26,22 +25,22 @@ const StyledInputs = styled.input.attrs(({ type, placeholder }) => ({
     border-radius: 5px;
     color: gray;
 `;
-
 const InputBox = (props) => {
-    
     const { name, type, value, placeholder, onChange } = props;
 
-    return  <Row className="Input">
-                <Col span={24}>
-                    <StyledTextLabel className="label">{name}</StyledTextLabel>
-                    <StyledInputs
-                        type={type}
-                        value={value || ""}
-                        placeholder={placeholder}
-                        onChange={onChange}
-                    />
-                </Col>
-            </Row>
-}
+    return (
+        <Row className="Input">
+            <Col span={24}>
+                <StyledTextLabel className="label">{name}</StyledTextLabel>
+                <StyledInputs
+                    type={type}
+                    value={value || ""}
+                    placeholder={placeholder}
+                    onChange={onChange}
+                />
+            </Col>
+        </Row>
+    );
+};
 
 export default InputBox;

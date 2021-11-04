@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col } from 'antd';
+import { Row, Col } from "antd";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import "./ModalBox.scss";
@@ -12,7 +12,7 @@ const ModalOverlay = styled.div`
     left: 0;
     bottom: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(143, 148, 143, 0.5);
     z-index: 999;
 `;
 
@@ -43,25 +43,20 @@ const ModalInner = styled.div`
     /* background-color: red; */
 `;
 
-const ModalBox = ({
-    className = "",
-    visible,
-    children
-}) => {
-    return  <Row className={`ModalBox modal ${className}`}>
-                <Col span={6}>
-                    <ModalOverlay visible={visible} />
-                    <ModalWrapper tabIndex="-1" visible={visible}>
-                        <ModalInner
-                            tabIndex="0"
-                            className="modal-inner"
-                        >
-                            {children}
-                        </ModalInner>
-                    </ModalWrapper>
-                </Col>
-            </Row>
-}
+const ModalBox = ({ className = "", visible, children }) => {
+    return (
+        <Row className={`ModalBox modal ${className}`}>
+            <Col span={6}>
+                <ModalOverlay visible={visible} />
+                <ModalWrapper tabIndex="-1" visible={visible}>
+                    <ModalInner tabIndex="0" className="modal-inner">
+                        {children}
+                    </ModalInner>
+                </ModalWrapper>
+            </Col>
+        </Row>
+    );
+};
 
 ModalBox.propTypes = {
     visible: PropTypes.bool,

@@ -17,17 +17,18 @@ const Titles = styled.div.attrs(({ width, height, fontSize }) => ({
 `;
 
 const Title = (props) => {
-    
     const { text, width, height, fontSize, className } = props;
-    
-    return  <Titles 
-                className={className}
-                width={width} 
-                height={height} 
-                fontSize={fontSize}
-            >
-                {text}
-            </Titles>
-}
+
+    return (
+        <Titles
+            className={className}
+            width={width}
+            height={height}
+            fontSize={fontSize}
+        >
+            {text}
+        </Titles>
+    );
+};
 
 export default Title;

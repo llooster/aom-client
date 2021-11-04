@@ -1,13 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import MainContent from "./mainContent";
+import { AMainContent, PMainContent } from "./mainContent";
+import { Button } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    VerticalWrapper,
-    HorizontalWrapper,
-    Menu,
-    Calendar,
-} from "../../components";
 
 const Container = styled.div`
     /* box-sizing: border-box; */
@@ -24,28 +19,18 @@ const Container = styled.div`
     grid-template-areas:
         "main main main main"
         "content content content content";
-    /* "footer footer footer footer"; */
     text-align: center;
     grid-gap: 5px;
 `;
 
-const NavBar = styled.nav`
-    background: #aaaaf5;
-    grid-area: nav;
-    padding: 0.25rem;
-`;
 const Main = styled.main`
     background: #afa1a8;
-    height: 100%;
+    /* height: 30%; */
     color: white;
+    height: 100%;
     grid-area: main;
     padding: 0.25rem;
 `;
-// const SideBar = styled.div`
-//     background: #9aaab7;
-//     grid-area: sidebar;
-//     padding: 0.25rem;
-// `;
 
 const ContentBox = styled.div`
     display: flex;
@@ -55,36 +40,31 @@ const ContentBox = styled.div`
     grid-area: content;
     justify-content: center;
 `;
-const Content1 = styled.div`
+const MainContentBox = styled.div`
     background: #a6b8b9;
     padding: 0.25rem;
     width: 100%;
     height: 100%;
 `;
-const Content2 = styled(Content1)``;
-const Content3 = styled(Content1)``;
 
-const Footer = styled.footer`
-    background: #ff9637;
-    grid-area: footer;
-    padding: 0.25rem;
-`;
+// const Button = styled.button`
+//     width: 100px;
+//     height: 30px;
+// `;
 
-function HomePage() {
+export default function HomePage() {
     return (
         <Container>
-            <Main>Main</Main>
-            {/* <SideBar>
-                <Calendar></Calendar>
-            </SideBar> */}
+            <Main>
+                <Button width="80px" height="30px" text={"A"}></Button>
+                <Button width="80px" height="30px" text={"P"}></Button>
+            </Main>
             <ContentBox>
-                <HorizontalWrapper justifyContent="space-around">
-                    <Content1>
-                        <MainContent></MainContent>
-                    </Content1>
-                </HorizontalWrapper>
+                <MainContentBox>
+                    <AMainContent />
+                    {/* <PMainContent /> */}
+                </MainContentBox>
             </ContentBox>
         </Container>
     );
 }
-export default HomePage;

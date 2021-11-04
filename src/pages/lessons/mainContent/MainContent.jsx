@@ -2,49 +2,100 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { Table, Radio, Divider } from "antd";
-import {
+import lessonsReducer, {
     selectLessons,
     removeLessons,
     newName,
+    newDate,
     newTime,
     newAddress,
     addLesson,
+    cancelModal,
+    newMember,
 } from "../../../redux/reducers/lessonsReducer";
 import { ModalBox, Input, Title } from "../../../components";
+import Member from "./member";
 
 const Button = styled.button`
     width: 100px;
     height: 30px;
 `;
 
-const columns = [
-    {
-        title: "Name",
-        dataIndex: "name",
-        render: (text) => <a>{text}</a>,
-    },
-    {
-        title: "Time",
-        dataIndex: "time",
-    },
-    {
-        title: "Address",
-        dataIndex: "address",
-    },
-];
-
 let keyValue = 5;
 export default function MainContent(props) {
+    const [memberView, setMemberView] = useState(false);
+    let [includedMembers, setIncludedMembers] = useState("");
+    const [selectedLessonName, setSelectedLessonName] = useState("");
+    const clickLesson = (e) => {
+        setMemberView(true);
+        setSelectedLessonName(e.target.name);
+    };
+
+    const columns = [
+        {
+            title: "Name",
+            dataIndex: "name",
+            render: (text) => (
+                <a name={text} onClick={clickLesson}>
+                    {text}
+                    <ModalBox
+                        // onClick={closeModal}
+                        width="400px"
+                        height="500px"
+                        visible={memberView}
+                    >
+                        <Title
+                            width="100%"
+                            height="30px"
+                            text="Member"
+                            fontSize="20px"
+                        />
+                        <Member name={includedMembers}></Member>
+                    </ModalBox>
+                </a>
+            ),
+        },
+        {
+            title: "Date",
+            dataIndex: "date",
+        },
+        {
+            title: "Time",
+            dataIndex: "time",
+        },
+        {
+            title: "Address",
+            dataIndex: "address",
+        },
+        {
+            title: "Students",
+            dataIndex: "members",
+            render: (text) => {
+                setIncludedMembers(text);
+                return <a>{`${text.length}`}</a>;
+            },
+        },
+    ];
     const dispatch = useDispatch();
     const lessons = useSelector((state) => state.lessons.originLessons);
+    //레슨들
     const selectedLessons = useSelector((state) => state.lessons.selected);
-    const newLesson = useSelector((state) => state.lessons.newLesson);
+    // 체크박스 선택된 레슨들
     const name = useSelector((state) => state.lessons.newLesson.name);
+    const date = useSelector((state) => state.lessons.newLesson.date);
     const time = useSelector((state) => state.lessons.newLesson.time);
     const address = useSelector((state) => state.lessons.newLesson.address);
-
+    // 새로 입력하는 레슨의 데이터
+    let newLesson = useSelector((state) => state.lessons.newLesson);
+    // 새로 입력한 레슨
+    // 레슨의 key, members 객체
     const [selectionType, setSelectionType] = useState("checkbox");
     const [modal, setModal] = useState(false);
+    const students = lessons.map((lesson) => ({
+        key: lesson.key,
+        members: lesson.members,
+    }));
+    const members = lessons.map((lesson) => lesson.members);
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
@@ -59,34 +110,95 @@ export default function MainContent(props) {
         let updatedLessons = lessons.filter(
             (item) => !selectedLessons.includes(item)
         );
-        // console.log("updatedLessons :>> ", updatedLessons);
         dispatch(removeLessons({ updatedLessons: updatedLessons }));
     };
+    const add = () => {
+        newLesson = {
+            key: keyValue++,
+            ...newLesson,
+            members: [],
+        };
+        dispatch(addLesson({ newLesson: newLesson }));
+        closeModal();
+    };
+
     const openModal = () => {
         setModal(true);
     };
-    const add = () => {
-        dispatch(addLesson({ newLesson: newLesson }));
+    const closeModal = () => {
         setModal(false);
+        dispatch(cancelModal());
     };
 
-    const updateName = (e) => {
-        dispatch(newName({ name: e.target.value }));
+    const updateInputValue = (e) => {
+        let id = e.currentTarget.id;
+        let value = e.currentTarget.value;
+        let func = {
+            name: newName,
+            date: newDate,
+            time: newTime,
+            address: newAddress,
+        };
+        dispatch(
+            func[id]({
+                [`${id}`]: value,
+            })
+        );
     };
-    const updateTime = (e) => {
-        dispatch(newTime({ time: e.target.value }));
+
+    const renderInputs = () => {
+        let inputValues = [
+            {
+                id: "name",
+                type: "text",
+                value: name,
+                name: "Class Name",
+                placehoder: "name",
+            },
+            {
+                id: "date",
+                type: "text",
+                value: date,
+                name: "Lesson Date",
+                placehoder: "date",
+            },
+            {
+                id: "time",
+                type: "text",
+                value: time,
+                name: "Lesson Time",
+                placehoder: "time",
+            },
+            {
+                id: "address",
+                type: "text",
+                value: address,
+                name: "Lesson Address",
+                placehoder: "address",
+            },
+        ];
+
+        return inputValues.map((input, index) => (
+            <Input
+                key={index}
+                id={input.id}
+                type={input.type}
+                value={input.value}
+                name={input.name}
+                placeholder={input.placehoder}
+                onChange={updateInputValue}
+            />
+        ));
     };
-    const updateAddress = (e) => {
-        dispatch(newAddress({ address: e.target.value }));
-    };
-    const clickLesson = (e) => {
-        console.log("e :>> ", e.target);
-    };
-    // console.log("newLesson :>> ", newLesson);
     return (
         <>
             <div>
-                <ModalBox width="200px" height="auto" visible={modal}>
+                <ModalBox
+                    onClick={closeModal}
+                    width="200px"
+                    height="auto"
+                    visible={modal}
+                >
                     <Title
                         width="auto"
                         height="40px"
@@ -94,27 +206,7 @@ export default function MainContent(props) {
                         fontSize="20px"
                     ></Title>
                     <Button onClick={add}>add</Button>
-                    <Input
-                        onChange={updateName}
-                        type="text"
-                        value={name}
-                        name="Class Name"
-                        placeholder="name"
-                    />
-                    <Input
-                        onChange={updateTime}
-                        type="text"
-                        value={time}
-                        name="Time"
-                        placeholder="time"
-                    />
-                    <Input
-                        onChange={updateAddress}
-                        type="text"
-                        value={address}
-                        name="Address"
-                        placeholder="Address"
-                    />
+                    {renderInputs()}
                 </ModalBox>
                 <Radio.Group
                     onChange={({ target: { value } }) => {
@@ -124,6 +216,7 @@ export default function MainContent(props) {
                 />
 
                 <Divider>
+                    <span>Lesson</span>
                     <Button onClick={openModal}>add</Button>
                     <Button onClick={remove}>remove</Button>
                 </Divider>
@@ -135,7 +228,7 @@ export default function MainContent(props) {
                     }}
                     columns={columns}
                     dataSource={lessons}
-                    onClick={clickLesson}
+                    // onClick={clickLesson}
                 />
             </div>
         </>
