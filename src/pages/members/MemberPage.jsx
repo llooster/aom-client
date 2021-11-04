@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from 'antd';
-import MainContent from "./mainContent";
+import MemberContent from "./content/MemberContent";
 import {
     ModalBox,
     Input,
@@ -58,7 +58,7 @@ const MemberPage = () => {
                         <Button className="btn-add" label="ADD MEMBER" onClick={() => setModal(true)}/>
                     </Col>
                     <Col className="table" span={24}>
-                        <MainContent />
+                        <MemberContent />
                     </Col>
                 </Col>
                 <ModalBox className="member-modal" visible={modal}>

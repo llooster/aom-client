@@ -34,7 +34,7 @@ const columns = [
     }
 ];
 
-export default function MainContent(props) {
+export default function MemberContent(props) {
     const dispatch = useDispatch();
     const members = useSelector((state) => state.members.originMembers);
     const selectedMembers = useSelector((state) => state.members.selected);
