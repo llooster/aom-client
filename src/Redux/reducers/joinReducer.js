@@ -7,7 +7,7 @@ export const updateJoinId = createAction(UPDATE_JOINID);
 export const updateJoinPassword = createAction(UPDATE_JOINPASSWORD);
 //
 
-const initJoinState = {
+const initState = {
     id: null,
     password: null,
 };
@@ -23,7 +23,7 @@ const joinReducer = handleActions(
             password: action.payload.password,
         }),
     },
-    initJoinState
+    initState
 );
 
 export default joinReducer;
