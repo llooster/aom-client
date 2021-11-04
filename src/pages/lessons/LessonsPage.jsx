@@ -22,8 +22,8 @@ const Container = styled.div`
     grid-template-columns: 20%;
     /* Container자식 컴포넌트의 row의 길이 */
     grid-template-areas:
-        "sidebar main main main"
-        "sidebar content content content";
+        "main main main main"
+        "content content content content";
     /* "footer footer footer footer"; */
     text-align: center;
     grid-gap: 5px;
@@ -41,11 +41,11 @@ const Main = styled.main`
     grid-area: main;
     padding: 0.25rem;
 `;
-const SideBar = styled.div`
-    background: #9aaab7;
-    grid-area: sidebar;
-    padding: 0.25rem;
-`;
+// const SideBar = styled.div`
+//     background: #9aaab7;
+//     grid-area: sidebar;
+//     padding: 0.25rem;
+// `;
 
 const ContentBox = styled.div`
     display: flex;
@@ -74,9 +74,9 @@ function HomePage() {
     return (
         <Container>
             <Main>Main</Main>
-            <SideBar>
+            {/* <SideBar>
                 <Calendar></Calendar>
-            </SideBar>
+            </SideBar> */}
             <ContentBox>
                 <HorizontalWrapper justifyContent="space-around">
                     <Content1>

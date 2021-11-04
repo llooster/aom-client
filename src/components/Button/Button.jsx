@@ -24,7 +24,7 @@ const StyledButtons = styled(Link).attrs(({ width, height, fontSize }) => ({
     align-items: center;
     font-weight: bold;
     cursor: pointer;
-    user-select: none;
+    /* user-select: none; */
     color: #77b4ff;
     border: solid #77b4ff 1px;
     background: white;

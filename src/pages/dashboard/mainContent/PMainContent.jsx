@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { ModalBox, Input, Title } from "../../../components";
 
-export default function MainContent(props) {
+export default function PMainContent(props) {
     const dispatch = useDispatch();
 
     return (
         <>
-            <h1>123</h1>
+            <h1>P</h1>
         </>
     );
 }

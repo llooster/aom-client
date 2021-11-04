@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import MainContent from "./mainContent";
+import { AMainContent, PMainContent } from "./mainContent";
+import { Button } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 
 const Container = styled.div`
@@ -54,10 +55,14 @@ const MainContentBox = styled.div`
 export default function HomePage() {
     return (
         <Container>
-            <Main>Main</Main>
+            <Main>
+                <Button width="80px" height="30px" text={"A"}></Button>
+                <Button width="80px" height="30px" text={"P"}></Button>
+            </Main>
             <ContentBox>
                 <MainContentBox>
-                    <MainContent />
+                    <AMainContent />
+                    {/* <PMainContent /> */}
                 </MainContentBox>
             </ContentBox>
         </Container>

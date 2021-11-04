@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { Table, Radio, Divider } from "antd";
-import {
+import lessonsReducer, {
     selectLessons,
     removeLessons,
     newName,
@@ -22,7 +22,7 @@ const Button = styled.button`
 
 let keyValue = 5;
 export default function MainContent(props) {
-    const [memberView, setMemberView] = useState(true);
+    const [memberView, setMemberView] = useState(false);
     const columns = [
         {
             title: "Name",
@@ -59,16 +59,29 @@ export default function MainContent(props) {
             title: "Address",
             dataIndex: "address",
         },
+        {
+            title: "Students",
+            dataIndex: ["members"].length,
+        },
     ];
     const dispatch = useDispatch();
     const lessons = useSelector((state) => state.lessons.originLessons);
+    //레슨들
     const selectedLessons = useSelector((state) => state.lessons.selected);
-    let newLesson = useSelector((state) => state.lessons.newLesson);
+    // 체크박스 선택된 레슨들
     const name = useSelector((state) => state.lessons.newLesson.name);
     const date = useSelector((state) => state.lessons.newLesson.date);
     const time = useSelector((state) => state.lessons.newLesson.time);
     const address = useSelector((state) => state.lessons.newLesson.address);
-
+    // 새로 입력하는 레슨의 데이터
+    let newLesson = useSelector((state) => state.lessons.newLesson);
+    // 새로 입력한 레슨
+    const students = lessons.map((lesson) => ({
+        key: lesson.key,
+        members: lesson.members,
+        number: lesson.members.length,
+    }));
+    console.log(`students`, students);
     const [selectionType, setSelectionType] = useState("checkbox");
     const [modal, setModal] = useState(false);
 
@@ -87,7 +100,6 @@ export default function MainContent(props) {
         let updatedLessons = lessons.filter(
             (item) => !selectedLessons.includes(item)
         );
-        // console.log("updatedLessons :>> ", updatedLessons);
         dispatch(removeLessons({ updatedLessons: updatedLessons }));
     };
     const openModal = () => {
@@ -126,7 +138,7 @@ export default function MainContent(props) {
             })
         );
     };
-    console.log("members :>> ", members);
+    // console.log("members :>> ", members);
 
     const renderInputs = () => {
         let inputValues = [
