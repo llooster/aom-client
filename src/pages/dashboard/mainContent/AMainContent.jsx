@@ -4,8 +4,45 @@ import { Table, Switch } from "antd";
 
 const AMainContent = ({ value }) => {
     const [fixedTop, setFixedTop] = useState(false);
-    console.log(`value`, value);
-    // id, lessons, name, age
+    const [originAttendances, setLessons] = useState(
+        useSelector((state) => state.attendance.originAttendances)
+    );
+    const [Att, setAtt] = useState("결석");
+    // let [AttData, setAttData] = useState(() => {
+    //     return Array(12)
+    //         .fill()
+    //         .map((each, index) => {
+    //             return {
+    //                 title: `${index + 1}`,
+    //                 dataIndex: `${index}`,
+    //                 key: `${index}`,
+    //                 render: () => <a onClick={clickAtt}>{Att}</a>,
+    //             };
+    //         });
+    // });
+    let AttData = Array(12)
+        .fill()
+        .map((each, index) => {
+            return {
+                title: `${index + 1}`,
+                dataIndex: `${index}`,
+                key: `${index}`,
+                render: () => <a onClick={clickAtt}>{Att}</a>,
+            };
+        });
+    // console.log("AttData :>> ", AttData);
+    const clickAtt = (e) => {
+        // console.log("e :>> ", e);
+        // let newAtt = "";
+        // if (Att === "결석") {
+        //     newAtt = "출석";
+        // } else {
+        //     newAtt = "결석";
+        // }
+        // setAtt(() => {
+        //     return newAtt;
+        // });
+    };
     const columns = [
         {
             title: "Full Name",
@@ -14,26 +51,16 @@ const AMainContent = ({ value }) => {
             key: "name",
             fixed: "left",
         },
-        {
-            title: "Age",
-            width: 60,
-            dataIndex: "age",
-            key: "age",
-            fixed: "left",
-        },
-        // { title: "1", dataIndex: "address", key: "1" },
-        // { title: "2", dataIndex: "address", key: "2" },
-        // { title: "3", dataIndex: "address", key: "3" },
-        // { title: "4", dataIndex: "address", key: "4" },
-        // { title: "12", dataIndex: "address", key: "8" },
+        ...AttData,
         {
             title: "Action",
             key: "operation",
             fixed: "right",
             width: 100,
-            render: () => <a>action</a>,
+            render: () => <a>All</a>,
         },
     ];
+
     return (
         <Table
             columns={columns}

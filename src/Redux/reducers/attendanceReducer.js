@@ -6,14 +6,14 @@ const [lessons, setLessons] = useState(
     useSelector((state) => state.lessons.originLessons)
 );
 
-const UPDATE_JOINID = "UPDATE_JOINID";
+// const UPDATE_JOINID = "UPDATE_JOINID";
 
-export const updateJoinId = createAction(UPDATE_JOINID);
+// export const updateJoinId = createAction(UPDATE_JOINID);
 
 //
 
 const initState = {
-    lessons,
+    originAttendances: lessons,
 };
 
 const attendanceReducer = handleActions(
@@ -26,4 +26,4 @@ const attendanceReducer = handleActions(
     initState
 );
 
-export default joinReducer;
+export default attendanceReducer;

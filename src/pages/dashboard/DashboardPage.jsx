@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { AMainContent, PMainContent } from "./mainContent";
 import { Calendar } from "../../components";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
     /* box-sizing: border-box; */
@@ -83,7 +83,6 @@ export default function HomePage() {
                 includedMembers = [...lesson.members];
             }
         });
-        // console.log("includedMembers :>> ", includedMembers);
         setTargetLessonMembers(includedMembers);
     };
 
@@ -93,7 +92,6 @@ export default function HomePage() {
                 {lessonName}
             </Button>
         ));
-    console.log("targetLessonMembers :>> ", targetLessonMembers);
     return (
         <Container>
             <Main>
