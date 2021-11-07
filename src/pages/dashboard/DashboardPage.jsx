@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { AMainContent, PMainContent } from "./mainContent";
 import { Calendar } from "../../components";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
     /* box-sizing: border-box; */
@@ -64,7 +64,9 @@ export default function HomePage() {
     const [lessons, setLessons] = useState(
         useSelector((state) => state.lessons.originLessons)
     );
+    // lessons's State
     const selectedDate = "목요일";
+    // Dummy date(selected)
 
     const todayLessonsName = lessons
         .map((lesson) => {
@@ -73,6 +75,7 @@ export default function HomePage() {
             }
         })
         .filter((value) => !!value);
+    console.log("todayLessonsName :>> ", todayLessonsName);
 
     const [targetLessonMembers, setTargetLessonMembers] = useState("");
 
@@ -83,7 +86,7 @@ export default function HomePage() {
                 includedMembers = [...lesson.members];
             }
         });
-        // console.log("includedMembers :>> ", includedMembers);
+        // included members of clicked lesson
         setTargetLessonMembers(includedMembers);
     };
 
@@ -93,7 +96,8 @@ export default function HomePage() {
                 {lessonName}
             </Button>
         ));
-    console.log("targetLessonMembers :>> ", targetLessonMembers);
+    // create lesson button
+
     return (
         <Container>
             <Main>
@@ -106,7 +110,7 @@ export default function HomePage() {
             </SideBar>
             <ContentBox>
                 <MainContentBox>
-                    <AMainContent value={targetLessonMembers || null} />
+                    <AMainContent value={targetLessonMembers || []} />
                     {/* <PMainContent /> */}
                 </MainContentBox>
             </ContentBox>

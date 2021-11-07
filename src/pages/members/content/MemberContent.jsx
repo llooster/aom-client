@@ -3,8 +3,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useSelector, useDispatch } from "react-redux";
 import {
     getMember,
-    addMember,
-    removeMember,
+    // addMember,
+    // removeMember,
 } from "../../../redux/reducers/membersReducer";
 
 const columns = [
@@ -31,14 +31,14 @@ const columns = [
         headerName: "Memo",
         width: 500,
         editable: true,
-    }
+    },
 ];
 
 export default function MemberContent(props) {
     const dispatch = useDispatch();
     const members = useSelector((state) => state.members.originMembers);
-    const selectedMembers = useSelector((state) => state.members.selected);
-    const newMember = useSelector((state) => state.members.newMember);
+    // const selectedMembers = useSelector((state) => state.members.selected);
+    // const newMember = useSelector((state) => state.members.newMember);
 
     const checking = (e) => {
         dispatch(getMember({ selectedMembers: e }));
@@ -49,13 +49,15 @@ export default function MemberContent(props) {
     };
     // console.log("columns :>> ", columns[0].valueGetter);
 
-    return  <DataGrid
-                rows={members}
-                columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[5]}
-                onSelectionModelChange={getId}
-                checkboxSelection
-                disableSelectionOnClick
-            />
+    return (
+        <DataGrid
+            rows={members}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[5]}
+            onSelectionModelChange={getId}
+            checkboxSelection
+            disableSelectionOnClick
+        />
+    );
 }

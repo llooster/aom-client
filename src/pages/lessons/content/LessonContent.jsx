@@ -5,23 +5,22 @@ import { selectLessons } from "../../../redux/reducers/lessonsReducer";
 import TransferModal from "../modal/TransferModal";
 
 export default function LessonContent(props) {
-
     const [isTransferOpened, setTransfer] = useState(false);
     const [selectionType, setSelectionType] = useState("checkbox");
     const [includedMembers, setIncludedMembers] = useState("");
     const [selectedLessonName, setSelectedLessonName] = useState("");
-    
+
     const dispatch = useDispatch();
-    
+
     //레슨들
     const lessons = useSelector((state) => state.lessons.originLessons);
-    
-    const students = lessons.map((lesson) => ({
-        key: lesson.key,
-        members: lesson.members,
-    }));
 
-    const members = lessons.map((lesson) => lesson.members);
+    // const students = lessons.map((lesson) => ({
+    //     key: lesson.key,
+    //     members: lesson.members,
+    // }));
+
+    // const members = lessons.map((lesson) => lesson.members);
 
     const clickLesson = (e) => {
         setTransfer(true);
@@ -30,8 +29,8 @@ export default function LessonContent(props) {
 
     const closeTransfer = () => {
         setTransfer(false);
-    }
-    
+    };
+
     const columns = [
         {
             title: "Name",
@@ -73,20 +72,22 @@ export default function LessonContent(props) {
         }),
     };
 
-    return  <>
-                <Table
-                    rowSelection={{
-                        type: selectionType,
-                        ...rowSelection,
-                    }}
-                    columns={columns}
-                    dataSource={lessons}
-                    // onClick={clickLesson}
-                />
-                <TransferModal 
-                    isOpened={isTransferOpened} 
-                    members={includedMembers} 
-                    closeModal={closeTransfer}
-                />
-            </>
+    return (
+        <>
+            <Table
+                rowSelection={{
+                    type: selectionType,
+                    ...rowSelection,
+                }}
+                columns={columns}
+                dataSource={lessons}
+                // onClick={clickLesson}
+            />
+            <TransferModal
+                isOpened={isTransferOpened}
+                members={includedMembers}
+                closeModal={closeTransfer}
+            />
+        </>
+    );
 }

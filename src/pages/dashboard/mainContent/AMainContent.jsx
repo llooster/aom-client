@@ -3,9 +3,61 @@ import { useSelector } from "react-redux";
 import { Table, Switch } from "antd";
 
 const AMainContent = ({ value }) => {
+    // props.value => selected lesson's members
+    var memberIds = value.map((member) => member.id);
+    console.log("memberIds :>> ", memberIds);
     const [fixedTop, setFixedTop] = useState(false);
-    console.log(`value`, value);
-    // id, lessons, name, age
+    //
+    const [originAttendances, setLessons] = useState(
+        useSelector((state) => state.attendance.originAttendances)
+    );
+    // Att state
+    const [Att, setAtt] = useState("결석");
+    // base data => "결석"
+
+    // let [AttData, setAttData] = useState(() => {
+    //     return Array(12)
+    //         .fill()
+    //         .map((each, index) => {
+    //             return {
+    //                 title: `${index + 1}`,
+    //                 dataIndex: `${index}`,
+    //                 key: `${index}`,
+    //                 render: () => <a onClick={clickAtt}>{Att}</a>,
+    //             };
+    //         });
+    // });
+
+    let AttData = Array(12)
+        .fill()
+        .map((each, index) => {
+            return {
+                title: `${index + 1}`,
+                dataIndex: `${index}`,
+                key: `${index + 1}`,
+                render: () => (
+                    <a data-month={index + 1} onClick={clickAtt}>
+                        {Att}
+                    </a>
+                ),
+            };
+        });
+    //
+
+    const clickAtt = (e) => {
+        // let newAtt = "";
+        // if (Att === "결석") {
+        //     newAtt = "출석";
+        // } else {
+        //     newAtt = "결석";
+        // }
+        // setAtt(() => {
+        //     return newAtt;
+        // });
+        console.log("e.target.dataset.key :>> ", e.target.dataset.key);
+        console.log("누구의 몇월달 출석을 클릭했는지 판단부터 :>> ");
+    };
+
     const columns = [
         {
             title: "Full Name",
@@ -14,26 +66,16 @@ const AMainContent = ({ value }) => {
             key: "name",
             fixed: "left",
         },
-        {
-            title: "Age",
-            width: 60,
-            dataIndex: "age",
-            key: "age",
-            fixed: "left",
-        },
-        // { title: "1", dataIndex: "address", key: "1" },
-        // { title: "2", dataIndex: "address", key: "2" },
-        // { title: "3", dataIndex: "address", key: "3" },
-        // { title: "4", dataIndex: "address", key: "4" },
-        // { title: "12", dataIndex: "address", key: "8" },
+        ...AttData,
         {
             title: "Action",
             key: "operation",
             fixed: "right",
             width: 100,
-            render: () => <a>action</a>,
+            render: () => <a>All</a>,
         },
     ];
+
     return (
         <Table
             columns={columns}
