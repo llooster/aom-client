@@ -3,11 +3,18 @@ import { useSelector } from "react-redux";
 import { Table, Switch } from "antd";
 
 const AMainContent = ({ value }) => {
+    // props.value => selected lesson's members
+    var memberIds = value.map((member) => member.id);
+    console.log("memberIds :>> ", memberIds);
     const [fixedTop, setFixedTop] = useState(false);
+    //
     const [originAttendances, setLessons] = useState(
         useSelector((state) => state.attendance.originAttendances)
     );
+    // Att state
     const [Att, setAtt] = useState("결석");
+    // base data => "결석"
+
     // let [AttData, setAttData] = useState(() => {
     //     return Array(12)
     //         .fill()
@@ -20,19 +27,24 @@ const AMainContent = ({ value }) => {
     //             };
     //         });
     // });
+
     let AttData = Array(12)
         .fill()
         .map((each, index) => {
             return {
                 title: `${index + 1}`,
                 dataIndex: `${index}`,
-                key: `${index}`,
-                render: () => <a onClick={clickAtt}>{Att}</a>,
+                key: `${index + 1}`,
+                render: () => (
+                    <a data-month={index + 1} onClick={clickAtt}>
+                        {Att}
+                    </a>
+                ),
             };
         });
-    // console.log("AttData :>> ", AttData);
+    //
+
     const clickAtt = (e) => {
-        // console.log("e :>> ", e);
         // let newAtt = "";
         // if (Att === "결석") {
         //     newAtt = "출석";
@@ -42,7 +54,10 @@ const AMainContent = ({ value }) => {
         // setAtt(() => {
         //     return newAtt;
         // });
+        console.log("e.target.dataset.key :>> ", e.target.dataset.key);
+        console.log("누구의 몇월달 출석을 클릭했는지 판단부터 :>> ");
     };
+
     const columns = [
         {
             title: "Full Name",

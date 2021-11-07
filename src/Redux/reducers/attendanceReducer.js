@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import { handleActions, createAction } from "redux-actions";
 import { useSelector } from "react-redux";
 
-const [lessons, setLessons] = useState(
-    useSelector((state) => state.lessons.originLessons)
-);
-
 // const UPDATE_JOINID = "UPDATE_JOINID";
 
 // export const updateJoinId = createAction(UPDATE_JOINID);
@@ -13,7 +9,7 @@ const [lessons, setLessons] = useState(
 //
 
 const initState = {
-    originAttendances: lessons,
+    // originAttendances:
 };
 
 const attendanceReducer = handleActions(

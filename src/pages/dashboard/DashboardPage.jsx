@@ -64,7 +64,9 @@ export default function HomePage() {
     const [lessons, setLessons] = useState(
         useSelector((state) => state.lessons.originLessons)
     );
+    // lessons's State
     const selectedDate = "목요일";
+    // Dummy date(selected)
 
     const todayLessonsName = lessons
         .map((lesson) => {
@@ -73,6 +75,7 @@ export default function HomePage() {
             }
         })
         .filter((value) => !!value);
+    console.log("todayLessonsName :>> ", todayLessonsName);
 
     const [targetLessonMembers, setTargetLessonMembers] = useState("");
 
@@ -83,6 +86,7 @@ export default function HomePage() {
                 includedMembers = [...lesson.members];
             }
         });
+        // included members of clicked lesson
         setTargetLessonMembers(includedMembers);
     };
 
@@ -92,6 +96,8 @@ export default function HomePage() {
                 {lessonName}
             </Button>
         ));
+    // create lesson button
+
     return (
         <Container>
             <Main>
@@ -104,7 +110,7 @@ export default function HomePage() {
             </SideBar>
             <ContentBox>
                 <MainContentBox>
-                    <AMainContent value={targetLessonMembers || null} />
+                    <AMainContent value={targetLessonMembers || []} />
                     {/* <PMainContent /> */}
                 </MainContentBox>
             </ContentBox>
