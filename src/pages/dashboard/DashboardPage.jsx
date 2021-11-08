@@ -68,36 +68,34 @@ export default function HomePage() {
     const selectedDate = "목요일";
     // Dummy date(selected)
 
-    const todayLessonsName = lessons
+    const todayLessonsData = lessons
         .map((lesson) => {
             if (lesson.date === selectedDate) {
-                return lesson.name;
+                return {
+                    key: lesson.key,
+                    name: lesson.name,
+                    members: lesson.members,
+                };
             }
         })
         .filter((value) => !!value);
-    console.log("todayLessonsName :>> ", todayLessonsName);
-
-    const [targetLessonMembers, setTargetLessonMembers] = useState("");
-
-    const ClickLesson = (e) => {
-        let includedMembers = [];
-        lessons.map((lesson) => {
-            if (lesson.name === e.target.name) {
-                includedMembers = [...lesson.members];
-            }
-        });
-        // included members of clicked lesson
-        setTargetLessonMembers(includedMembers);
-    };
+    // lesson name, member 객체
 
     const LessonButton = () =>
-        todayLessonsName.map((lessonName) => (
-            <Button name={lessonName} onClick={ClickLesson}>
-                {lessonName}
+        todayLessonsData.map((lessonName) => (
+            <Button name={lessonName} onClick={clickLesson}>
+                {lessonName.name}
             </Button>
         ));
     // create lesson button
 
+    const [targetLessonData, setTargetLessonData] = useState([]);
+    const clickLesson = (e) => {
+        let selectedLesson = todayLessonsData.filter((lesson) => {
+            return lesson.name == e.target.innerText;
+        });
+        setTargetLessonData(...selectedLesson);
+    };
     return (
         <Container>
             <Main>
@@ -110,7 +108,7 @@ export default function HomePage() {
             </SideBar>
             <ContentBox>
                 <MainContentBox>
-                    <AMainContent value={targetLessonMembers || []} />
+                    <AMainContent value={targetLessonData || []} />
                     {/* <PMainContent /> */}
                 </MainContentBox>
             </ContentBox>
