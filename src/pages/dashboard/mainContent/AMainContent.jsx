@@ -1,104 +1,48 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { Table, Switch } from "antd";
+import { useSelector, useDispatch } from "react-redux";
+import { Table } from "antd";
+import { selectAll } from "../../../redux/reducers/attendanceReducer";
+import "../content.css";
 
-const AMainContent = ({ value }) => {
-    // props.value => selected lesson's members
-    var memberIds = value.map((member) => member.id);
-    console.log("memberIds :>> ", memberIds);
-    const [fixedTop, setFixedTop] = useState(false);
-    //
-    const [originAttendances, setLessons] = useState(
-        useSelector((state) => state.attendance.originAttendances)
+export default function AMainContent({ value }) {
+    const dispatch = useDispatch();
+
+    //value -> clicked lesson's data {key, name, members}
+    const originAttendance = useSelector(
+        (state) => state.attendance.originAttendances
     );
-    // Att state
-    const [Att, setAtt] = useState("결석");
-    // base data => "결석"
+    const key = value.key;
+    const membersAttendance = originAttendance[key];
+    console.log("membersAttendance :>> ", membersAttendance);
+    const [selectionType, setSelectionType] = useState("checkbox");
 
-    // let [AttData, setAttData] = useState(() => {
-    //     return Array(12)
-    //         .fill()
-    //         .map((each, index) => {
-    //             return {
-    //                 title: `${index + 1}`,
-    //                 dataIndex: `${index}`,
-    //                 key: `${index}`,
-    //                 render: () => <a onClick={clickAtt}>{Att}</a>,
-    //             };
-    //         });
-    // });
+    const lessons = useSelector((state) => state.lessons.originLessons);
+    //레슨들
 
-    let AttData = Array(12)
-        .fill()
-        .map((each, index) => {
-            return {
-                title: `${index + 1}`,
-                dataIndex: `${index}`,
-                key: `${index + 1}`,
-                render: () => (
-                    <a data-month={index + 1} onClick={clickAtt}>
-                        {Att}
-                    </a>
-                ),
-            };
-        });
-    //
+    const headerTags = () =>
+        Array(12)
+            .fill()
+            .map((each, index) => <div class="part">{`${index + 1}월`}</div>);
 
-    const clickAtt = (e) => {
-        // let newAtt = "";
-        // if (Att === "결석") {
-        //     newAtt = "출석";
-        // } else {
-        //     newAtt = "결석";
-        // }
-        // setAtt(() => {
-        //     return newAtt;
-        // });
-        console.log("e.target.dataset.key :>> ", e.target.dataset.key);
-        console.log("누구의 몇월달 출석을 클릭했는지 판단부터 :>> ");
-    };
-
-    const columns = [
-        {
-            title: "Full Name",
-            width: 100,
-            dataIndex: "name",
-            key: "name",
-            fixed: "left",
-        },
-        ...AttData,
-        {
-            title: "Action",
-            key: "operation",
-            fixed: "right",
-            width: 100,
-            render: () => <a>All</a>,
-        },
-    ];
-
+    const listTags = () =>
+        Object.keys(membersAttendance[0]).map((each, index) => (
+            <div class="part">{1}</div>
+        ));
+    // const listTags = Object.keys(membersAttendance).map((each, index) => (
+    //     <div class="part">{1}</div>
+    // ));
     return (
-        <Table
-            columns={columns}
-            dataSource={value}
-            scroll={{ x: "100%" }}
-            summary={(pageData) => (
-                <Table.Summary fixed={fixedTop ? "top" : "bottom"}>
-                    <Table.Summary.Row>
-                        <Table.Summary.Cell index={0} colSpan={2}>
-                            <Switch
-                                checkedChildren="Fixed Top"
-                                unCheckedChildren="Fixed Top"
-                                checked={fixedTop}
-                                onChange={() => {
-                                    setFixedTop(!fixedTop);
-                                }}
-                            />
-                        </Table.Summary.Cell>
-                    </Table.Summary.Row>
-                </Table.Summary>
-            )}
-            sticky
-        />
+        <div class="contentWrapper">
+            <div class="rowsWrapper">
+                <div class="part">name</div>
+                {headerTags()}
+                <div class="part">all</div>
+            </div>
+            <div class="rowsWrapper">
+                <div class="part">name</div>
+                {/* {listTags()} */}
+                <div class="part">all</div>
+            </div>
+        </div>
     );
-};
-export default AMainContent;
+}
