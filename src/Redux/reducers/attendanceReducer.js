@@ -3,8 +3,10 @@ import { handleActions, createAction } from "redux-actions";
 import { useSelector } from "react-redux";
 
 const SELECT_ALL = "SELECT_ALL";
+const CHANGE_ATT = "CHANGE_ATT";
 
 export const selectAll = createAction(SELECT_ALL);
+export const changeAtt = createAction(CHANGE_ATT);
 
 //
 
@@ -202,7 +204,7 @@ const initState = {
                 id: 12,
                 name: "Rossini8",
                 1: "결석",
-                2: "결석",
+                2: "출석",
                 3: "결석",
                 4: "결석",
                 5: "결석",
@@ -235,7 +237,7 @@ const initState = {
                 name: "Harvey8",
                 1: "결석",
                 2: "결석",
-                3: "결석",
+                3: "출석",
                 4: "결석",
                 5: "결석",
                 6: "결석",
@@ -255,7 +257,13 @@ const attendanceReducer = handleActions(
     {
         [SELECT_ALL]: (state, action) => ({
             ...state,
-            password: action.payload.password,
+        }),
+        [CHANGE_ATT]: (state, action) => ({
+            ...state,
+            originAttendances: {
+                ...state.originAttendances,
+                // action.payload.lessonId
+            },
         }),
     },
     initState
