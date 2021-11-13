@@ -108,8 +108,8 @@ export default function HomePage() {
             </SideBar>
             <ContentBox>
                 <MainContentBox>
-                    <AMainContent value={targetLessonData || []} />
-                    {/* <PMainContent /> */}
+                    {/* <AMainContent value={targetLessonData || []} /> */}
+                    <PMainContent value={targetLessonData || []} />
                 </MainContentBox>
             </ContentBox>
         </Container>
