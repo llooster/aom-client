@@ -4,6 +4,7 @@ import joinReducer from "./reducers/joinReducer";
 import membersReducer from "./reducers/membersReducer";
 import lessonsReducer from "./reducers/lessonsReducer.js";
 import attendanceReducer from "./reducers/attendanceReducer";
+import paymentReducer from "./reducers/paymentReducer";
 
 export default combineReducers({
     login: loginReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
     members: membersReducer,
     lessons: lessonsReducer,
     attendance: attendanceReducer,
+    payment: paymentReducer,
 });
