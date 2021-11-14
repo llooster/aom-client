@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Table } from "antd";
 import { changeAtt } from "../../../redux/reducers/attendanceReducer";
-import "../content.css";
 
 export default function AMainContent({ value }) {
     const dispatch = useDispatch();
