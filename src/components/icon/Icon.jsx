@@ -4,7 +4,8 @@ import {
     BarChartOutlined,
     SettingOutlined,
     UserSwitchOutlined,
-    FormOutlined
+    FormOutlined,
+    ArrowLeftOutlined
 } from '@ant-design/icons';
 
 const icons = {
@@ -12,7 +13,8 @@ const icons = {
     "barChart": <BarChartOutlined />,
     "setting": <SettingOutlined />,
     "user": <UserSwitchOutlined />,
-    "form": <FormOutlined />
+    "form": <FormOutlined />,
+    "back": <ArrowLeftOutlined />
 }
 
 const Icon = (props) => {

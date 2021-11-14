@@ -10,6 +10,7 @@ import {
     LoginPage,
     RegisterPage,
     LessonsPage,
+    LessonRegister,
     MemberPage,
     Attendance,
     Payment,
@@ -43,6 +44,12 @@ function App() {
                         exact
                         path={"/lessons"}
                         component={LessonsPage}
+                        layout={MainLayout}
+                    />
+                    <DefaultRouter
+                        exact
+                        path={"/lessons/register"}
+                        component={LessonRegister}
                         layout={MainLayout}
                     />
                     <DefaultRouter
