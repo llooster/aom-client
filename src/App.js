@@ -11,7 +11,8 @@ import {
     RegisterPage,
     LessonsPage,
     MemberPage,
-    DashboardPage,
+    Attendance,
+    Payment,
 } from "./pages";
 import "./App.scss";
 
@@ -28,7 +29,7 @@ function App() {
                 <Switch>
                     <DefaultRouter
                         exact
-                        path={("/", "/login")}
+                        path={["/", "/login"]}
                         component={LoginPage}
                         layout={DefaultLayout}
                     />
@@ -52,8 +53,14 @@ function App() {
                     />
                     <DefaultRouter
                         exact
-                        path={"/dashboard"}
-                        component={DashboardPage}
+                        path={["/dashboard", "/dashboard/attendance"]}
+                        component={Attendance}
+                        layout={MainLayout}
+                    />
+                    <DefaultRouter
+                        exact
+                        path={"/dashboard/payment"}
+                        component={Payment}
                         layout={MainLayout}
                     />
                 </Switch>

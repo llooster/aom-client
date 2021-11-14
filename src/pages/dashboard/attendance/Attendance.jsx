@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { AMainContent, PMainContent } from "./mainContent";
-import { Calendar } from "../../components";
+import { Link } from "react-router-dom";
+import { Calendar } from "../../../components";
 import { useSelector } from "react-redux";
+import AMainContent from "./AMainContent";
 
 const Container = styled.div`
     /* box-sizing: border-box; */
@@ -60,7 +61,7 @@ const Button = styled.button`
     height: 30px;
 `;
 
-export default function HomePage() {
+export default function Attendance() {
     const [lessons, setLessons] = useState(
         useSelector((state) => state.lessons.originLessons)
     );
@@ -99,8 +100,7 @@ export default function HomePage() {
     return (
         <Container>
             <Main>
-                <Button>Attendance</Button>
-                <Button>Payment</Button>
+                <Link to="/dashboard/payment">Payment</Link>
             </Main>
             <SideBar>
                 <Calendar></Calendar>
@@ -108,8 +108,8 @@ export default function HomePage() {
             </SideBar>
             <ContentBox>
                 <MainContentBox>
-                    {/* <AMainContent value={targetLessonData || []} /> */}
-                    <PMainContent value={targetLessonData || []} />
+                    <AMainContent value={targetLessonData || []} />
+                    {/* <PMainContent value={targetLessonData || []} /> */}
                 </MainContentBox>
             </ContentBox>
         </Container>
