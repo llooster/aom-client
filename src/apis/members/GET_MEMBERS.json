@@ -1,0 +1,16 @@
+{
+    "result": {
+        "members": [
+            {
+                "id": 1,
+                "name": "Hangyeol",
+                "age": 25
+            },
+            {
+                "id": 2,
+                "name": "Jaeik",
+                "age": 30
+            }
+        ]
+    }
+}

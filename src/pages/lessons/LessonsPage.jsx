@@ -5,6 +5,7 @@ import { Button, Link } from "../../components";
 import { removeLessons } from "../../redux/reducers/lessonsReducer";
 import LessonContent from "./content/LessonContent";
 import "./LessonPage.scss";
+import API_GET_LESSONS from "./apis/GET_LESSONS.json";
 
 const HomePage = () => {
 
@@ -19,6 +20,8 @@ const HomePage = () => {
         );
         dispatch(removeLessons({ updatedLessons: updatedLessons }));
     };
+
+    console.log("Response of 'GET /lessons' : ", API_GET_LESSONS);
 
     return  <Row className="LessonPage">
                 <Col span={24}>

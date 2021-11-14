@@ -1,0 +1,14 @@
+{
+    "result": {
+        "lessons": [
+            {
+                "id": 1,
+                "name": "First Lesson",
+                "day": "MONDAY",
+                "time": null,
+                "startTime": "12:00",
+                "endTime": "13:00"
+            }
+        ]
+    }
+}
