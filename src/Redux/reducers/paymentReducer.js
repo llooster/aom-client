@@ -5,8 +5,6 @@ const CHANGE_PAYMENT = "CHANGE_PAYMENT";
 
 export const changePayment = createAction(CHANGE_PAYMENT);
 
-//
-
 const initState = {
     originPayments: {
         //key => lesson's key value, value => members
