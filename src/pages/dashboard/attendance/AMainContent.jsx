@@ -3,6 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { Table } from "antd";
 import { changeAtt } from "../../../redux/reducers/attendanceReducer";
 
+const paymentRenderValue = {
+    결석: "카드",
+    출석: "현금",
+    yet: "미정",
+};
+
 export default function AMainContent({ value }) {
     const dispatch = useDispatch();
     // value -> clicked lesson's data {key, name, members}
@@ -33,12 +39,18 @@ export default function AMainContent({ value }) {
             ));
     const clickAtt = (e) => {
         let newOriginAttendance = { ...originAttendance };
-        let updatedAtt =
+        // let updatedAtt =
+        //     originAttendance[key][e.target.id].attendance[
+        //         e.target.dataset.month
+        //     ] == "결석"
+        //         ? "출석"
+        //         : "결석";
+        let status =
             originAttendance[key][e.target.id].attendance[
                 e.target.dataset.month
-            ] == "결석"
-                ? "출석"
-                : "결석";
+            ];
+        let updatedAtt = paymentRenderValue[status];
+
         // toggle 방식
         newOriginAttendance[key][e.target.id].attendance[
             e.target.dataset.month

@@ -25,7 +25,7 @@ const Container = styled.div`
 `;
 
 const Main = styled.main`
-    background: rgba(170, 200, 170, 0.2);
+    /* background: rgba(170, 200, 170, 0.2); */
     /* height: 30%; */
     border-radius: 20px;
     color: white;
@@ -34,7 +34,7 @@ const Main = styled.main`
     padding: 0.25rem;
 `;
 const SideBar = styled.div`
-    background: rgba(170, 200, 170, 0.2);
+    /* background: rgba(170, 200, 170, 0.2); */
     border-radius: 20px;
     grid-area: sidebar;
     padding: 0.4rem;
@@ -49,7 +49,7 @@ const ContentBox = styled.div`
     justify-content: center;
 `;
 const MainContentBox = styled.div`
-    background: rgba(170, 200, 170, 0.2);
+    /* background: rgba(170, 200, 170, 0.2); */
     padding: 0.25rem;
     width: 100%;
     height: 100%;

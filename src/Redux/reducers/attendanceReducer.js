@@ -283,6 +283,7 @@ const attendanceReducer = handleActions(
         [CHANGE_ATT]: (state, action) => ({
             ...state,
             originAttendances: action.payload.updatedAttendances,
+            // [action.payload.dummy...]: action.payload.updatedAttendances,
         }),
     },
     initState
