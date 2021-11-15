@@ -1,0 +1,58 @@
+@import "public/styles/Color.scss";
+
+$th-background-color: rgb(244, 246, 248);
+$th-border-radius: 8px;
+$th-color: rgb(99, 115, 129);
+$th-padding: 16px;
+$td-padding: $th-padding;
+
+.Table {
+
+    width: 100%;
+
+    table {
+        width: 100%;
+    }
+
+    thead {
+        tr {
+            th {
+                color: $th-color;
+                border-bottom: none;
+                background: $th-background-color;
+                padding: $th-padding;
+                text-align: left;
+                text-transform: capitalize;
+            }
+        }
+        th:first-child {
+            border-top-left-radius: $th-border-radius !important;
+            border-bottom-left-radius: $th-border-radius !important;
+        }
+        th:last-child {
+            border-top-right-radius: $th-border-radius !important;
+            border-bottom-right-radius: $th-border-radius !important;
+        }
+    }   
+    tbody {
+        tr {
+            td {
+                color:    #495057;
+                padding: $td-padding;
+                border-bottom: none;
+            }
+            td:first-child {
+                border-top-left-radius: $th-border-radius !important;
+                border-bottom-left-radius: $th-border-radius !important;
+            }
+            td:last-child {
+                border-top-right-radius: $th-border-radius !important;
+                border-bottom-right-radius: $th-border-radius !important;
+            }
+        }
+        tr:hover {
+            cursor: pointer;
+            background-color: rgba(234, 234, 234, 0.35);
+        }
+    }
+}
