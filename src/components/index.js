@@ -5,6 +5,7 @@ export { default as Icon } from "./icon/Icon.jsx";
 export { default as Input } from "./input/Input.jsx";
 export { default as Link } from "./link/Link.jsx";
 export { default as Menu } from "./menu/Menu.jsx";
+export { default as Radio } from "./radio/Radio";
 export { default as SideBar } from "./sidebar/SideBar.jsx";
 export { default as Table } from "./table/Table";
 export { default as Title } from "./title/Title.jsx";

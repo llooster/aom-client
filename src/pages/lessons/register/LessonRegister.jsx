@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
-import { Input, Icon, Button, Transfer, Link } from "../../../components";
+import { Input, Icon, Button, Transfer, Link, Radio } from "../../../components";
 import { addLesson, newName, newDate, newTime, newAddress } from "../../../redux/reducers/lessonsReducer";
 import "./LessonRegister.scss";
 
@@ -76,6 +76,23 @@ const LessonRegister = (props) => {
         ));
     };
 
+    const onRadio = (e) => {
+        console.log("Radio : ", e.target.value);
+    }
+
+    const renderRadio = () => {
+        const buttons = [
+            { value: "MONDAY",      label: "MON" },
+            { value: "TUESDAY",     label: "TUE" },
+            { value: "WEDNESDAY",   label: "WED" },
+            { value: "THURSDAY",    label: "THR" },
+            { value: "FRIDAY",      label: "FRI" },
+            { value: "SATURDAY",    label: "SAT" },
+            { value: "SUNDAY",      label: "SUN" }
+        ];
+        return <Radio buttons={buttons} onChange={onRadio}/>
+    }
+
     const renderTransfer = () => {
         return <Transfer />
     }
@@ -92,6 +109,7 @@ const LessonRegister = (props) => {
                     </Col>
                     <Col className="body" span={24}>
                         { renderInputs() }
+                        { renderRadio() }
                         { renderTransfer() }
                     </Col>
                     <Col className="footer" span={24}>
