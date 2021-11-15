@@ -1,0 +1,17 @@
+@import "public/styles/Color.scss";
+
+.Box {
+    width: 100%;
+    padding: 12px 18px 2px 18px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    border: 1px solid $color-base-line;
+    
+    .label {
+        color: $color-box-label;
+    }
+
+    .box-body {
+        padding: 12px 0px;
+    }
+}

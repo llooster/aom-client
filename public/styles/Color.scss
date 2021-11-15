@@ -1,6 +1,7 @@
 $color-base: rgb(30, 136, 229);
 $color-base-line: rgb(238, 238, 238);
 $color-base-font: rgb(33, 33, 33);
+$color-label: rgb(158, 158, 158);
 
 $color-menu-item-background: rgb(227, 242, 253);
 $color-menu-font: #616161;
@@ -9,10 +10,12 @@ $color-menu-font-hover: rgb(33, 150, 243);
 $color-white: white;
 $color-black: black;
 
-$color-input-label: rgb(158, 158, 158);
+$color-input-label: $color-label;
 $color-input-background: rgba(145, 158, 171, 0.05);
 $color-input-placeholder: rgb(33, 33, 33);
 
 $color-btn-background: rgb(227, 242, 253);
 $color-btn-background-hover: rgb(33, 150, 243);
 
+
+$color-box-label: $color-label;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
-import { Input, Icon, Button, Transfer, Link, Radio } from "../../../components";
+import { Input, Icon, Button, Transfer, Link, Radio, Box } from "../../../components";
 import { addLesson, newName, newDate, newTime, newAddress } from "../../../redux/reducers/lessonsReducer";
 import "./LessonRegister.scss";
 
@@ -90,7 +90,9 @@ const LessonRegister = (props) => {
             { value: "SATURDAY",    label: "SAT" },
             { value: "SUNDAY",      label: "SUN" }
         ];
-        return <Radio buttons={buttons} onChange={onRadio}/>
+        return <Box label="Select Day of week of Lesson">
+                <Radio buttons={buttons} onChange={onRadio}/>
+            </Box>
     }
 
     const renderTransfer = () => {
