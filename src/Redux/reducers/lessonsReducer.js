@@ -34,6 +34,13 @@ const initLessonsState = {
     selected: [],
     newLesson: {},
     newMember: {},
+    one: {
+        id: 1,
+        name: "First Lesson",
+        day: "MONDAY",
+        startTime: "12:00",
+        endTime: "13:00"
+    }
 };
 
 const lessonsReducer = handleActions(

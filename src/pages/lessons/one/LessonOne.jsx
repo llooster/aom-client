@@ -3,17 +3,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
 import { Input, Icon, Button, Transfer, Link } from "../../../components";
 import { addLesson, newName, newDate, newTime, newAddress } from "../../../redux/reducers/lessonsReducer";
-import "./LessonRegister.scss";
+import "./LessonOne.scss";
 
-const LessonRegister = (props) => {
+const LessonOne = (props) => {
 
     const dispatch = useDispatch();
     
-    const name = useSelector((state) => state.lessons.newLesson.name);
-    const date = useSelector((state) => state.lessons.newLesson.date);
-    const time = useSelector((state) => state.lessons.newLesson.time);
-    const address = useSelector((state) => state.lessons.newLesson.address);
-    const newLesson = useSelector((state) => state.lessons.newLesson);
+    const lessonOne = useSelector((state) => state.lessons.one);
+    const name      = lessonOne.name;
+    const day       = lessonOne.day;
+    const startTime = lessonOne.startTime;
+    const endTime   = lessonOne.endTime;
 
     const updateInputValue = (e) => {
         let id = e.currentTarget.id;
@@ -43,21 +43,21 @@ const LessonRegister = (props) => {
             {
                 id: "date",
                 type: "text",
-                value: date,
+                value: day,
                 name: "Lesson Date",
                 placehoder: "Please input date",
             },
             {
                 id: "time",
                 type: "text",
-                value: time,
+                value: startTime,
                 name: "Lesson Time",
                 placehoder: "Please input time",
             },
             {
                 id: "address",
                 type: "text",
-                value: address,
+                value: endTime,
                 name: "Lesson Address",
                 placehoder: "Please input address",
             },
@@ -80,7 +80,7 @@ const LessonRegister = (props) => {
         return <Transfer />
     }
 
-    return  <Row className="LessonRegister">
+    return  <Row className="LessonOne">
                 <Col span={24}>
                     <Col className="header" span={24}>
                         <Link
@@ -88,17 +88,18 @@ const LessonRegister = (props) => {
                             type="none"
                             label={<Icon icon="back" />}
                         />
-                        <span className="title">Lesson Register</span>
+                        <span className="title">{name}</span>
                     </Col>
                     <Col className="body" span={24}>
                         { renderInputs() }
                         { renderTransfer() }
                     </Col>
                     <Col className="footer" span={24}>
-                        <Button label="REGISTER"/>
+                        <Button className="btn-delete" type="danger" label="DELETE" />
+                        <Button label="UPDATE"/>
                     </Col>
                 </Col>
             </Row>
 }
 
-export default LessonRegister;
+export default LessonOne;

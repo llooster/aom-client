@@ -1,0 +1,35 @@
+@import "public/styles/Color.scss";
+@import "public/styles/Size.scss";
+
+.LessonOne {
+
+    padding: 24px;
+
+    .header {
+        display: flex;
+        padding: 24px 0px;
+        
+        .title {
+            font-size: $font-size-page-title;
+            font-weight: $font-weight-page-title;
+        }
+        
+        .link {
+            padding: 0px;
+            margin: 0px;
+            margin-right: 6px;
+        }
+    }   
+
+    .body {
+        padding: 24px 0px;
+    }
+
+    .footer {
+        display: flex;
+
+        .btn-delete {
+            margin-left: auto;
+        }
+    }
+}

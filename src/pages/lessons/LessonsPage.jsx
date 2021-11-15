@@ -1,8 +1,7 @@
 import React from "react";
 import { Row, Col } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Link, Table } from "../../components";
-import { removeLessons } from "../../redux/reducers/lessonsReducer";
+import { Link, Table } from "../../components";
 import "./LessonsPage.scss";
 
 const lessonColumns = [
@@ -13,18 +12,10 @@ const lessonColumns = [
 ];
 
 const HomePage = () => {
+    
     const lessons = useSelector((state) => state.lessons.lessons);
-    const selectedLessons = useSelector((state) => state.lessons.selected);
-
     const dispatch = useDispatch();
-
-    const remove = () => {
-        let updatedLessons = lessons.filter(
-            (item) => !selectedLessons.includes(item)
-        );
-        dispatch(removeLessons({ updatedLessons: updatedLessons }));
-    };
-
+    
     return (
         <Row className="LessonPage">
             <Col span={24}>
@@ -42,6 +33,7 @@ const HomePage = () => {
                     <Table 
                         columns={lessonColumns}
                         dataSource={lessons}
+                        moveTo={"/lessons"}
                     />
                 </Col>
             </Col>

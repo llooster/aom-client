@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Table as AntdTable } from "antd";
+import { Row, Col } from "antd";
 import "./Table.scss";
 
 /***
@@ -10,7 +10,7 @@ import "./Table.scss";
 
 const Table = (props) => {
     
-    const { columns, dataSource, onChange } = props;
+    const { columns, dataSource, moveTo } = props;
 
     const renderHeader = () => {
         return  <thead>
@@ -27,7 +27,7 @@ const Table = (props) => {
                     {dataSource.map((rows, index) => {
                         return  <tr 
                                     key={index} 
-                                    onClick={() => moveToUrl(rows.id)}
+                                    onClick={() => moveToUrl(`${moveTo}/${rows.id}`)}
                                 >
                                     {columns.map((col, index) => {
                                         return <td key={index}>{rows[col.dataIndex]}</td>
@@ -38,7 +38,7 @@ const Table = (props) => {
     }
 
     const moveToUrl = (url) => {
-        window.location.href = `#${url}`
+        window.location.href = url;
     }
 
     return  <Row className="Table">
