@@ -13,7 +13,7 @@ export default function LessonContent(props) {
     const dispatch = useDispatch();
 
     //레슨들
-    const lessons = useSelector((state) => state.lessons.originLessons);
+    const lessons = useSelector((state) => state.lessons.lessons);
 
     // const students = lessons.map((lesson) => ({
     //     key: lesson.key,
@@ -52,15 +52,7 @@ export default function LessonContent(props) {
         {
             title: "Address",
             dataIndex: "address",
-        },
-        {
-            title: "Students",
-            dataIndex: "members",
-            render: (text) => {
-                setIncludedMembers(text);
-                return <a>{`${text.length}`}</a>;
-            },
-        },
+        }
     ];
 
     const rowSelection = {

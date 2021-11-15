@@ -63,7 +63,7 @@ const Button = styled.button`
 
 export default function Payment() {
     const [lessons, setLessons] = useState(
-        useSelector((state) => state.lessons.originLessons)
+        useSelector((state) => state.lessons.lessons)
     );
     // lessons's State
     const selectedDate = "목요일";

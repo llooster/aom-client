@@ -21,64 +21,15 @@ export const cancelModal = createAction(CANCEL_MODAL);
 export const newMember = createAction(NEW_MEMBER);
 
 const initLessonsState = {
-    originLessons: [
+    "lessons": [
         {
-            key: 1,
-            name: "soccer",
-            date: "화요일",
-            time: 32,
-            address: "체육관1",
-            members: [{ id: 1, lessons: ["soccer"], name: "Jon", age: 35 }],
-        },
-        {
-            key: 2,
-            name: "swimming",
-            date: "수요일",
-            time: 42,
-            address: "체육관2",
-            members: [
-                { id: 2, lessons: ["swim"], name: "Cersei", age: 42 },
-                { id: 3, lessons: [""], name: "Jaime", age: 45 },
-            ],
-        },
-        {
-            key: 3,
-            name: "baseball",
-            date: "금요일",
-            time: 32,
-            address: "강의실1",
-            members: [
-                { id: 4, lessons: [""], name: "Arya", age: 16 },
-                { id: 5, lessons: [""], name: "Daenerys", age: 80 },
-                { id: 6, lessons: [""], name: "null", age: 150 },
-            ],
-        },
-        {
-            key: 4,
-            name: "Jiu-Jitsu",
-            date: "목요일",
-            time: 99,
-            address: "강의실2",
-            members: [
-                { id: 7, lessons: [""], name: "Ferrara", age: 44 },
-                { id: 8, lessons: [""], name: "Rossini", age: 36 },
-                { id: 9, lessons: [""], name: "Harvey", age: 65 },
-                { id: 10, lessons: [""], name: "Harvey1", age: 6 },
-            ],
-        },
-        {
-            key: 5,
-            name: "Jiu-do",
-            date: "목요일",
-            time: 99,
-            address: "강의실2",
-            members: [
-                { id: 11, lessons: [""], name: "Ferrara8", age: 44 },
-                { id: 12, lessons: [""], name: "Rossini8", age: 36 },
-                { id: 13, lessons: [""], name: "Harve8", age: 65 },
-                { id: 14, lessons: [""], name: "Harvey8", age: 6 },
-            ],
-        },
+            "id": 1,
+            "name": "First Lesson",
+            "day": "MONDAY",
+            "time": null,
+            "startTime": "12:00",
+            "endTime": "13:00"
+        }
     ],
     selected: [],
     newLesson: {},
@@ -93,7 +44,7 @@ const lessonsReducer = handleActions(
         }),
         [REMOVE_LESSONS]: (state, action) => ({
             ...state,
-            originLessons: action.payload.updatedLessons,
+            lessons: action.payload.updatedLessons,
 
             selected: [],
         }),
@@ -127,7 +78,7 @@ const lessonsReducer = handleActions(
         }),
         [ADD_LESSON]: (state, action) => ({
             ...state,
-            originLessons: [...state.originLessons, action.payload.newLesson],
+            lessons: [...state.lessons, action.payload.newLesson],
             newLesson: {},
         }),
         [CANCEL_MODAL]: (state, action) => ({

@@ -5,7 +5,7 @@ import { Transfer } from "antd";
 export default function Member() {
     const [oneWay, setOneWay] = useState(false);
     const [targetKeys, setTargetKeys] = useState([]);
-    let allMembers = useSelector((state) => state.members.originMembers);
+    let allMembers = useSelector((state) => state.members.members);
     // let includedKeys = name.map((members) => members.id);
 
     // let [targetMembers, setTargetMembers] = useState("");

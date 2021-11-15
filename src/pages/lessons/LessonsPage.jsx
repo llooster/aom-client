@@ -8,7 +8,7 @@ import "./LessonPage.scss";
 // import API_GET_LESSONS from "./apis/GET_LESSONS.json";
 
 const HomePage = () => {
-    const lessons = useSelector((state) => state.lessons.originLessons);
+    const lessons = useSelector((state) => state.lessons.lessons);
     const selectedLessons = useSelector((state) => state.lessons.selected);
 
     const dispatch = useDispatch();
