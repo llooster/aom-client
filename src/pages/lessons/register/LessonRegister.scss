@@ -6,12 +6,17 @@
     padding: 24px;
 
     .header {
+        display: flex;
         padding: 24px 0px;
+        
         .title {
             font-size: $font-size-page-title;
             font-weight: $font-weight-page-title;
         }
-        .anticon {
+        
+        .link {
+            padding: 0px;
+            margin: 0px;
             margin-right: 6px;
         }
     }   

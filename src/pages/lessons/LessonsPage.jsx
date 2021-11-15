@@ -3,7 +3,7 @@ import { Row, Col } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { Button, Link, Table } from "../../components";
 import { removeLessons } from "../../redux/reducers/lessonsReducer";
-import "./LessonPage.scss";
+import "./LessonsPage.scss";
 
 const lessonColumns = [
     { "title": "Name",          "dataIndex": "name"         },
@@ -32,7 +32,11 @@ const HomePage = () => {
                     <span className="title">Lesson</span>
                 </Col>
                 <Col className="sub-header" span={24}>
-                    <Link to="/lessons/register">ADD</Link>
+                    <Link 
+                        to="/lessons/register"
+                        type="primary"
+                        label="ADD"
+                    />
                 </Col>
                 <Col className="body" span={24}>
                     <Table 

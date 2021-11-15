@@ -25,7 +25,7 @@ const store = createStore(
 function App() {
     return (
         <Provider store={store}>
-            <Reset />
+            {/* <Reset /> */}
             <BrowserRouter>
                 <Switch>
                     <DefaultRouter

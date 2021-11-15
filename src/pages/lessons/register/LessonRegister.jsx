@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
-import { Input, Icon, Button, Transfer } from "../../../components";
+import { Input, Icon, Button, Transfer, Link } from "../../../components";
 import { addLesson, newName, newDate, newTime, newAddress } from "../../../redux/reducers/lessonsReducer";
 import "./LessonRegister.scss";
 
@@ -85,7 +85,11 @@ const LessonRegister = (props) => {
     return  <Row className="LessonRegister">
                 <Col span={24}>
                     <Col className="header" span={24}>
-                        <Icon icon="back" />
+                        <Link
+                            to="/lessons"
+                            type="none"
+                            label={<Icon icon="back" />}
+                        />
                         <span className="title">Lesson Register</span>
                     </Col>
                     <Col className="body" span={24}>

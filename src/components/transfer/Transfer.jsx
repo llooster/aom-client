@@ -30,15 +30,15 @@ const Transfer = (props) => {
                         {header}
                     </Col>
                     <Col span={24}>
-                        {list.map((item) => {
-                            return renderLabel(item.checked, item.label);
+                        {list.map((item, index) => {
+                            return renderLabel(index, item.checked, item.label);
                         })} 
                     </Col>
                 </Col>
     }
 
-    const renderLabel = (checked, label) => {
-        return  <Col span={24}>
+    const renderLabel = (key, checked, label) => {
+        return  <Col key={key} span={24}>
                     <input type="checkbox" />
                     <label>{label}</label>
                 </Col>

@@ -25,7 +25,6 @@ const Table = (props) => {
     const renderDatas = () => {
         return  <tbody>
                     {dataSource.map((rows, index) => {
-                        console.log(rows);
                         return  <tr 
                                     key={index} 
                                     onClick={() => moveToUrl(rows.id)}
