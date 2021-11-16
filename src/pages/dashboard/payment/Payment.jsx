@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Calendar } from "../../../components";
 import { useSelector } from "react-redux";
-import PMainContent from "./PMainContent";
+import PaymentContent from "./PaymentContent";
 
 const Container = styled.div`
     /* box-sizing: border-box; */
@@ -108,7 +108,7 @@ export default function Payment() {
             </SideBar>
             <ContentBox>
                 <MainContentBox>
-                    <PMainContent value={targetLessonData || []} />
+                    <PaymentContent value={targetLessonData || []} />
                 </MainContentBox>
             </ContentBox>
         </Container>

@@ -23,21 +23,21 @@ const initLessonsState = {
             day: "MONDAY",
             time: null,
             startTime: "",
-            endTime: ""
-        }
+            endTime: "",
+        },
     ],
     selected: {
         id: 1,
         name: "First Lesson",
         day: "MONDAY",
         startTime: "",
-        endTime: ""
+        endTime: "",
     },
     newLesson: {
         name: "",
         day: "",
         startTime: "",
-        endTime: ""
+        endTime: "",
     },
     newMember: {},
 };
@@ -63,7 +63,7 @@ const lessonsReducer = handleActions(
             newLesson: {
                 ...state.newLesson,
                 startTime: action.payload.startTime,
-                endTime: action.payload.endTime
+                endTime: action.payload.endTime,
             },
         }),
         [ADD_LESSON]: (state, action) => ({

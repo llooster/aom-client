@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { changePayment } from "../../../redux/reducers/paymentReducer";
 import "../content.css";
 
-export default function PMainContent({ value }) {
+export default function PaymentContent({ value }) {
     const dispatch = useDispatch();
     // value -> clicked payment's data {key, name, members}
     const originPayments = useSelector((state) => state.payment.originPayments);
