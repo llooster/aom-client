@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Calendar } from "../../../components";
 import { useSelector } from "react-redux";
-import AMainContent from "./AMainContent";
+import AttendanceContent from "./AttendanceContent";
 
 const Container = styled.div`
     /* box-sizing: border-box; */
@@ -57,46 +57,42 @@ const MainContentBox = styled.div`
 
 const Button = styled.button`
     color: black;
-    width: 100px;
+    width: auto;
+    min-width: 120px;
     height: 30px;
 `;
 
 export default function Attendance() {
+    const attendance = useSelector((state) => state.attendance.attendance);
     const [lessons, setLessons] = useState(
-        useSelector((state) => state.attendance.lessons)
+        useSelector((state) => state.lessons.lessons)
     );
-    // lessons's State
+    // 레슨 이름이 필요. 일단 lesson.json
     const selectedDate = "TUESDAY";
     // Dummy date(selected)
 
-    // const todayLessonsData = lessons
-    //     .map((lesson) => {
-    //         if (lesson.day === selectedDate) {
-    //             return {
-    //                 key: lesson.key,
-    //                 name: lesson.name,
-    //                 members: lesson.members,
-    //             };
-    //         }
-    //     })
-    //     .filter((value) => !!value);
-    // lesson name, member 객체
     // 날짜별 레슨(이름포함)목록이 필요
     const LessonButton = () =>
         lessons.map((lesson) => (
-            <Button name={lesson} onClick={clickLesson}>
-                {lessonName.name}
+            <Button
+                name={lesson}
+                // onClick={clickLesson}
+            >
+                {lesson.name}
             </Button>
         ));
     // create lesson button
 
-    const [targetLessonData, setTargetLessonData] = useState([]);
+    const [targetLessonData, setTargetLessonData] = useState(
+        attendance.members
+    );
+    // 기본 attendance -> 오늘 날짜
     const clickLesson = (e) => {
-        let selectedLesson = lessons.filter((lesson) => {
-            return lesson.name == e.target.innerText;
-        });
-        setTargetLessonData(...selectedLesson);
+        setTargetLessonData(attendance);
     };
+
+    console.log("attendance :>> ", attendance);
+    // console.log("attendance.members :>> ", attendance.members);
     return (
         <Container>
             <Main>
@@ -108,8 +104,7 @@ export default function Attendance() {
             </SideBar>
             <ContentBox>
                 <MainContentBox>
-                    <AMainContent value={targetLessonData || []} />
-                    {/* <PMainContent value={targetLessonData || []} /> */}
+                    <AttendanceContent value={targetLessonData || []} />
                 </MainContentBox>
             </ContentBox>
         </Container>

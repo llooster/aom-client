@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
-import { Reset } from "styled-reset";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { DefaultRouter } from "./router";
@@ -10,6 +9,7 @@ import {
     LoginPage,
     RegisterPage,
     LessonsPage,
+    LessonOne,
     LessonRegister,
     MemberPage,
     Attendance,
@@ -25,7 +25,6 @@ const store = createStore(
 function App() {
     return (
         <Provider store={store}>
-            <Reset />
             <BrowserRouter>
                 <Switch>
                     <DefaultRouter
@@ -50,6 +49,12 @@ function App() {
                         exact
                         path={"/lessons/register"}
                         component={LessonRegister}
+                        layout={MainLayout}
+                    />                    
+                    <DefaultRouter
+                        exact
+                        path={"/lessons/:lessonId"}
+                        component={LessonOne}
                         layout={MainLayout}
                     />
                     <DefaultRouter

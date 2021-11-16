@@ -1,14 +1,14 @@
 @import "public/styles/Color.scss";
 @import "public/styles/Size.scss";
 
-.MemberPage {
+.LessonPage {
     width: 100%;
     height: 100%;
     overflow: auto;
     border-radius: $border-radius-page;
     
     padding: 24px;
-
+    
     .header {
         padding: 24px 0px;
         .title {
@@ -20,31 +20,11 @@
     .sub-header {
         display: flex;
         justify-content: flex-end;
-
-        .btn-add,
-        .btn-remove {
-            margin-right: 0px;
-        }
     }
 
-    .table {
+    .body {
         width: 100%;
         height: 100%;
         display: flex;
-    }
-
-    .member-modal {
-        .header {
-            margin-bottom: $margin-bottom-modal-header;
-            border-bottom: 1px solid $color-base-line;
-        }
-        .footer {
-            display: flex;
-            justify-content: flex-end;
-            
-            .btn-modal-add {
-                margin-right: 0px;
-            }
-        }
     }
 }

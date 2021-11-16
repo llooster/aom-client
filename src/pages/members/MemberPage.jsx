@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
-import MemberContent from "./content/MemberContent";
-import { ModalBox, Input, Title, Button } from "../../components";
+import { ModalBox, Input, Title, Button, Table } from "../../components";
 import {
     newName,
     newAge,
@@ -14,9 +13,14 @@ import "./MemberPage.scss";
 
 let idValue = 15;
 
+const memberColumns = [
+    { title: "Name", dataIndex: "name" },
+    { title: "Age", dataIndex: "age" },
+];
+
 const MemberPage = () => {
     const dispatch = useDispatch();
-    const members = useSelector((state) => state.members.originMembers);
+    const members = useSelector((state) => state.members.members);
     const selectedMembers = useSelector((state) => state.members.selected);
     const newbie = useSelector((state) => state.members.newbie);
     const newbieName = useSelector((state) => state.members.newbie.name);
@@ -64,48 +68,14 @@ const MemberPage = () => {
                     />
                 </Col>
                 <Col className="table" span={24}>
-                    <MemberContent />
+                    <Table
+                        columns={memberColumns}
+                        dataSource={members}
+                        moveTo={"/members"}
+                    />
+                    {/* <MemberContent /> */}
                 </Col>
             </Col>
-            <ModalBox className="member-modal" visible={modal}>
-                <Col className="header" span={24}>
-                    <Title
-                        className="title"
-                        fontSize="2rem"
-                        text="Add Member"
-                    />
-                </Col>
-                <Col className="body" span={24}>
-                    <Input
-                        type="text"
-                        value={newbieName}
-                        name="Name"
-                        placeholder="Please input name"
-                        onChange={updateName}
-                    />
-                    <Input
-                        name="Age"
-                        type="number"
-                        value={newbieAge}
-                        placeholder="Please input age"
-                        onChange={updateAge}
-                    />
-                </Col>
-                <Col className="footer" span={24}>
-                    <Button
-                        type="danger"
-                        className="btn-modal-close"
-                        label={"CLOSE"}
-                        onClick={() => setModal(false)}
-                    />
-                    <Button
-                        type="primary"
-                        className="btn-modal-add"
-                        label={"ADD"}
-                        onClick={updateMember}
-                    />
-                </Col>
-            </ModalBox>
         </Row>
     );
 };

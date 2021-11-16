@@ -2,18 +2,17 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
 import { Input, Icon, Button, Transfer, Link, Radio, RangePicker, Box } from "../../../components";
-import { addLesson, newName, newDate, newTime } from "../../../redux/reducers/lessonsReducer";
-import moment from "moment";
-import "./LessonRegister.scss";
+import { newName, newDate, newTime } from "../../../redux/reducers/lessonsReducer";
+import "./LessonOne.scss";
 
-const LessonRegister = (props) => {
+const LessonOne = (props) => {
 
     const dispatch = useDispatch();
     
-    const name          = useSelector((state) => state.lessons.newLesson.name);
-    const date          = useSelector((state) => state.lessons.newLesson.date);
-    const startTime     = useSelector((state) => state.lessons.newLesson.startTime);
-    const endTime       = useSelector((state) => state.lessons.newLesson.endTime);
+    const name          = useSelector((state) => state.lessons.selected.name);
+    const date          = useSelector((state) => state.lessons.selected.day);
+    const startTime     = useSelector((state) => state.lessons.selected.startTime);
+    const endTime       = useSelector((state) => state.lessons.selected.endTime);
 
     const updateInputValue = (e) => {
         let value = e.currentTarget.value;
@@ -79,17 +78,7 @@ const LessonRegister = (props) => {
             </Box>
     }
 
-    const registerLesson = () => {
-        let lesson = {
-            name: name,
-            date: date,
-            startTime: startTime,
-            endTime: endTime
-        }
-        console.log(lesson);
-    }
-
-    return  <Row className="LessonRegister">
+    return  <Row className="LessonOne">
                 <Col span={24}>
                     <Col className="header" span={24}>
                         <Link
@@ -106,10 +95,11 @@ const LessonRegister = (props) => {
                         { renderTransfer() }
                     </Col>
                     <Col className="footer" span={24}>
-                        <Button className="btn-register" label="REGISTER" onClick={registerLesson}/>
+                        <Button className="btn-delete" type="danger" label="DELETE" />
+                        <Button label="UPDATE"/>
                     </Col>
                 </Col>
             </Row>
 }
 
-export default LessonRegister;
+export default LessonOne;

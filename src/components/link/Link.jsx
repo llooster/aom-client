@@ -6,7 +6,7 @@ const Link = (props) => {
     
     const { 
         className = "",
-        type = "primary", 
+        type,
         to = undefined,
         label
     } = props;

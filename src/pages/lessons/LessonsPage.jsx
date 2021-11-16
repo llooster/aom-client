@@ -1,27 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { Row, Col } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Link } from "../../components";
-import { removeLessons } from "../../redux/reducers/lessonsReducer";
-import LessonContent from "./content/LessonContent";
-import "./LessonPage.scss";
-// import API_GET_LESSONS from "./apis/GET_LESSONS.json";
+import { Link, Table } from "../../components";
+import "./LessonsPage.scss";
+
+const lessonColumns = [
+    { "title": "Name",          "dataIndex": "name"         },
+    { "title": "Day",           "dataIndex": "day"          },
+    { "title": "Start Time",    "dataIndex": "startTime"    },
+    { "title": "End Time",      "dataIndex": "endTime"      }
+];
 
 const HomePage = () => {
-    const lessons = useSelector((state) => state.lessons.originLessons);
-    const selectedLessons = useSelector((state) => state.lessons.selected);
-
+    
+    const lessons = useSelector((state) => state.lessons.lessons);
     const dispatch = useDispatch();
-
-    const remove = () => {
-        let updatedLessons = lessons.filter(
-            (item) => !selectedLessons.includes(item)
-        );
-        dispatch(removeLessons({ updatedLessons: updatedLessons }));
-    };
-
-    // console.log("Response of 'GET /lessons' : ", API_GET_LESSONS);
-
+    
     return (
         <Row className="LessonPage">
             <Col span={24}>
@@ -29,16 +23,18 @@ const HomePage = () => {
                     <span className="title">Lesson</span>
                 </Col>
                 <Col className="sub-header" span={24}>
-                    <Button
-                        className="btn-remove"
-                        type="danger"
-                        label="REMOVE"
-                        onClick={remove}
+                    <Link 
+                        to="/lessons/register"
+                        type="primary"
+                        label="ADD"
                     />
-                    <Link to="/lessons/register">ADD</Link>
                 </Col>
-                <Col className="table" span={24}>
-                    <LessonContent />
+                <Col className="body" span={24}>
+                    <Table 
+                        columns={lessonColumns}
+                        dataSource={lessons}
+                        moveTo={"/lessons"}
+                    />
                 </Col>
             </Col>
         </Row>

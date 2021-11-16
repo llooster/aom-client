@@ -1,7 +1,7 @@
 @import "public/styles/Color.scss";
 @import "public/styles/Size.scss";
 
-.LessonRegister {
+.LessonOne {
 
     padding: 24px;
 
@@ -26,7 +26,9 @@
     }
 
     .footer {
-        .btn-register {
+        display: flex;
+
+        .btn-delete {
             margin-left: auto;
         }
     }
