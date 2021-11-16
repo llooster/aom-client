@@ -63,28 +63,28 @@ const Button = styled.button`
 
 export default function Attendance() {
     const [lessons, setLessons] = useState(
-        useSelector((state) => state.lessons.originLessons)
+        useSelector((state) => state.attendance.lessons)
     );
     // lessons's State
-    const selectedDate = "목요일";
+    const selectedDate = "TUESDAY";
     // Dummy date(selected)
 
-    const todayLessonsData = lessons
-        .map((lesson) => {
-            if (lesson.date === selectedDate) {
-                return {
-                    key: lesson.key,
-                    name: lesson.name,
-                    members: lesson.members,
-                };
-            }
-        })
-        .filter((value) => !!value);
+    // const todayLessonsData = lessons
+    //     .map((lesson) => {
+    //         if (lesson.day === selectedDate) {
+    //             return {
+    //                 key: lesson.key,
+    //                 name: lesson.name,
+    //                 members: lesson.members,
+    //             };
+    //         }
+    //     })
+    //     .filter((value) => !!value);
     // lesson name, member 객체
-
+    // 날짜별 레슨(이름포함)목록이 필요
     const LessonButton = () =>
-        todayLessonsData.map((lessonName) => (
-            <Button name={lessonName} onClick={clickLesson}>
+        lessons.map((lesson) => (
+            <Button name={lesson} onClick={clickLesson}>
                 {lessonName.name}
             </Button>
         ));
@@ -92,7 +92,7 @@ export default function Attendance() {
 
     const [targetLessonData, setTargetLessonData] = useState([]);
     const clickLesson = (e) => {
-        let selectedLesson = todayLessonsData.filter((lesson) => {
+        let selectedLesson = lessons.filter((lesson) => {
             return lesson.name == e.target.innerText;
         });
         setTargetLessonData(...selectedLesson);

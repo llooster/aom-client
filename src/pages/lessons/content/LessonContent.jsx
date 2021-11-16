@@ -13,14 +13,7 @@ export default function LessonContent(props) {
     const dispatch = useDispatch();
 
     //레슨들
-    const lessons = useSelector((state) => state.lessons.originLessons);
-
-    // const students = lessons.map((lesson) => ({
-    //     key: lesson.key,
-    //     members: lesson.members,
-    // }));
-
-    // const members = lessons.map((lesson) => lesson.members);
+    const lessons = useSelector((state) => state.lessons.lessons);
 
     const clickLesson = (e) => {
         setTransfer(true);
@@ -42,20 +35,20 @@ export default function LessonContent(props) {
             ),
         },
         {
-            title: "Date",
-            dataIndex: "date",
+            title: "Day",
+            dataIndex: "day",
         },
         {
             title: "Time",
             dataIndex: "time",
         },
-        {
-            title: "Address",
-            dataIndex: "address",
-        },
+        // {
+        //     title: "Address",
+        //     dataIndex: "address",
+        // },
         {
             title: "Students",
-            dataIndex: "members",
+            dataIndex: "",
             render: (text) => {
                 setIncludedMembers(text);
                 return <a>{`${text.length}`}</a>;
@@ -67,11 +60,17 @@ export default function LessonContent(props) {
         onChange: (selectedRowKeys, selectedRows) => {
             dispatch(selectLessons({ selectedLessons: selectedRows }));
         },
-        getCheckboxProps: (record) => ({
-            name: record.name,
-        }),
+        getCheckboxProps: (record) => {
+            console.log("record :>> ", record);
+            return {
+                name: record.name,
+            };
+        },
     };
-
+    console.log(
+        "selectedLesson :>> ",
+        useSelector((state) => state.lessons.lessons)
+    );
     return (
         <>
             <Table
