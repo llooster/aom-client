@@ -106,7 +106,7 @@ const LessonRegister = (props) => {
                         { renderTransfer() }
                     </Col>
                     <Col className="footer" span={24}>
-                        <Button label="REGISTER" onClick={registerLesson}/>
+                        <Button className="btn-register" label="REGISTER" onClick={registerLesson}/>
                     </Col>
                 </Col>
             </Row>

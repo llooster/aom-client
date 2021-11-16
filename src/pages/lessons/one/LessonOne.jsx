@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
-import { Input, Icon, Button, Transfer, Link } from "../../../components";
+import { Input, Icon, Button, Transfer, Link, Radio, RangePicker, Box } from "../../../components";
 import { newName, newDate, newTime } from "../../../redux/reducers/lessonsReducer";
 import "./LessonOne.scss";
 
@@ -9,50 +9,19 @@ const LessonOne = (props) => {
 
     const dispatch = useDispatch();
     
-    const lessonOne = useSelector((state) => state.lessons.one);
-    const name      = lessonOne.name;
-    const day       = lessonOne.day;
-    const startTime = lessonOne.startTime;
-    const endTime   = lessonOne.endTime;
+    const name          = useSelector((state) => state.lessons.selected.name);
+    const date          = useSelector((state) => state.lessons.selected.day);
+    const startTime     = useSelector((state) => state.lessons.selected.startTime);
+    const endTime       = useSelector((state) => state.lessons.selected.endTime);
 
     const updateInputValue = (e) => {
-        let id = e.currentTarget.id;
         let value = e.currentTarget.value;
-        let func = {
-            name: newName,
-            date: newDate,
-            time: newTime,
-        };
-        dispatch(
-            func[id]({
-                [`${id}`]: value,
-            })
-        );
+        dispatch(newName({ "name": value }));
     };
 
     const renderInputs = () => {
         let inputValues = [
-            {
-                id: "name",
-                type: "text",
-                value: name,
-                name: "Class Name",
-                placehoder: "Please input name",
-            },
-            {
-                id: "date",
-                type: "text",
-                value: day,
-                name: "Lesson Date",
-                placehoder: "Please input date",
-            },
-            {
-                id: "time",
-                type: "text",
-                value: startTime,
-                name: "Lesson Time",
-                placehoder: "Please input time",
-            }
+            { id: "name", type: "text", value: name, name: "Class", placehoder: "", }
         ];
 
         return inputValues.map((input, index) => (
@@ -68,8 +37,45 @@ const LessonOne = (props) => {
         ));
     };
 
+    const onRadio = (e) => {
+        let value = e.target.value;
+        dispatch(newDate({ "date": value }));
+    }
+
+    const renderRadio = () => {
+        const buttons = [
+            { value: "MONDAY",      label: "MON" },
+            { value: "TUESDAY",     label: "TUE" },
+            { value: "WEDNESDAY",   label: "WED" },
+            { value: "THURSDAY",    label: "THR" },
+            { value: "FRIDAY",      label: "FRI" },
+            { value: "SATURDAY",    label: "SAT" },
+            { value: "SUNDAY",      label: "SUN" }
+        ];
+        return <Box label="Day of week">
+                <Radio value={date} buttons={buttons} onChange={onRadio}/>
+            </Box>
+    }
+
+    const onTime = (time) => {
+        let start   = time[0];
+        let end     = time[1];
+        dispatch(newTime({ 
+            startTime: start,
+            endTime: end    
+        }));
+    }
+    
+    const renderTimePicker = () => {
+        return <Box label="Start & End Time">
+                <RangePicker value={[startTime, endTime]} onChange={onTime}/>
+            </Box>
+    }
+
     const renderTransfer = () => {
-        return <Transfer />
+        return <Box label="Add Members">
+                <Transfer />
+            </Box>
     }
 
     return  <Row className="LessonOne">
@@ -80,10 +86,12 @@ const LessonOne = (props) => {
                             type="none"
                             label={<Icon icon="back" />}
                         />
-                        <span className="title">{name}</span>
+                        <span className="title">Lesson Register</span>
                     </Col>
                     <Col className="body" span={24}>
                         { renderInputs() }
+                        { renderRadio() }
+                        { renderTimePicker() }
                         { renderTransfer() }
                     </Col>
                     <Col className="footer" span={24}>

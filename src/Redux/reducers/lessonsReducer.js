@@ -1,4 +1,5 @@
 import { handleActions, createAction } from "redux-actions";
+import moment from "moment";
 
 const NEW_NAME = "NEW_NAME";
 const NEW_DATE = "NEW_DATE";
@@ -21,16 +22,16 @@ const initLessonsState = {
             name: "First Lesson",
             day: "MONDAY",
             time: null,
-            startTime: "12:00",
-            endTime: "13:00"
+            startTime: "",
+            endTime: ""
         }
     ],
     selected: {
         id: 1,
         name: "First Lesson",
         day: "MONDAY",
-        startTime: "12:00",
-        endTime: "13:00"
+        startTime: "",
+        endTime: ""
     },
     newLesson: {
         name: "",
