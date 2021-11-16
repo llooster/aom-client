@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
 import { Input, Icon, Button, Transfer, Link } from "../../../components";
-import { addLesson, newName, newDate, newTime, newAddress } from "../../../redux/reducers/lessonsReducer";
+import { newName, newDate, newTime } from "../../../redux/reducers/lessonsReducer";
 import "./LessonOne.scss";
 
 const LessonOne = (props) => {
@@ -22,7 +22,6 @@ const LessonOne = (props) => {
             name: newName,
             date: newDate,
             time: newTime,
-            address: newAddress,
         };
         dispatch(
             func[id]({
@@ -53,14 +52,7 @@ const LessonOne = (props) => {
                 value: startTime,
                 name: "Lesson Time",
                 placehoder: "Please input time",
-            },
-            {
-                id: "address",
-                type: "text",
-                value: endTime,
-                name: "Lesson Address",
-                placehoder: "Please input address",
-            },
+            }
         ];
 
         return inputValues.map((input, index) => (

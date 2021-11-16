@@ -1,66 +1,28 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
-import { Input, Icon, Button, Transfer, Link, Radio, Box } from "../../../components";
-import { addLesson, newName, newDate, newTime, newAddress } from "../../../redux/reducers/lessonsReducer";
+import { Input, Icon, Button, Transfer, Link, Radio, RangePicker, Box } from "../../../components";
+import { addLesson, newName, newDate, newTime } from "../../../redux/reducers/lessonsReducer";
+import moment from "moment";
 import "./LessonRegister.scss";
 
 const LessonRegister = (props) => {
 
     const dispatch = useDispatch();
     
-    const name = useSelector((state) => state.lessons.newLesson.name);
-    const date = useSelector((state) => state.lessons.newLesson.date);
-    const time = useSelector((state) => state.lessons.newLesson.time);
-    const address = useSelector((state) => state.lessons.newLesson.address);
-    const newLesson = useSelector((state) => state.lessons.newLesson);
+    const name          = useSelector((state) => state.lessons.newLesson.name);
+    const date          = useSelector((state) => state.lessons.newLesson.date);
+    const startTime     = useSelector((state) => state.lessons.newLesson.startTime);
+    const endTime       = useSelector((state) => state.lessons.newLesson.endTime);
 
     const updateInputValue = (e) => {
-        let id = e.currentTarget.id;
         let value = e.currentTarget.value;
-        let func = {
-            name: newName,
-            date: newDate,
-            time: newTime,
-            address: newAddress,
-        };
-        dispatch(
-            func[id]({
-                [`${id}`]: value,
-            })
-        );
+        dispatch(newName({ "name": value }));
     };
 
     const renderInputs = () => {
         let inputValues = [
-            {
-                id: "name",
-                type: "text",
-                value: name,
-                name: "Class Name",
-                placehoder: "Please input name",
-            },
-            {
-                id: "date",
-                type: "text",
-                value: date,
-                name: "Lesson Date",
-                placehoder: "Please input date",
-            },
-            {
-                id: "time",
-                type: "text",
-                value: time,
-                name: "Lesson Time",
-                placehoder: "Please input time",
-            },
-            {
-                id: "address",
-                type: "text",
-                value: address,
-                name: "Lesson Address",
-                placehoder: "Please input address",
-            },
+            { id: "name", type: "text", value: name, name: "Class", placehoder: "", }
         ];
 
         return inputValues.map((input, index) => (
@@ -77,7 +39,8 @@ const LessonRegister = (props) => {
     };
 
     const onRadio = (e) => {
-        console.log("Radio : ", e.target.value);
+        let value = e.target.value;
+        dispatch(newDate({ "date": value }));
     }
 
     const renderRadio = () => {
@@ -90,13 +53,40 @@ const LessonRegister = (props) => {
             { value: "SATURDAY",    label: "SAT" },
             { value: "SUNDAY",      label: "SUN" }
         ];
-        return <Box label="Select Day of week of Lesson">
-                <Radio buttons={buttons} onChange={onRadio}/>
+        return <Box label="Day of week">
+                <Radio value={date} buttons={buttons} onChange={onRadio}/>
+            </Box>
+    }
+
+    const onTime = (time) => {
+        let start   = time[0];
+        let end     = time[1];
+        dispatch(newTime({ 
+            startTime: start,
+            endTime: end    
+        }));
+    }
+    
+    const renderTimePicker = () => {
+        return <Box label="Start & End Time">
+                <RangePicker value={[startTime, endTime]} onChange={onTime}/>
             </Box>
     }
 
     const renderTransfer = () => {
-        return <Transfer />
+        return <Box label="Add Members">
+                <Transfer />
+            </Box>
+    }
+
+    const registerLesson = () => {
+        let lesson = {
+            name: name,
+            date: date,
+            startTime: startTime,
+            endTime: endTime
+        }
+        console.log(lesson);
     }
 
     return  <Row className="LessonRegister">
@@ -112,10 +102,11 @@ const LessonRegister = (props) => {
                     <Col className="body" span={24}>
                         { renderInputs() }
                         { renderRadio() }
+                        { renderTimePicker() }
                         { renderTransfer() }
                     </Col>
                     <Col className="footer" span={24}>
-                        <Button label="REGISTER"/>
+                        <Button label="REGISTER" onClick={registerLesson}/>
                     </Col>
                 </Col>
             </Row>

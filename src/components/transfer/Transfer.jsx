@@ -27,9 +27,6 @@ const Transfer = (props) => {
 
         return  <Col span={12}>
                     <Col span={24}>
-                        {header}
-                    </Col>
-                    <Col span={24}>
                         {list.map((item, index) => {
                             return renderLabel(index, item.checked, item.label);
                         })} 
@@ -46,9 +43,6 @@ const Transfer = (props) => {
 
     return  <Row className="Transfer">
                 <Col className="transfer-header" span={24}>
-                    Join to Lesson
-                </Col>
-                <Col className="transfer-subheader" span={24}>
                     <button>JOIN</button>
                     <button>JOIN</button>
                 </Col>

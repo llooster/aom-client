@@ -12,8 +12,12 @@ const Radio = (props) => {
     const { value, buttons, onChange } = props;
 
     const renderButtons = () =>{
-        return buttons.map((button) => {
-            return <AntdRadio.Button value={button.value}>{button.label}</AntdRadio.Button>
+        return buttons.map((button, index) => {
+            return <AntdRadio.Button 
+                    key={index}
+                    value={button.value}>
+                        {button.label}
+                </AntdRadio.Button>
         })
     }
 

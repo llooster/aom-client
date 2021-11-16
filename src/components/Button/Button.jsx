@@ -7,10 +7,7 @@ const Button = (props) => {
         type = "primary",
         label,
         onClick,
-        history
     } = props;
-
-    console.log("History : ", history);
 
     return (
         <button className={[className, "btn", type].join(" ")} onClick={onClick}>
