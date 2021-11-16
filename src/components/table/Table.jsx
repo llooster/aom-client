@@ -15,7 +15,7 @@ const Table = (props) => {
     const renderHeader = () => {
         return  <thead>
                     <tr>
-                        {columns.map((col, index) => {
+                        {columns && columns.map((col, index) => {
                             return <th key={index}>{col.title}</th>
                         })}
                     </tr>
@@ -24,7 +24,7 @@ const Table = (props) => {
 
     const renderDatas = () => {
         return  <tbody>
-                    {dataSource.map((rows, index) => {
+                    {dataSource && dataSource.map((rows, index) => {
                         return  <tr 
                                     key={index} 
                                     onClick={() => moveToUrl(`${moveTo}/${rows.id}`)}

@@ -1,27 +1,20 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from 'antd';
-import MemberContent from "./content/MemberContent";
-import {
-    ModalBox,
-    Input,
-    Title,
-    Button
-} from "../../components";
-import {
-    newName,
-    newAge,
-    newId,
-    addMember,
-    removeMember,
-} from "../../redux/reducers/membersReducer";
+import { ModalBox, Input, Title, Button, Table } from "../../components";
+import { newName, newAge, newId, addMember, removeMember, } from "../../redux/reducers/membersReducer";
 import "./MemberPage.scss";
 
 let idValue = 15;
 
+const memberColumns = [
+    { "title": "Name",          "dataIndex": "name"         },
+    { "title": "Age",           "dataIndex": "age"          },
+];
+
 const MemberPage = () => {
     const dispatch = useDispatch();
-    const members = useSelector((state) => state.members.originMembers);
+    const members = useSelector((state) => state.members.members);
     const selectedMembers = useSelector((state) => state.members.selected);
     const newbie = useSelector((state) => state.members.newbie);
     const newbieName = useSelector((state) => state.members.newbie.name);
@@ -58,7 +51,12 @@ const MemberPage = () => {
                         <Button className="btn-add" label="ADD MEMBER" onClick={() => setModal(true)}/>
                     </Col>
                     <Col className="table" span={24}>
-                        <MemberContent />
+                        <Table 
+                            columns={memberColumns}
+                            dataSource={members}
+                            moveTo={"/members"}
+                        />
+                        {/* <MemberContent /> */}
                     </Col>
                 </Col>
                 <ModalBox className="member-modal" visible={modal}>
