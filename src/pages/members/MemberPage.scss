@@ -7,8 +7,10 @@
     overflow: auto;
     border-radius: $border-radius-page;
     
+    padding: 24px;
+
     .header {
-        padding: 24px;
+        padding: 24px 0px;
         .title {
             font-size: $font-size-page-title;
             font-weight: $font-weight-page-title;

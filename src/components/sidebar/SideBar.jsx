@@ -10,7 +10,7 @@ const menus = {
     ],
     "manage": [
         { "path": "/lessons", "key": "lessons", "icon": "form", "label": "Lesson" },
-        { "path": "/members", "key": "memebers", "icon": "user", "label": "Member" }
+        { "path": "/members", "key": "members", "icon": "user", "label": "Member" }
     ]
 }
 
