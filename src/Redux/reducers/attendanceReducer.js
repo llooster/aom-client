@@ -1,9 +1,8 @@
-import React, { useState } from "react";
 import { handleActions, createAction } from "redux-actions";
 
-const CHANGE_ATT = "CHANGE_ATT";
+const UPDATE_ATT = "UPDATE_ATT";
 
-export const changeAtt = createAction(CHANGE_ATT);
+export const updateWeek = createAction(UPDATE_ATT);
 
 // 이름 key값도 필요할 것 같음
 // 하루에 여러 레슨이 있을 수 있으니 lessons은 배열이면 좋을 것 같음
@@ -15,30 +14,30 @@ const initState = {
         members: [
             {
                 id: 1,
-                name: "Hangyeol",
+                name: "Lee",
                 attendances: [
                     {
-                        id: 6,
+                        id: 1,
                         date: "2021-11-01",
                         state: "UNDEFINED",
                     },
                     {
-                        id: 7,
+                        id: 2,
                         date: "2021-11-08",
-                        state: "UNDEFINED",
+                        state: "Att",
                     },
                     {
-                        id: 8,
+                        id: 3,
                         date: "2021-11-15",
                         state: "UNDEFINED",
                     },
                     {
-                        id: 9,
+                        id: 4,
                         date: "2021-11-22",
                         state: "UNDEFINED",
                     },
                     {
-                        id: 10,
+                        id: 5,
                         date: "2021-11-29",
                         state: "UNDEFINED",
                     },
@@ -82,10 +81,12 @@ const initState = {
 
 const attendanceReducer = handleActions(
     {
-        [CHANGE_ATT]: (state, action) => ({
+        [UPDATE_ATT]: (state, action) => ({
             ...state,
-            originAttendances: action.payload.updatedAttendances,
-            // [action.payload.dummy...]: action.payload.updatedAttendances,
+            attendance: {
+                ...state.attendance,
+                members: action.payload.update,
+            },
         }),
     },
     initState

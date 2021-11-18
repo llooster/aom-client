@@ -33,10 +33,6 @@ const columns = [
 export default function MemberContent(props) {
     const dispatch = useDispatch();
     const members = useSelector((state) => state.members.members);
-
-    const checking = (e) => {
-        dispatch(getMember({ selectedMembers: e }));
-    };
     const getId = (ids) => {
         let recentMember = ids.map((id) => members[id - 1]);
         console.log("recentMember :>> ", recentMember);

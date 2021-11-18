@@ -1,28 +1,45 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
-import { Input, Icon, Button, Transfer, Link, Radio, RangePicker, Box } from "../../../components";
-import { addLesson, newName, newDate, newTime } from "../../../redux/reducers/lessonsReducer";
-import moment from "moment";
+import {
+    Input,
+    Icon,
+    Button,
+    Transfer,
+    Link,
+    Radio,
+    RangePicker,
+    Box,
+} from "../../../components";
+import {
+    newName,
+    newDate,
+    newTime,
+} from "../../../redux/reducers/lessonsReducer";
 import "./LessonRegister.scss";
 
 const LessonRegister = (props) => {
-
     const dispatch = useDispatch();
-    
-    const name          = useSelector((state) => state.lessons.newLesson.name);
-    const date          = useSelector((state) => state.lessons.newLesson.date);
-    const startTime     = useSelector((state) => state.lessons.newLesson.startTime);
-    const endTime       = useSelector((state) => state.lessons.newLesson.endTime);
+
+    const name = useSelector((state) => state.lessons.newLesson.name);
+    const date = useSelector((state) => state.lessons.newLesson.date);
+    const startTime = useSelector((state) => state.lessons.newLesson.startTime);
+    const endTime = useSelector((state) => state.lessons.newLesson.endTime);
 
     const updateInputValue = (e) => {
         let value = e.currentTarget.value;
-        dispatch(newName({ "name": value }));
+        dispatch(newName({ name: value }));
     };
 
     const renderInputs = () => {
         let inputValues = [
-            { id: "name", type: "text", value: name, name: "Class", placehoder: "", }
+            {
+                id: "name",
+                type: "text",
+                value: name,
+                name: "Class",
+                placehoder: "",
+            },
         ];
 
         return inputValues.map((input, index) => (
@@ -40,76 +57,90 @@ const LessonRegister = (props) => {
 
     const onRadio = (e) => {
         let value = e.target.value;
-        dispatch(newDate({ "date": value }));
-    }
+        dispatch(newDate({ date: value }));
+    };
 
     const renderRadio = () => {
         const buttons = [
-            { value: "MONDAY",      label: "MON" },
-            { value: "TUESDAY",     label: "TUE" },
-            { value: "WEDNESDAY",   label: "WED" },
-            { value: "THURSDAY",    label: "THR" },
-            { value: "FRIDAY",      label: "FRI" },
-            { value: "SATURDAY",    label: "SAT" },
-            { value: "SUNDAY",      label: "SUN" }
+            { value: "MONDAY", label: "MON" },
+            { value: "TUESDAY", label: "TUE" },
+            { value: "WEDNESDAY", label: "WED" },
+            { value: "THURSDAY", label: "THR" },
+            { value: "FRIDAY", label: "FRI" },
+            { value: "SATURDAY", label: "SAT" },
+            { value: "SUNDAY", label: "SUN" },
         ];
-        return <Box label="Day of week">
-                <Radio value={date} buttons={buttons} onChange={onRadio}/>
+        return (
+            <Box label="Day of week">
+                <Radio value={date} buttons={buttons} onChange={onRadio} />
             </Box>
-    }
+        );
+    };
 
     const onTime = (time) => {
-        let start   = time[0];
-        let end     = time[1];
-        dispatch(newTime({ 
-            startTime: start,
-            endTime: end    
-        }));
-    }
-    
+        let start = time[0];
+        let end = time[1];
+        dispatch(
+            newTime({
+                startTime: start,
+                endTime: end,
+            })
+        );
+    };
+
     const renderTimePicker = () => {
-        return <Box label="Start & End Time">
-                <RangePicker value={[startTime, endTime]} onChange={onTime}/>
+        return (
+            <Box label="Start & End Time">
+                <RangePicker value={[startTime, endTime]} onChange={onTime} />
             </Box>
-    }
+        );
+    };
 
     const renderTransfer = () => {
-        return <Box label="Add Members">
+        return (
+            <Box label="Add Members">
                 <Transfer />
             </Box>
-    }
+        );
+    };
 
     const registerLesson = () => {
         let lesson = {
             name: name,
             date: date,
             startTime: startTime,
-            endTime: endTime
-        }
+            endTime: endTime,
+        };
         console.log(lesson);
-    }
+    };
 
-    return  <Row className="LessonRegister">
-                <Col span={24}>
-                    <Col className="header" span={24}>
-                        <Link
-                            to="/lessons"
-                            type="none"
-                            label={<Icon icon="back" />}
-                        />
-                        <span className="title">Lesson Register</span>
-                    </Col>
-                    <Col className="body" span={24}>
-                        { renderInputs() }
-                        { renderRadio() }
-                        { renderTimePicker() }
-                        { renderTransfer() }
-                    </Col>
-                    <Col className="footer" span={24}>
-                        <Button className="btn-register" label="REGISTER" onClick={registerLesson}/>
-                    </Col>
+    return (
+        <Row className="LessonRegister">
+            <Col span={24}>
+                <Col className="header" span={24}>
+                    <Link
+                        to="/lessons"
+                        type="none"
+                        label={<Icon icon="back" />}
+                    />
+                    <span className="title">Lesson Register</span>
                 </Col>
-            </Row>
-}
+                <Col className="body" span={24}>
+                    {renderInputs()}
+                    {renderRadio()}
+                    {renderTimePicker()}
+                    {renderTransfer()}
+                </Col>
+                <Col className="footer" span={24}>
+                    <Button
+                        className="btn-register"
+                        label="REGISTER"
+                        onClick={registerLesson}
+                    />
+                </Col>
+            </Col>
+        </Row>
+    );
+};
 
 export default LessonRegister;

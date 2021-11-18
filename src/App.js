@@ -50,7 +50,7 @@ function App() {
                         path={"/lessons/register"}
                         component={LessonRegister}
                         layout={MainLayout}
-                    />                    
+                    />
                     <DefaultRouter
                         exact
                         path={"/lessons/:lessonId"}
