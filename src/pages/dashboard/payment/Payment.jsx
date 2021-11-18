@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import PaymentContent from "./PaymentContent";
 
 const Container = styled.div`
-    /* box-sizing: border-box; */
     display: grid;
     width: 100%;
     height: 100%;
@@ -19,14 +18,11 @@ const Container = styled.div`
     grid-template-areas:
         "main main main main"
         "sidebar content content content";
-    /* "sidebar content content content"; */
     text-align: center;
     grid-gap: 5px;
 `;
 
 const Main = styled.main`
-    background: rgba(170, 200, 170, 0.2);
-    /* height: 30%; */
     border-radius: 20px;
     color: white;
     height: 100%;
@@ -34,7 +30,6 @@ const Main = styled.main`
     padding: 0.25rem;
 `;
 const SideBar = styled.div`
-    background: rgba(170, 200, 170, 0.2);
     border-radius: 20px;
     grid-area: sidebar;
     padding: 0.4rem;
@@ -49,7 +44,6 @@ const ContentBox = styled.div`
     justify-content: center;
 `;
 const MainContentBox = styled.div`
-    background: rgba(170, 200, 170, 0.2);
     padding: 0.25rem;
     width: 100%;
     height: 100%;
@@ -57,50 +51,32 @@ const MainContentBox = styled.div`
 
 const Button = styled.button`
     color: black;
-    width: 100px;
+    width: auto;
+    min-width: 120px;
     height: 30px;
 `;
 
 export default function Payment() {
+    const payment = useSelector((state) => state.payment.payment);
     const [lessons, setLessons] = useState(
         useSelector((state) => state.lessons.lessons)
     );
-    // lessons's State
-    const selectedDate = "목요일";
-    // Dummy date(selected)
-
-    const todayLessonsData = lessons
-        .map((lesson) => {
-            if (lesson.date === selectedDate) {
-                return {
-                    key: lesson.key,
-                    name: lesson.name,
-                    members: lesson.members,
-                };
-            }
-        })
-        .filter((value) => !!value);
-    // lesson name, member 객체
 
     const LessonButton = () =>
-        todayLessonsData.map((lessonName) => (
-            <Button name={lessonName} onClick={clickLesson}>
-                {lessonName.name}
+        lessons.map((lesson) => (
+            <Button name={lesson} onClick={clickLesson}>
+                {lesson.name}
             </Button>
         ));
     // create lesson button
 
-    const [targetLessonData, setTargetLessonData] = useState([]);
     const clickLesson = (e) => {
-        let selectedLesson = todayLessonsData.filter((lesson) => {
-            return lesson.name == e.target.innerText;
-        });
-        setTargetLessonData(...selectedLesson);
+        // setTargetLessonData(Payment);
     };
     return (
         <Container>
             <Main>
-                <Link to="/dashboard/attendance">Attendance</Link>
+                <Link to="/dashboard/attendance">{"Attendance"}</Link>
             </Main>
             <SideBar>
                 <Calendar></Calendar>
@@ -108,7 +84,7 @@ export default function Payment() {
             </SideBar>
             <ContentBox>
                 <MainContentBox>
-                    <PaymentContent value={targetLessonData || []} />
+                    <PaymentContent value={payment.members} />
                 </MainContentBox>
             </ContentBox>
         </Container>

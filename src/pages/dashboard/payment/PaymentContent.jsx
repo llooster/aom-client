@@ -1,59 +1,47 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { changePayment } from "../../../redux/reducers/paymentReducer";
-import "../content.css";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { updatePayment } from "../../../redux/reducers/paymentReducer";
 
+const paymentRenderValue = {
+    Paid: "Paid",
+    Yet: "Yet",
+};
+let toggleNum = 1;
 export default function PaymentContent({ value }) {
     const dispatch = useDispatch();
-    // value -> clicked payment's data {key, name, members}
-    const originPayments = useSelector((state) => state.payment.originPayments);
-    const key = value.key;
-    const membersPayment = originPayments[key];
-
     const headerTags = () =>
-        Array(12)
-            .fill()
-            .map((each, index) => <div class="part">{`${index + 1}월`}</div>);
+        value[0].payments.map((each, index) => (
+            <a class="part" type={index} onClick={updatedWeek}>{`${
+                index + 1
+            }월`}</a>
+        ));
+    // 가로 이름, 세로 주차 하면 어떨지
+    const updatedWeek = (e) => {
+        var updatedValue = [...value];
+        const week = e.target.type;
+        updatedValue.map(
+            (member) =>
+                (member.payments[week].state =
+                    toggleNum % 2 === 0
+                        ? paymentRenderValue.Yet
+                        : paymentRenderValue.Paid)
+        );
+        toggleNum++;
+        dispatch(updatePayment({ update: updatedValue }));
+    };
+    const updatedEach = (e) => {
+        const member = e.target.dataset.member;
+        const week = e.target.dataset.week;
+        var updatedValue = [...value];
+        updatedValue[member].payments[week].state =
+            updatedValue[member].payments[week].state ===
+            paymentRenderValue.Paid
+                ? paymentRenderValue.Yet
+                : paymentRenderValue.Paid;
+        dispatch(updatePayment({ update: updatedValue }));
+    };
 
-    const listTags = (index1, id) =>
-        Array(12)
-            .fill()
-            .map((each, index2) => (
-                <a
-                    class="part"
-                    id={index1}
-                    data-month={index2}
-                    onClick={clickPayment}
-                >
-                    {membersPayment[index1].payment[index2] || ""}
-                </a>
-            ));
-    const clickPayment = (e) => {
-        let newOriginPayment = { ...originPayments };
-        let updatedAtt =
-            originPayments[key][e.target.id].payment[e.target.dataset.month] ==
-            "payed"
-                ? "yet"
-                : "payed";
-        // toggle 방식
-        newOriginPayment[key][e.target.id].payment[
-            e.target.dataset.month
-        ] = updatedAtt;
-        dispatch(changePayment({ updatedPayments: newOriginPayment }));
-    };
-    const clickAll = (e) => {
-        let newOriginPayment = { ...originPayments };
-        let updatedAtt =
-            originPayments[key][e.target.dataset.member].payment[0] == "yet"
-                ? Array(12)
-                      .fill()
-                      .map((each, index) => "payed")
-                : Array(12)
-                      .fill()
-                      .map((each, index) => "yet");
-        newOriginPayment[key][e.target.dataset.member].payment = updatedAtt;
-        dispatch(changePayment({ updatedPayments: newOriginPayment }));
-    };
+    // 배열의 인덱스> vs id 값?  >> 로직
     return (
         <div class="contentWrapper">
             <div class="rowsWrapper">
@@ -61,13 +49,22 @@ export default function PaymentContent({ value }) {
                 {headerTags()}
                 <div class="part">all</div>
             </div>
-            {(value.members || []).map((member, index) => (
+            {value.map((member, index1) => (
                 <div class="rowsWrapper">
-                    <div class="part">{member.name}</div>
-                    {listTags(index, member.id)}
-                    <a class="part" data-member={index} onClick={clickAll}>
-                        {"all"}
-                    </a>
+                    <div class="part">{member.name || ""}</div>
+                    {member.payments.map((payment, index2) => {
+                        return (
+                            <a
+                                class="part"
+                                data-member={index1}
+                                data-week={index2}
+                                onClick={updatedEach}
+                            >
+                                {payment.state}
+                            </a>
+                        );
+                    })}
+                    <a class="part">{"all"}</a>
                 </div>
             ))}
         </div>

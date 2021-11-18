@@ -67,32 +67,20 @@ export default function Attendance() {
     const [lessons, setLessons] = useState(
         useSelector((state) => state.lessons.lessons)
     );
-    // 레슨 이름이 필요. 일단 lesson.json
     const selectedDate = "TUESDAY";
     // Dummy date(selected)
 
-    // 날짜별 레슨(이름포함)목록이 필요
     const LessonButton = () =>
         lessons.map((lesson) => (
-            <Button
-                name={lesson}
-                // onClick={clickLesson}
-            >
+            <Button name={lesson} onClick={clickLesson}>
                 {lesson.name}
             </Button>
         ));
     // create lesson button
 
-    const [targetLessonData, setTargetLessonData] = useState(
-        attendance.members
-    );
-    // 기본 attendance -> 오늘 날짜
     const clickLesson = (e) => {
-        setTargetLessonData(attendance);
+        // setTargetLessonData(attendance);
     };
-
-    console.log("attendance :>> ", attendance);
-    // console.log("attendance.members :>> ", attendance.members);
     return (
         <Container>
             <Main>
@@ -104,7 +92,7 @@ export default function Attendance() {
             </SideBar>
             <ContentBox>
                 <MainContentBox>
-                    <AttendanceContent value={targetLessonData || []} />
+                    <AttendanceContent value={attendance.members} />
                 </MainContentBox>
             </ContentBox>
         </Container>

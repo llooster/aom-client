@@ -1,5 +1,4 @@
 import { handleActions, createAction } from "redux-actions";
-import moment from "moment";
 
 const NEW_NAME = "NEW_NAME";
 const NEW_DATE = "NEW_DATE";

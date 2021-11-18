@@ -1,17 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
-import { ModalBox, Input, Title, Button, Table } from "../../components";
-import {
-    newName,
-    newAge,
-    newId,
-    addMember,
-    removeMember,
-} from "../../redux/reducers/membersReducer";
+import { Button, Table } from "../../components";
+import { removeMember } from "../../redux/reducers/membersReducer";
 import "./MemberPage.scss";
-
-let idValue = 15;
 
 const memberColumns = [
     { title: "Name", dataIndex: "name" },
@@ -22,31 +14,12 @@ const MemberPage = () => {
     const dispatch = useDispatch();
     const members = useSelector((state) => state.members.members);
     const selectedMembers = useSelector((state) => state.members.selected);
-    const newbie = useSelector((state) => state.members.newbie);
-    const newbieName = useSelector((state) => state.members.newbie.name);
-    const newbieAge = useSelector((state) => state.members.newbie.age);
 
     const remove = () => {
         let recentMember = members.filter((x) => !selectedMembers.includes(x));
         // console.log("recentMember :>> ", recentMember);
         dispatch(removeMember({ updateMembers: recentMember }));
     };
-
-    const updateName = (e) => {
-        dispatch(newId({ id: ++idValue }));
-        dispatch(newName({ firstName: e.target.value }));
-    };
-
-    const updateAge = (e) => {
-        dispatch(newAge({ age: e.target.value }));
-    };
-
-    const updateMember = () => {
-        dispatch(addMember({ newMember: newbie }));
-        setModal(false);
-    };
-
-    const [modal, setModal] = useState(false);
 
     return (
         <Row className="MemberPage">
@@ -61,11 +34,7 @@ const MemberPage = () => {
                         label="REMOVE"
                         onClick={remove}
                     />
-                    <Button
-                        className="btn-add"
-                        label="ADD MEMBER"
-                        onClick={() => setModal(true)}
-                    />
+                    <Button className="btn-add" label="ADD MEMBER" />
                 </Col>
                 <Col className="table" span={24}>
                     <Table
@@ -73,7 +42,6 @@ const MemberPage = () => {
                         dataSource={members}
                         moveTo={"/members"}
                     />
-                    {/* <MemberContent /> */}
                 </Col>
             </Col>
         </Row>
