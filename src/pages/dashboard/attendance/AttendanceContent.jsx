@@ -20,6 +20,7 @@ export default function AttendanceContent({ value }) {
     const updatedWeek = (e) => {
         var updatedValue = [...value];
         const week = e.target.type;
+        // 토글 1
         updatedValue.map(
             (member) =>
                 (member.attendances[week].state =
@@ -28,6 +29,15 @@ export default function AttendanceContent({ value }) {
                         : paymentRenderValue.Att)
         );
         toggleNum++;
+
+        //토글 2
+        // updatedValue.map(
+        //     (member) =>
+        //         (member.attendances[week].state =
+        //             member.attendances[0].state != paymentRenderValue.Yet
+        //                 ? paymentRenderValue.Yet
+        //                 : paymentRenderValue.Att)
+        // );
         dispatch(updateWeek({ update: updatedValue }));
     };
     const updatedEach = (e) => {

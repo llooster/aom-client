@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
-import { Button, Table } from "../../components";
-import { removeMember } from "../../redux/reducers/membersReducer";
+import { Button, Table, Link } from "../../components";
+// import { removeMember } from "../../redux/reducers/membersReducer";
 import "./MemberPage.scss";
 
 const memberColumns = [
@@ -15,11 +15,11 @@ const MemberPage = () => {
     const members = useSelector((state) => state.members.members);
     const selectedMembers = useSelector((state) => state.members.selected);
 
-    const remove = () => {
-        let recentMember = members.filter((x) => !selectedMembers.includes(x));
-        // console.log("recentMember :>> ", recentMember);
-        dispatch(removeMember({ updateMembers: recentMember }));
-    };
+    // const remove = () => {
+    //     let recentMember = members.filter((x) => !selectedMembers.includes(x));
+    //     console.log("recentMember :>> ", recentMember);
+    //     dispatch(removeMember({ updateMembers: recentMember }));
+    // };
 
     return (
         <Row className="MemberPage">
@@ -32,9 +32,13 @@ const MemberPage = () => {
                         className="btn-remove"
                         type="danger"
                         label="REMOVE"
-                        onClick={remove}
+                        // onClick={remove}
                     />
-                    <Button className="btn-add" label="ADD MEMBER" />
+                    <Link
+                        to="/members/register"
+                        type="primary"
+                        label="ADD MEMBER"
+                    />
                 </Col>
                 <Col className="table" span={24}>
                     <Table
