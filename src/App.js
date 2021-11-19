@@ -12,6 +12,7 @@ import {
     LessonOne,
     LessonRegister,
     MemberPage,
+    MemberRegister,
     Attendance,
     Payment,
 } from "./pages";
@@ -61,6 +62,12 @@ function App() {
                         exact
                         path={"/members"}
                         component={MemberPage}
+                        layout={MainLayout}
+                    />
+                    <DefaultRouter
+                        exact
+                        path={"/members/register"}
+                        component={MemberRegister}
                         layout={MainLayout}
                     />
                     <DefaultRouter

@@ -19,6 +19,7 @@ export default function PaymentContent({ value }) {
     const updatedWeek = (e) => {
         var updatedValue = [...value];
         const week = e.target.type;
+        // 토글 1
         updatedValue.map(
             (member) =>
                 (member.payments[week].state =
@@ -27,6 +28,16 @@ export default function PaymentContent({ value }) {
                         : paymentRenderValue.Paid)
         );
         toggleNum++;
+
+        // 토글 2
+        // updatedValue.map(
+        //     (member) =>
+        //         (member.payments[week].state =
+        //             updatedValue[0].payments[0].state != paymentRenderValue.Yet
+        //                 ? paymentRenderValue.Yet
+        //                 : paymentRenderValue.Paid)
+        // );
+
         dispatch(updatePayment({ update: updatedValue }));
     };
     const updatedEach = (e) => {
