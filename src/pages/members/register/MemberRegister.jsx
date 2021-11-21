@@ -12,7 +12,7 @@ import {
     Box,
 } from "../../../components";
 import {
-    newName,
+    // newName,
     newDate,
     newTime,
 } from "../../../redux/reducers/lessonsReducer";
@@ -28,7 +28,7 @@ const MemberRegister = (props) => {
 
     const updateInputValue = (e) => {
         let value = e.currentTarget.value;
-        dispatch(newName({ name: value }));
+        // dispatch(newName({ name: value }));
     };
 
     const renderInputs = () => {
@@ -37,7 +37,7 @@ const MemberRegister = (props) => {
                 id: "name",
                 type: "text",
                 value: name,
-                name: "Class",
+                name: "Name",
                 placehoder: "",
             },
         ];
@@ -123,13 +123,13 @@ const MemberRegister = (props) => {
                         type="none"
                         label={<Icon icon="back" />}
                     />
-                    <span className="title">Lesson Register</span>
+                    <span className="title">Member Register</span>
                 </Col>
                 <Col className="body" span={24}>
                     {renderInputs()}
-                    {renderRadio()}
-                    {renderTimePicker()}
-                    {renderTransfer()}
+                    {/* {renderRadio()} */}
+                    {/* {renderTimePicker()} */}
+                    {/* {renderTransfer()} */}
                 </Col>
                 <Col className="footer" span={24}>
                     <Button

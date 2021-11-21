@@ -6,6 +6,14 @@ const paymentRenderValue = {
     Paid: "Paid",
     Yet: "Yet",
 };
+
+const updateToState = {
+    Y: "CARD",
+    UNDEFINED: "CARD",
+    CARD: "CASH",
+    CASH: "CARD",
+};
+
 let toggleNum = 1;
 export default function PaymentContent({ value }) {
     const dispatch = useDispatch();
@@ -20,23 +28,21 @@ export default function PaymentContent({ value }) {
         var updatedValue = [...value];
         const week = e.target.type;
         // 토글 1
-        updatedValue.map(
-            (member) =>
-                (member.payments[week].state =
-                    toggleNum % 2 === 0
-                        ? paymentRenderValue.Yet
-                        : paymentRenderValue.Paid)
-        );
-        toggleNum++;
-
-        // 토글 2
         // updatedValue.map(
         //     (member) =>
         //         (member.payments[week].state =
-        //             updatedValue[0].payments[0].state != paymentRenderValue.Yet
+        //             toggleNum % 2 === 0
         //                 ? paymentRenderValue.Yet
         //                 : paymentRenderValue.Paid)
         // );
+        // toggleNum++;
+
+        // 토글 2
+        updatedValue.forEach(
+            (member) =>
+                (member.payments[week].state =
+                    updateToState[member.payments[week].state])
+        );
 
         dispatch(updatePayment({ update: updatedValue }));
     };

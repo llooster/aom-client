@@ -15,12 +15,6 @@ const MemberPage = () => {
     const members = useSelector((state) => state.members.members);
     const selectedMembers = useSelector((state) => state.members.selected);
 
-    // const remove = () => {
-    //     let recentMember = members.filter((x) => !selectedMembers.includes(x));
-    //     console.log("recentMember :>> ", recentMember);
-    //     dispatch(removeMember({ updateMembers: recentMember }));
-    // };
-
     return (
         <Row className="MemberPage">
             <Col span={24}>
