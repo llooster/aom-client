@@ -17,17 +17,17 @@ const initState = {
                     {
                         id: 1,
                         date: "2021-01-28",
-                        state: "Y",
+                        state: "UNDEFINED",
                     },
                     {
                         id: 2,
                         date: "2021-02-28",
-                        state: "Y",
+                        state: "CARD",
                     },
                     {
                         id: 3,
                         date: "2021-03-28",
-                        state: "Y",
+                        state: "CASH",
                     },
                     {
                         id: 4,
