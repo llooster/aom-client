@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
 import {
@@ -12,6 +12,7 @@ import {
     Box,
 } from "../../../components";
 import {
+    initForm,
     updateLessonName,
     updateLessonDay,
     updateLessonTime,
@@ -25,6 +26,10 @@ const LessonRegister = (props) => {
     const day = useSelector((state) => state.lessons.one.day);
     const startTime = useSelector((state) => state.lessons.one.startTime);
     const endTime = useSelector((state) => state.lessons.one.endTime);
+
+    useEffect(() => {
+        dispatch(initForm());
+    }, []);
 
     const updateInputValue = (e) => {
         let value = e.currentTarget.value;

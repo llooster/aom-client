@@ -1,5 +1,6 @@
 import { createAction } from "redux-actions";
 import {
+    INIT_FORM,
     UPDATE_LESSON_NAME,
     UPDATE_LESSON_DAY,
     UPDATE_LESSON_TIME,
@@ -13,10 +14,10 @@ import {
 
 export const fetchLessonRequest = createAction(REQUEST_LESSON);
 export const fetchLessonFailure = createAction(REQUEST_FAILURE_LESSON);
-
 export const fetchLessonSuccess = createAction(REQUEST_SUCCESS_LESSONS);
 export const fetchLessonOneSuccess = createAction(REQUEST_SUCCESS_LESSON_ONE);
 
+export const initForm = createAction(INIT_FORM);
 export const updateLessonDay = createAction(UPDATE_LESSON_DAY);
 export const updateLessonName = createAction(UPDATE_LESSON_NAME);
 export const updateLessonTime = createAction(UPDATE_LESSON_TIME);

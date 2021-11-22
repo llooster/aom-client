@@ -24,7 +24,7 @@ const Radio = (props) => {
     return <Row className="Radio">
         <Col span={24}>
             <AntdRadio.Group 
-                defaultValue={value} 
+                value={value} 
                 buttonStyle="solid"
                 onChange={onChange}
             >

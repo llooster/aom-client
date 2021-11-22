@@ -11,7 +11,7 @@ import {
     RangePicker,
     Box,
 } from "../../../components";
-import { fetchLessonRequest, updateLessonName, updateLessonDay, updateLessonTime } from "../../../redux/lesson/lessonActions";
+import { fetchLessonRequest, initForm, updateLessonName, updateLessonDay, updateLessonTime } from "../../../redux/lesson/lessonActions";
 import { REQUEST_FAILURE_LESSON, REQUEST_SUCCESS_LESSON_ONE } from "../../../redux/lesson/lessonTypes";
 import "./LessonOne.scss";
 
@@ -27,6 +27,7 @@ const LessonOne = (props) => {
     const endTime = useSelector((state) => state.lessons.one.endTime);
 
     useEffect(() => {
+        dispatch(initForm());
         dispatch(
             fetchLessonRequest({
                 api: {
@@ -84,7 +85,6 @@ const LessonOne = (props) => {
             { value: "SATURDAY", label: "SAT" },
             { value: "SUNDAY", label: "SUN" },
         ];
-        console.log("DAY : ", day);
         return (
             <Box label="Day of week">
                 <Radio value={day} buttons={buttons} onChange={onRadio} />

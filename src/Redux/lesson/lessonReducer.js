@@ -1,5 +1,6 @@
 import { handleActions } from "redux-actions";
 import { 
+    INIT_FORM,
     UPDATE_LESSON_NAME,
     UPDATE_LESSON_DAY,
     UPDATE_LESSON_TIME,
@@ -56,10 +57,19 @@ const lessonsReducer = handleActions(
             one: {
                 ...state.one,
                 name: action.payload.name,
-                day: action.payload.day,
+                day: action.payload.day
                 // startTime: action.payload.startTime,
                 // endTime: action.payload.endTime
             }
+        }),
+        [INIT_FORM]: (state, action) => ({
+            ...state,
+            one: {
+                name: "",
+                day: "",
+                startTime: "",
+                endTime: ""
+            } 
         }),
         [UPDATE_LESSON_NAME]: (state, action) => ({
             ...state,
