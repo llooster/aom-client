@@ -22,14 +22,6 @@ const initLessonsState = {
         startTime: "",
         endTime: ""
     },
-    selected: {
-    },
-    newLesson: {
-        name: "",
-        day: "",
-        startTime: "",
-        endTime: "",
-    },
     newMember: {},
 };
 
