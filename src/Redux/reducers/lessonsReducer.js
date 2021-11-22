@@ -7,6 +7,14 @@ const ADD_LESSON = "ADD_LESSON";
 const CANCEL_MODAL = "CANCEL_MODAL";
 const NEW_MEMBER = "NEW_MEMBER";
 
+export const LESSON_FETCH_REQUEST = "lessons/LESSON_FETCH_REQUEST";
+export const LESSON_FETCH_SUCCESS = "lessons/LESSON_FETCH_SUCCESS";
+export const LESSON_FETCH_FAILURE = "lessons/LESSON_FETCH_FAILURE";
+
+export const fetchLessonRequest = createAction(LESSON_FETCH_REQUEST);
+export const fetchLessonSuccess = createAction(LESSON_FETCH_SUCCESS);
+export const fetchLessonFailure = createAction(LESSON_FETCH_FAILURE);
+
 export const newName = createAction(NEW_NAME);
 export const newDate = createAction(NEW_DATE);
 export const newTime = createAction(NEW_TIME);
@@ -15,6 +23,8 @@ export const cancelModal = createAction(CANCEL_MODAL);
 export const newMember = createAction(NEW_MEMBER);
 
 const initLessonsState = {
+    loading: false,
+    error: "",
     lessons: [
         {
             id: 1,
@@ -43,6 +53,18 @@ const initLessonsState = {
 
 const lessonsReducer = handleActions(
     {
+        [LESSON_FETCH_REQUEST]: (state, action) => ({
+            loading: true,
+            ...state,
+        }),
+        [LESSON_FETCH_SUCCESS]: (state, action) => ({
+            laoding: false,
+            error: "SUCCESS"
+        }),
+        [LESSON_FETCH_FAILURE]: (state, action) => ({
+            loading: false,
+            error: "FAILURE"
+        }),
         [NEW_NAME]: (state, action) => ({
             ...state,
             newLesson: {

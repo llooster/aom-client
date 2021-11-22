@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Calendar } from "../../../components";
 import { useSelector } from "react-redux";
 import AttendanceContent from "./AttendanceContent";
-import { getAttendanceAPI } from "../../../APIs/attendance/attendanceAPI";
+import { getAttendanceAPI } from "../../../apis/attendance/attendanceAPI";
 
 const Container = styled.div`
     /* box-sizing: border-box; */

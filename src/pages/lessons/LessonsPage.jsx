@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Col } from "antd";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, Table } from "../../components";
+import { fetchLessonRequest } from "../../redux/reducers/lessonsReducer";
 import "./LessonsPage.scss";
-import { getLessonsAPI, postLessonsAPI } from "../../APIs/lessons/lessonAPI";
 
 const lessonColumns = [
     { title: "Name", dataIndex: "name" },
@@ -12,8 +12,13 @@ const lessonColumns = [
     { title: "End Time", dataIndex: "endTime" },
 ];
 const HomePage = () => {
+
     const lessons = useSelector((state) => state.lessons.lessons);
-    getLessonsAPI();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchLessonRequest());
+    }, []);
 
     // console.log(
     //     " 1. member 추가 화면 그리기 2. get/lessons, get/members getlessonsbyId,getmebersbyId, postlesson, postMember 3. saga 적용"

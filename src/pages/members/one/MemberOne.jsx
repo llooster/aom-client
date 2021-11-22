@@ -6,7 +6,7 @@ import { newName, newAge } from "../../../redux/reducers/membersReducer";
 import {
     postMembersAPI,
     getMembersIdAPI,
-} from "../../../APIs/members/membersAPI";
+} from "../../../apis/members/membersAPI";
 import "../../lessons/one/LessonOne.scss";
 
 const MemberOne = (props) => {

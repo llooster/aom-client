@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
-import { createStore } from "redux";
+import { createStore, compose, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { DefaultRouter } from "./router";
 import rootReducer from "./redux";
@@ -18,11 +18,20 @@ import {
     Payment,
 } from "./pages";
 import "./App.scss";
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "./saga/sags";
+
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
     rootReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    compose(
+        applyMiddleware(sagaMiddleware),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
 );
+
+sagaMiddleware.run(rootSaga);
 
 function App() {
     return (

@@ -19,7 +19,7 @@ import {
 import {
     deleteLessonAPI,
     getLessonsIdAPI,
-} from "../../../APIs/lessons/lessonAPI";
+} from "../../../apis/lessons/lessonAPI";
 import "./LessonOne.scss";
 
 const LessonOne = (props) => {

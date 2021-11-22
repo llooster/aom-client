@@ -4,7 +4,7 @@ import { Row, Col } from "antd";
 import { Button, Table, Link } from "../../components";
 // import { removeMember } from "../../redux/reducers/membersReducer";
 import "./MemberPage.scss";
-import { getMembersAPI } from "../../APIs/members/membersAPI";
+import { getMembersAPI } from "../../apis/members/membersAPI";
 import updateMembersAPI from "../../redux/reducers/membersReducer";
 import axios from "axios";
 
