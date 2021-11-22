@@ -19,7 +19,7 @@ import {
 } from "./pages";
 import "./App.scss";
 import createSagaMiddleware from "redux-saga";
-import rootSaga from "./saga/sags";
+import rootSaga from "./saga";
 
 const sagaMiddleware = createSagaMiddleware();
 

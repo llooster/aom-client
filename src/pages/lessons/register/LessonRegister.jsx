@@ -12,10 +12,10 @@ import {
     Box,
 } from "../../../components";
 import {
-    newName,
-    newDate,
-    newTime,
-} from "../../../redux/reducers/lessonsReducer";
+    updateLessonName,
+    updateLessonDate,
+    updateLessonTime,
+} from "../../../redux/lesson/lessonActions";
 import "./LessonRegister.scss";
 
 const LessonRegister = (props) => {
@@ -28,7 +28,7 @@ const LessonRegister = (props) => {
 
     const updateInputValue = (e) => {
         let value = e.currentTarget.value;
-        dispatch(newName({ name: value }));
+        dispatch(updateLessonName({ name: value }));
     };
 
     const renderInputs = () => {
@@ -57,7 +57,7 @@ const LessonRegister = (props) => {
 
     const onRadio = (e) => {
         let value = e.target.value;
-        dispatch(newDate({ date: value }));
+        dispatch(updateLessonDate({ date: value }));
     };
 
     const renderRadio = () => {
@@ -81,7 +81,7 @@ const LessonRegister = (props) => {
         let start = time[0];
         let end = time[1];
         dispatch(
-            newTime({
+            updateLessonTime({
                 startTime: start,
                 endTime: end,
             })
@@ -111,7 +111,6 @@ const LessonRegister = (props) => {
             startTime: startTime,
             endTime: endTime,
         };
-        console.log(lesson);
     };
 
     return (
