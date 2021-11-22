@@ -5,7 +5,6 @@ import { Button, Table, Link } from "../../components";
 import "./MemberPage.scss";
 import { requestMember } from "../../redux/member/memberActions";
 import {
-    REQUEST_MEMBER,
     REQUEST_SUCCESS_MEMBER,
     REQUEST_FAILURE_MEMBER,
 } from "../../redux/member/memberTypes";
