@@ -1,0 +1,1 @@
+export const UPDATE_PAYMENT = "payment/UPDATE_PAYMENT";

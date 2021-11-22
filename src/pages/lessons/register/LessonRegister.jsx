@@ -13,7 +13,7 @@ import {
 } from "../../../components";
 import {
     updateLessonName,
-    updateLessonDate,
+    updateLessonDay,
     updateLessonTime,
 } from "../../../redux/lesson/lessonActions";
 import "./LessonRegister.scss";
@@ -21,10 +21,10 @@ import "./LessonRegister.scss";
 const LessonRegister = (props) => {
     const dispatch = useDispatch();
 
-    const name = useSelector((state) => state.lessons.newLesson.name);
-    const date = useSelector((state) => state.lessons.newLesson.date);
-    const startTime = useSelector((state) => state.lessons.newLesson.startTime);
-    const endTime = useSelector((state) => state.lessons.newLesson.endTime);
+    const name = useSelector((state) => state.lessons.one.name);
+    const day = useSelector((state) => state.lessons.one.day);
+    const startTime = useSelector((state) => state.lessons.one.startTime);
+    const endTime = useSelector((state) => state.lessons.one.endTime);
 
     const updateInputValue = (e) => {
         let value = e.currentTarget.value;
@@ -57,7 +57,7 @@ const LessonRegister = (props) => {
 
     const onRadio = (e) => {
         let value = e.target.value;
-        dispatch(updateLessonDate({ date: value }));
+        dispatch(updateLessonDay({ day: value }));
     };
 
     const renderRadio = () => {
@@ -72,7 +72,7 @@ const LessonRegister = (props) => {
         ];
         return (
             <Box label="Day of week">
-                <Radio value={date} buttons={buttons} onChange={onRadio} />
+                <Radio value={day} buttons={buttons} onChange={onRadio} />
             </Box>
         );
     };
@@ -107,7 +107,7 @@ const LessonRegister = (props) => {
     const registerLesson = () => {
         let lesson = {
             name: name,
-            date: date,
+            day: day,
             startTime: startTime,
             endTime: endTime,
         };

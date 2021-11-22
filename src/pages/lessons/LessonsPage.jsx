@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, Table } from "../../components";
 import { fetchLessonRequest } from "../../redux/lesson/lessonActions";
 import {
-    REQUEST_SUCCESS_LESSON,
+    REQUEST_SUCCESS_LESSONS,
     REQUEST_FAILURE_LESSON,
 } from "../../redux/lesson/lessonTypes";
 import "./LessonsPage.scss";
@@ -27,7 +27,7 @@ const HomePage = () => {
                     path: "/lessons",
                 },
                 actions: {
-                    success: REQUEST_SUCCESS_LESSON,
+                    success: REQUEST_SUCCESS_LESSONS,
                     failure: REQUEST_FAILURE_LESSON,
                 },
             })

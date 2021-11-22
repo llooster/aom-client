@@ -1,8 +1,5 @@
-import { handleActions, createAction } from "redux-actions";
-
-const UPDATE_PAYMENT = "UPDATE_PAYMENT";
-
-export const updatePayment = createAction(UPDATE_PAYMENT);
+import { handleActions } from "redux-actions";
+import { UPDATE_PAYMENT } from "./paymentType";
 
 const initState = {
     payment: {
