@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
 import { Input, Icon, Button, Link } from "../../../components";
-import { newName, newAge } from "../../../redux/reducers/membersReducer";
+// import { newName, newAge } from "../../../redux/reducers/membersReducer";
 import {
     postMembersAPI,
     getMembersIdAPI,
@@ -18,17 +18,17 @@ const MemberOne = (props) => {
 
     const newMember = useSelector((state) => state.members.newMember);
 
-    const updateInputValue = (e) => {
-        let value = e.target.value;
-        switch (e.target.id) {
-            case "name":
-                dispatch(newName({ name: value }));
-                break;
-            case "age":
-                dispatch(newAge({ age: value }));
-                break;
-        }
-    };
+    // const updateInputValue = (e) => {
+    //     let value = e.target.value;
+    //     switch (e.target.id) {
+    //         case "name":
+    //             dispatch(newName({ name: value }));
+    //             break;
+    //         case "age":
+    //             dispatch(newAge({ age: value }));
+    //             break;
+    //     }
+    // };
 
     const renderInputs = () => {
         let inputValues = [

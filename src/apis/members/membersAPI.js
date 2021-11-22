@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import updateMembersAPI from "../../redux/reducers/membersReducer";
 
 const ENDPOINT = "http://127.0.0.1:8080";
 
@@ -10,7 +9,6 @@ const getMembersAPI = () => {
         .get(`${ENDPOINT}/members`)
         .then((res) => {
             console.log(res.data.result.members);
-            useDispatch(updateMembersAPI({ members: res.data.result.members }));
         })
         .catch((err) => {
             console.log("ERR : ", err);
