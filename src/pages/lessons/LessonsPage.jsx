@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { Row, Col } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, Table } from "../../components";
-import { fetchRequest } from "../../redux/lesson/lessonActions";
-import { 
-    REQUEST_SUCCESS_LESSON, 
-    REQUEST_FAILURE_LESSON 
+import { fetchLessonRequest } from "../../redux/lesson/lessonActions";
+import {
+    REQUEST_SUCCESS_LESSON,
+    REQUEST_FAILURE_LESSON,
 } from "../../redux/lesson/lessonTypes";
 import "./LessonsPage.scss";
 
@@ -17,23 +17,19 @@ const lessonColumns = [
 ];
 
 const HomePage = () => {
-
     const lessons = useSelector((state) => state.lessons.lessons);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(
-            fetchRequest({ 
+            fetchLessonRequest({
                 api: {
-                    path: "/lessons", 
-                    params: {
-                        key: "value"
-                    }
+                    path: "/lessons",
                 },
                 actions: {
                     success: REQUEST_SUCCESS_LESSON,
-                    failure: REQUEST_FAILURE_LESSON
-                }
+                    failure: REQUEST_FAILURE_LESSON,
+                },
             })
         );
     }, []);
