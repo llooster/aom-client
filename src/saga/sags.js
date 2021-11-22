@@ -5,10 +5,9 @@ import {
 } from "../redux/reducers/lessonsReducer";
 
 function* fetchLessons(action) {
-    console.log("Fetch Lessons : ", action);
     try {
         const lessons = yield call(getLessonsAPI);
-        yield put({ type: LESSON_FETCH_SUCCESS, lessons});
+        yield put({ type: LESSON_FETCH_SUCCESS, payload: lessons });
     } catch (error) {
         yield put({ type: LESSON_FETCH_FAILURE, error });
     }

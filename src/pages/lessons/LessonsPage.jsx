@@ -11,6 +11,7 @@ const lessonColumns = [
     { title: "Start Time", dataIndex: "startTime" },
     { title: "End Time", dataIndex: "endTime" },
 ];
+
 const HomePage = () => {
 
     const lessons = useSelector((state) => state.lessons.lessons);

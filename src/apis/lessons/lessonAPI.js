@@ -3,16 +3,18 @@ import axios from "axios";
 const ENDPOINT = "http://127.0.0.1:8080";
 
 const getLessonsAPI = () => {
-    axios
+    return axios
         .get(`${ENDPOINT}/lessons`)
         .then((res) => {
             console.log(res.data.result.lessons);
             // this.setState({
             //     lessons: res.data.result.lessons,
             // });
+            return res;
         })
         .catch((err) => {
             console.log("ERR : ", err);
+            return err;
         });
 };
 const postLessonsAPI = (name, day, time) => {

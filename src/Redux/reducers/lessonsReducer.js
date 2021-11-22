@@ -59,7 +59,8 @@ const lessonsReducer = handleActions(
         }),
         [LESSON_FETCH_SUCCESS]: (state, action) => ({
             laoding: false,
-            error: "SUCCESS"
+            error: "SUCCESS",
+            lessons: action.payload.data.result.lessons
         }),
         [LESSON_FETCH_FAILURE]: (state, action) => ({
             loading: false,
