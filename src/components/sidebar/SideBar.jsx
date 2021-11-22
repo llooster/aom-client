@@ -6,7 +6,8 @@ import "./SideBar.scss";
 
 const menus = {
     "dashboard": [
-        { "path": "/dashboard", "key": "dashboard", "icon": "barChart", "label": "Dashboard" }
+        { "path": "/payment", "key": "payment", "icon": "barChart", "label": "Payment" },
+        { "path": "/attendance", "key": "attendance", "icon": "barChart", "label": "Attendance" },
     ],
     "manage": [
         { "path": "/lessons", "key": "lessons", "icon": "form", "label": "Lesson" },

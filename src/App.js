@@ -89,13 +89,13 @@ function App() {
                     {/* exact path로 각각 했는데 왜 path가 엉킴*/}
                     <DefaultRouter
                         exact
-                        path={["/dashboard", "/dashboard/attendance"]}
+                        path={"/attendance"}
                         component={Attendance}
                         layout={MainLayout}
                     />
                     <DefaultRouter
                         exact
-                        path={"/dashboard/payment"}
+                        path={"/payment"}
                         component={Payment}
                         layout={MainLayout}
                     />

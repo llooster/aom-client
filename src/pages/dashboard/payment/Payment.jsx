@@ -76,7 +76,7 @@ export default function Payment() {
     return (
         <Container>
             <Main>
-                <Link to="/dashboard/attendance">{"Attendance"}</Link>
+                <Link to="/attendance">{"Attendance"}</Link>
             </Main>
             <SideBar>
                 <Calendar></Calendar>

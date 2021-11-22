@@ -85,7 +85,7 @@ export default function Attendance() {
     return (
         <Container>
             <Main>
-                <Link to="/dashboard/payment">Payment</Link>
+                <Link to="/payment">Payment</Link>
             </Main>
             <SideBar>
                 <Calendar></Calendar>
