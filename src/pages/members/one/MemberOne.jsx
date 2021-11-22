@@ -2,19 +2,20 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
 import { Input, Icon, Button, Link } from "../../../components";
+import { newName, newAge } from "../../../redux/reducers/membersReducer";
 import {
-    newName,
-    newAge,
-    addMember,
-} from "../../../redux/reducers/membersReducer";
-import { postMembersAPI } from "../../../APIs/members/membersAPI";
-import "../../lessons/register/LessonRegister.scss";
+    postMembersAPI,
+    getMembersIdAPI,
+} from "../../../APIs/members/membersAPI";
+import "../../lessons/one/LessonOne.scss";
 
-const MemberRegister = (props) => {
+const MemberOne = (props) => {
+    const memberId = Number(props.match.params.memberId);
+
     const dispatch = useDispatch();
+    const name = useSelector((state) => state.members.members[0].name);
+    const age = useSelector((state) => state.members.members[0].age);
 
-    const name = useSelector((state) => state.members.newMember.name);
-    const age = useSelector((state) => state.members.newMember.age);
     const newMember = useSelector((state) => state.members.newMember);
 
     const updateInputValue = (e) => {
@@ -36,14 +37,14 @@ const MemberRegister = (props) => {
                 type: "text",
                 value: name,
                 name: "Name",
-                placehoder: "",
+                placehoder: name,
             },
             {
                 id: "age",
                 type: "number",
                 value: age,
                 name: "Age",
-                placehoder: "",
+                placehoder: age,
             },
         ];
 
@@ -59,18 +60,19 @@ const MemberRegister = (props) => {
             />
         ));
     };
-
-    const registerMember = () => {
+    getMembersIdAPI(memberId);
+    const updateMember = () => {
         let member = {
             name: name,
             age: age,
         };
         console.log("member :>> ", member);
-        // postMembersAPI(name, age);
-        dispatch(addMember({ newMember: member }));
+        // patchMembersAPI(id, name, age); // 특정 멤버 수정
+
+        // dispatch(addMember({ newMember: member }));
     };
     return (
-        <Row className="LessonRegister">
+        <Row className="LessonOne">
             <Col span={24}>
                 <Col className="header" span={24}>
                     <Link
@@ -78,16 +80,23 @@ const MemberRegister = (props) => {
                         type="none"
                         label={<Icon icon="back" />}
                     />
-                    <span className="title">Member register</span>
+                    <span className="title">{`Member One`}</span>
                 </Col>
                 <Col className="body" span={24}>
                     {renderInputs()}
                 </Col>
                 <Col className="footer" span={24}>
                     <Button
-                        className="btn-register"
-                        label="REGISTER"
-                        onClick={registerMember}
+                        className="btn-delete"
+                        type="danger"
+                        label="DELETE"
+                        // to = "/lessons"해야해서 Link로 바꾸는게 어떤지
+                        // onClick={deleteLesson}
+                    />
+                    <Button
+                        // className="btn-register"
+                        label="UPDATE"
+                        onClick={updateMember}
                     />
                 </Col>
             </Col>
@@ -95,4 +104,4 @@ const MemberRegister = (props) => {
     );
 };
 
-export default MemberRegister;
+export default MemberOne;

@@ -12,6 +12,7 @@ import {
     LessonOne,
     LessonRegister,
     MemberPage,
+    MemberOne,
     MemberRegister,
     Attendance,
     Payment,
@@ -70,6 +71,13 @@ function App() {
                         component={MemberRegister}
                         layout={MainLayout}
                     />
+                    <DefaultRouter
+                        exact
+                        path={"/members/:memberId"}
+                        component={MemberOne}
+                        layout={MainLayout}
+                    />
+                    {/* exact path로 각각 했는데 왜 path가 엉킴*/}
                     <DefaultRouter
                         exact
                         path={["/dashboard", "/dashboard/attendance"]}

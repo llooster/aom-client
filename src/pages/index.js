@@ -6,4 +6,5 @@ export { default as LessonOne } from "./lessons/one/LessonOne";
 export { default as LessonRegister } from "./lessons/register/LessonRegister";
 export { default as RegisterPage } from "./register/RegisterPage.jsx";
 export { default as MemberPage } from "./members/MemberPage.jsx";
-export { default as MemberRegister } from "./members/register/MemberRegister.jsx";
+export { default as MemberRegister } from "./members/register/MemberRegister";
+export { default as MemberOne } from "./members/one/MemberOne.jsx";

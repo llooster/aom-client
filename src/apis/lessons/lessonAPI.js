@@ -4,9 +4,9 @@ const ENDPOINT = "http://127.0.0.1:8080";
 
 const getLessonsAPI = () => {
     axios
-        .get(`${ENDPOINT}/members`)
+        .get(`${ENDPOINT}/lessons`)
         .then((res) => {
-            console.log(res);
+            console.log(res.data.result.lessons);
             // this.setState({
             //     lessons: res.data.result.lessons,
             // });
@@ -15,10 +15,12 @@ const getLessonsAPI = () => {
             console.log("ERR : ", err);
         });
 };
-const postLessonsAPI = () => {
+const postLessonsAPI = (name, day, time) => {
     axios
         .post(`${ENDPOINT}/lessons`, {
-            name: undefined,
+            name: name,
+            day: day,
+            time: time,
         })
         .then((res) => {
             console.log("res.data.result.lessons :>> ", res.data);
@@ -27,5 +29,34 @@ const postLessonsAPI = () => {
             console.log("ERR :>> ", err);
         });
 };
-export { getLessonsAPI, postLessonsAPI };
+
+const getLessonsIdAPI = () => {
+    axios
+        .get(`${ENDPOINT}/lessons/6`)
+        .then((res) => {
+            console.log(res.data.result);
+            // this.setState({
+            //     lessons: res.data.result.lessons,
+            // });
+        })
+        .catch((err) => {
+            console.log("ERR : ", err);
+        });
+};
+
+const deleteLessonAPI = (id) => {
+    axios
+        .delete(`${ENDPOINT}/lessons/${id}`)
+        .then((res) => {
+            console.log(res.data.result.lessons);
+            // this.setState({
+            //     lessons: res.data.result.lessons,
+            // });
+        })
+        .catch((err) => {
+            console.log("ERR : ", err);
+        });
+};
+
+export { getLessonsAPI, postLessonsAPI, getLessonsIdAPI, deleteLessonAPI };
 // default

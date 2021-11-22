@@ -13,9 +13,11 @@ const lessonColumns = [
 ];
 const HomePage = () => {
     const lessons = useSelector((state) => state.lessons.lessons);
-    console.log(
-        " 1. member 추가 화면 그리기 2. get/lessons, get/members getlessonsbyId,getmebersbyId, postlesson, postMember 3. saga 적용"
-    );
+    getLessonsAPI();
+
+    // console.log(
+    //     " 1. member 추가 화면 그리기 2. get/lessons, get/members getlessonsbyId,getmebersbyId, postlesson, postMember 3. saga 적용"
+    // );
     return (
         <Row className="LessonPage">
             <Col span={24}>
