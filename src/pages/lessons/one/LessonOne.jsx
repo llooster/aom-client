@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
 import {
@@ -11,28 +11,39 @@ import {
     RangePicker,
     Box,
 } from "../../../components";
-import {
-    newName,
-    newDate,
-    newTime,
-} from "../../../redux/reducers/lessonsReducer";
-import {
-    deleteLessonAPI,
-    getLessonsIdAPI,
-} from "../../../apis/lessons/lessonAPI";
+import { fetchLessonRequest, initForm, updateLessonName, updateLessonDay, updateLessonTime } from "../../../redux/lesson/lessonActions";
+import { REQUEST_FAILURE_LESSON, REQUEST_SUCCESS_LESSON_ONE } from "../../../redux/lesson/lessonTypes";
 import "./LessonOne.scss";
 
 const LessonOne = (props) => {
+
+    let lessonId = props.match.params.lessonId;
+
     const dispatch = useDispatch();
 
-    const name = useSelector((state) => state.lessons.selected.name);
-    const date = useSelector((state) => state.lessons.selected.day);
-    const startTime = useSelector((state) => state.lessons.selected.startTime);
-    const endTime = useSelector((state) => state.lessons.selected.endTime);
+    const name = useSelector((state) => state.lessons.one.name);
+    const day = useSelector((state) => state.lessons.one.day);
+    const startTime = useSelector((state) => state.lessons.one.startTime);
+    const endTime = useSelector((state) => state.lessons.one.endTime);
+
+    useEffect(() => {
+        dispatch(initForm());
+        dispatch(
+            fetchLessonRequest({
+                api: {
+                    path: `/lessons/${lessonId}`,
+                },
+                actions: {
+                    success: REQUEST_SUCCESS_LESSON_ONE,
+                    failure: REQUEST_FAILURE_LESSON,
+                },
+            })
+        );
+    }, [lessonId]);
 
     const updateInputValue = (e) => {
         let value = e.currentTarget.value;
-        dispatch(newName({ name: value }));
+        dispatch(updateLessonName({ name: value }));
     };
 
     const renderInputs = () => {
@@ -61,7 +72,7 @@ const LessonOne = (props) => {
 
     const onRadio = (e) => {
         let value = e.target.value;
-        dispatch(newDate({ date: value }));
+        dispatch(updateLessonDay({ day: value }));
     };
 
     const renderRadio = () => {
@@ -76,7 +87,7 @@ const LessonOne = (props) => {
         ];
         return (
             <Box label="Day of week">
-                <Radio value={date} buttons={buttons} onChange={onRadio} />
+                <Radio value={day} buttons={buttons} onChange={onRadio} />
             </Box>
         );
     };
@@ -85,7 +96,7 @@ const LessonOne = (props) => {
         let start = time[0];
         let end = time[1];
         dispatch(
-            newTime({
+            updateLessonTime({
                 startTime: start,
                 endTime: end,
             })
@@ -108,7 +119,7 @@ const LessonOne = (props) => {
         );
     };
     const deleteLesson = () => {};
-    getLessonsIdAPI();
+
     return (
         <Row className="LessonOne">
             <Col span={24}>
@@ -118,7 +129,7 @@ const LessonOne = (props) => {
                         type="none"
                         label={<Icon icon="back" />}
                     />
-                    <span className="title">Lesson Register</span>
+                    <span className="title">{name}</span>
                 </Col>
                 <Col className="body" span={24}>
                     {renderInputs()}

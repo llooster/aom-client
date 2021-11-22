@@ -55,7 +55,7 @@ const MemberRegister = (props) => {
                 value={input.value}
                 name={input.name}
                 placeholder={input.placehoder}
-                onChange={updateInputValue}
+                // onChange={updateInputValue}
             />
         ));
     };

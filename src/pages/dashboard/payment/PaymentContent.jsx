@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { updatePayment } from "../../../redux/reducers/paymentReducer";
+import { updatePayment } from "../../../redux/payment/paymentActions";
 
 const paymentRenderValue = {
     Paid: "Paid",
