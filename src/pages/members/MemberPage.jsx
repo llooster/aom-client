@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
 import { Button, Table, Link } from "../../components";
 // import { removeMember } from "../../redux/reducers/membersReducer";
 import "./MemberPage.scss";
+import { getMembersAPI } from "../../APIs/members/membersAPI";
+import updateMembersAPI from "../../redux/reducers/membersReducer";
+import axios from "axios";
 
+const ENDPOINT = "http://127.0.0.1:8080";
 const memberColumns = [
     { title: "Name", dataIndex: "name" },
     { title: "Age", dataIndex: "age" },
 ];
 
 const MemberPage = () => {
-    const dispatch = useDispatch();
     const members = useSelector((state) => state.members.members);
-    const selectedMembers = useSelector((state) => state.members.selected);
-
+    const dispatch = useDispatch();
+    // useEffect(() => {
+    getMembersAPI();
+    // });
+    // dispatch(updateMembersAPI({ members: members }));
+    console.log("members :>> ", members);
     return (
         <Row className="MemberPage">
             <Col span={24}>
@@ -26,7 +33,6 @@ const MemberPage = () => {
                         className="btn-remove"
                         type="danger"
                         label="REMOVE"
-                        // onClick={remove}
                     />
                     <Link
                         to="/members/register"

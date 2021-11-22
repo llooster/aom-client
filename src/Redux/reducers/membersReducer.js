@@ -6,6 +6,7 @@ const NEW_AGE = "NEW_AGE";
 const NEW_ID = "NEW_ID";
 const ADD_MEMBER = "ADD_MEMBER";
 const REMOVE_MEMBER = "REMOVE_MEMBER";
+const UPDATE_MEMBERSAPI = "UPDATE_MEMBERSAPI";
 
 export const getMember = createAction(GET_MEMBER);
 export const newName = createAction(NEW_NAME);
@@ -13,6 +14,7 @@ export const newAge = createAction(NEW_AGE);
 export const newId = createAction(NEW_ID);
 export const addMember = createAction(ADD_MEMBER);
 export const removeMember = createAction(REMOVE_MEMBER);
+export const updateMembersAPI = createAction(UPDATE_MEMBERSAPI);
 
 const initMembersState = {
     members: [
@@ -28,48 +30,50 @@ const initMembersState = {
         },
     ],
     selected: [],
-    newbie: {
-        id: 0,
-        firstName: "",
+    newMember: {
+        name: "",
         age: "",
     },
 };
 
 const membersReducer = handleActions(
     {
+        [UPDATE_MEMBERSAPI]: (state, action) => ({
+            ...state,
+            members: action.payload.members,
+        }),
         [NEW_NAME]: (state, action) => ({
             ...state,
-            newbie: {
-                ...state.newbie,
-                name: action.payload.firstName,
-            },
-        }),
-        [NEW_ID]: (state, action) => ({
-            ...state,
-            newbie: {
-                ...state.newbie,
-                id: action.payload.id,
+            newMember: {
+                ...state.newMember,
+                name: action.payload.name,
             },
         }),
         [NEW_AGE]: (state, action) => ({
             ...state,
-            newbie: {
-                ...state.newbie,
+            newMember: {
+                ...state.newMember,
                 age: action.payload.age,
+            },
+        }),
+        [NEW_ID]: (state, action) => ({
+            ...state,
+            newMember: {
+                ...state.newMember,
+                id: action.payload.id,
             },
         }),
         [ADD_MEMBER]: (state, action) => ({
             ...state,
-            originMembers: [...state.originMembers, action.payload.newMember],
-            newbie: {
-                id: 0,
-                firstName: "",
+            members: [...state.members, action.payload.newMember],
+            newMember: {
+                name: "",
                 age: "",
             },
         }),
         [REMOVE_MEMBER]: (state, action) => ({
             ...state,
-            originMembers: action.payload.updateMembers,
+            members: action.payload.updateMembers,
         }),
         [GET_MEMBER]: (state, action) => ({
             ...state,
