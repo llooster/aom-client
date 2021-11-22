@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
 import { Button, Table, Link } from "../../components";
-// import { removeMember } from "../../redux/reducers/membersReducer";
 import "./MemberPage.scss";
-import { getMembersAPI } from "../../apis/members/membersAPI";
-import updateMembersAPI from "../../redux/reducers/membersReducer";
-import axios from "axios";
+import { requestMember } from "../../redux/member/memberActions";
+import {
+    REQUEST_MEMBER,
+    REQUEST_SUCCESS_MEMBER,
+    REQUEST_FAILURE_MEMBER,
+} from "../../redux/member/memberTypes";
 
-const ENDPOINT = "http://127.0.0.1:8080";
 const memberColumns = [
     { title: "Name", dataIndex: "name" },
     { title: "Age", dataIndex: "age" },
@@ -17,11 +18,20 @@ const memberColumns = [
 const MemberPage = () => {
     const members = useSelector((state) => state.members.members);
     const dispatch = useDispatch();
-    // useEffect(() => {
-    getMembersAPI();
-    // });
-    // dispatch(updateMembersAPI({ members: members }));
-    console.log("members :>> ", members);
+    useEffect(() => {
+        dispatch(
+            requestMember({
+                api: {
+                    path: "/members",
+                },
+                actions: {
+                    success: REQUEST_SUCCESS_MEMBER,
+                    failure: REQUEST_FAILURE_MEMBER,
+                },
+            })
+        );
+    }, []);
+
     return (
         <Row className="MemberPage">
             <Col span={24}>

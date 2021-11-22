@@ -2,11 +2,11 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
 import { Input, Icon, Button, Link } from "../../../components";
-import {
-    newName,
-    newAge,
-    addMember,
-} from "../../../redux/reducers/membersReducer";
+// import {
+//     newName,
+//     newAge,
+//     addMember,
+// } from "../../../redux/reducers/membersReducer";
 import { postMembersAPI } from "../../../apis/members/membersAPI";
 import "../../lessons/register/LessonRegister.scss";
 
@@ -17,17 +17,17 @@ const MemberRegister = (props) => {
     const age = useSelector((state) => state.members.newMember.age);
     const newMember = useSelector((state) => state.members.newMember);
 
-    const updateInputValue = (e) => {
-        let value = e.target.value;
-        switch (e.target.id) {
-            case "name":
-                dispatch(newName({ name: value }));
-                break;
-            case "age":
-                dispatch(newAge({ age: value }));
-                break;
-        }
-    };
+    // const updateInputValue = (e) => {
+    //     let value = e.target.value;
+    //     switch (e.target.id) {
+    //         case "name":
+    //             dispatch(newName({ name: value }));
+    //             break;
+    //         case "age":
+    //             dispatch(newAge({ age: value }));
+    //             break;
+    //     }
+    // };
 
     const renderInputs = () => {
         let inputValues = [
@@ -55,7 +55,7 @@ const MemberRegister = (props) => {
                 value={input.value}
                 name={input.name}
                 placeholder={input.placehoder}
-                onChange={updateInputValue}
+                // onChange={updateInputValue}
             />
         ));
     };
@@ -67,7 +67,7 @@ const MemberRegister = (props) => {
         };
         console.log("member :>> ", member);
         // postMembersAPI(name, age);
-        dispatch(addMember({ newMember: member }));
+        // dispatch(addMember({ newMember: member }));
     };
     return (
         <Row className="LessonRegister">
