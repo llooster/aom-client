@@ -13,11 +13,13 @@ import {
 } from "../../../components";
 import {
     initForm,
+    postLesson,
     updateLessonName,
     updateLessonDay,
     updateLessonTime,
 } from "../../../redux/lesson/lessonActions";
 import "./LessonRegister.scss";
+import { REQUEST_FAILURE_LESSON, REQUEST_SUCCESS_POST_LESSON } from "../../../redux/lesson/lessonTypes";
 
 const LessonRegister = (props) => {
     const dispatch = useDispatch();
@@ -110,12 +112,25 @@ const LessonRegister = (props) => {
     };
 
     const registerLesson = () => {
-        let lesson = {
+        let body = {
             name: name,
             day: day,
             startTime: startTime,
             endTime: endTime,
         };
+
+        dispatch(
+            postLesson({
+                api: {
+                    path: "/lessons",
+                    body: body
+                },
+                actions: {
+                    success: REQUEST_SUCCESS_POST_LESSON,
+                    failure: REQUEST_FAILURE_LESSON,
+                },
+            })
+        );
     };
 
     return (

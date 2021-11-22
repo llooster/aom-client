@@ -15,3 +15,17 @@ export const getAPIs = (payload) => {
             return err;
         });
 };
+
+export const postAPIs = (payload) => {
+    let path = payload.path;
+    let body = payload.body;
+    let params = payload.params;
+
+    return axios.post(`${ENDPOINT}${path}`, body, { params: params })
+        .then((res) => {
+            return res.data.result;
+        })
+        .catch((err) => {
+            return err;
+        });
+}

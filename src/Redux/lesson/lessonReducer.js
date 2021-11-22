@@ -9,19 +9,22 @@ import {
     REQUEST_LESSON,  
     REQUEST_FAILURE_LESSON, 
     REQUEST_SUCCESS_LESSONS,
-    REQUEST_SUCCESS_LESSON_ONE
+    REQUEST_SUCCESS_LESSON_ONE,
+    REQUEST_SUCCESS_POST_LESSON
 } from "./lessonTypes";
+
+const initialOne = {
+    name: "",
+    day: "",
+    startTime: "",
+    endTime: "",
+}
 
 const initLessonsState = {
     loading: false,
     message: "",
     lessons: [],
-    one: {
-        name: "",
-        day: "",
-        startTime: "",
-        endTime: ""
-    },
+    one: initialOne,
     newMember: {},
 };
 
@@ -54,14 +57,17 @@ const lessonsReducer = handleActions(
                 // endTime: action.payload.endTime
             }
         }),
+        [REQUEST_SUCCESS_POST_LESSON]: (state, action) => ({
+            ...state,
+            lessons: [...state.lessons, {
+                id: action.payload.id,
+                ...state.one
+            }],
+            one: initialOne
+        }),
         [INIT_FORM]: (state, action) => ({
             ...state,
-            one: {
-                name: "",
-                day: "",
-                startTime: "",
-                endTime: ""
-            } 
+            one: initialOne
         }),
         [UPDATE_LESSON_NAME]: (state, action) => ({
             ...state,

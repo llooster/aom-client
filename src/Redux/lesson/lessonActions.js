@@ -7,15 +7,19 @@ import {
     REGISTER_LESSON,
     ADD_MEMBER_TO_LESSON,
     REQUEST_LESSON,
+    REQUEST_POST_LESSON,
     REQUEST_FAILURE_LESSON,
     REQUEST_SUCCESS_LESSONS,
     REQUEST_SUCCESS_LESSON_ONE,
+    REQUEST_SUCCESS_POST_LESSON
 } from "./lessonTypes";
 
 export const fetchLessonRequest = createAction(REQUEST_LESSON);
 export const fetchLessonFailure = createAction(REQUEST_FAILURE_LESSON);
 export const fetchLessonSuccess = createAction(REQUEST_SUCCESS_LESSONS);
 export const fetchLessonOneSuccess = createAction(REQUEST_SUCCESS_LESSON_ONE);
+export const postLesson         = createAction(REQUEST_POST_LESSON);
+export const postLessonSuccess  = createAction(REQUEST_SUCCESS_POST_LESSON);
 
 export const initForm = createAction(INIT_FORM);
 export const updateLessonDay = createAction(UPDATE_LESSON_DAY);
