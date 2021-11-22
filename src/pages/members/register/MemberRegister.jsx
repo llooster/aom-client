@@ -2,13 +2,14 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
 import { Input, Icon, Button, Link } from "../../../components";
-// import {
-//     newName,
-//     newAge,
-//     addMember,
-// } from "../../../redux/reducers/membersReducer";
-import { postMembersAPI } from "../../../apis/members/membersAPI";
 import "../../lessons/register/LessonRegister.scss";
+
+import { postMembersAPI } from "../../../apis/members/membersAPI";
+import {
+    updateNewMemberName,
+    updateNewMemberAge,
+    addMember,
+} from "../../../redux/member/memberActions";
 
 const MemberRegister = (props) => {
     const dispatch = useDispatch();
@@ -17,17 +18,17 @@ const MemberRegister = (props) => {
     const age = useSelector((state) => state.members.newMember.age);
     const newMember = useSelector((state) => state.members.newMember);
 
-    // const updateInputValue = (e) => {
-    //     let value = e.target.value;
-    //     switch (e.target.id) {
-    //         case "name":
-    //             dispatch(newName({ name: value }));
-    //             break;
-    //         case "age":
-    //             dispatch(newAge({ age: value }));
-    //             break;
-    //     }
-    // };
+    const updateInputValue = (e) => {
+        let value = e.target.value;
+        switch (e.target.id) {
+            case "name":
+                dispatch(updateNewMemberName({ name: value }));
+                break;
+            case "age":
+                dispatch(updateNewMemberAge({ age: value }));
+                break;
+        }
+    };
 
     const renderInputs = () => {
         let inputValues = [
@@ -55,19 +56,14 @@ const MemberRegister = (props) => {
                 value={input.value}
                 name={input.name}
                 placeholder={input.placehoder}
-                // onChange={updateInputValue}
+                onChange={updateInputValue}
             />
         ));
     };
 
     const registerMember = () => {
-        let member = {
-            name: name,
-            age: age,
-        };
-        console.log("member :>> ", member);
-        // postMembersAPI(name, age);
-        // dispatch(addMember({ newMember: member }));
+        postMembersAPI(name, age);
+        dispatch(addMember());
     };
     return (
         <Row className="LessonRegister">
@@ -85,6 +81,7 @@ const MemberRegister = (props) => {
                 </Col>
                 <Col className="footer" span={24}>
                     <Button
+                        to="/members"
                         className="btn-register"
                         label="REGISTER"
                         onClick={registerMember}

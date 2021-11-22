@@ -1,3 +1,11 @@
 export const REQUEST_MEMBER = "member/REQUEST_MEMBER";
 export const REQUEST_SUCCESS_MEMBER = "member/REQUEST_SUCCESS_MEMBER";
 export const REQUEST_FAILURE_MEMBER = "member/REQUEST_FAILURE_MEMBER";
+export const REQUEST_MEMBER_ONE = "member/REQUEST_MEMBER_ONE";
+
+export const UPDATE_MEMBER_NAME = "member/UPDATE_MEMBER_NAME";
+export const UPDATE_MEMBER_AGE = "member/UPDATE_MEMBER_AGE";
+
+export const UPDATE_NEWMEMBER_NAME = "member/UPDATE_NEWMEMBER_NAME";
+export const UPDATE_NEWMEMBER_AGE = "member/UPDATE_NEWMEMBER_AGE";
+export const ADD_MEMBER = "member/ADD_MEMBER";

@@ -1,35 +1,48 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
 import { Input, Icon, Button, Link } from "../../../components";
-// import { newName, newAge } from "../../../redux/reducers/membersReducer";
-import {
-    postMembersAPI,
-    getMembersIdAPI,
-} from "../../../apis/members/membersAPI";
 import "../../lessons/one/LessonOne.scss";
 
+import {
+    requestMember,
+    updateMemberName,
+    updateMemberAge,
+} from "../../../redux/member/memberActions";
+import { postMembersAPI } from "../../../apis/members/membersAPI";
+import { REQUEST_MEMBER_ONE } from "../../../redux/member/memberTypes";
+
 const MemberOne = (props) => {
-    const memberId = Number(props.match.params.memberId);
+    const memberId = props.match.params.memberId;
 
     const dispatch = useDispatch();
-    const name = useSelector((state) => state.members.members[0].name);
-    const age = useSelector((state) => state.members.members[0].age);
+    useEffect(() => {
+        dispatch(
+            requestMember({
+                api: {
+                    path: `/members/${memberId}`,
+                },
+                actions: {
+                    success: REQUEST_MEMBER_ONE,
+                },
+            })
+        );
+    }, []);
+    const id = useSelector((state) => state.members.one.id);
+    const name = useSelector((state) => state.members.one.name);
+    const age = useSelector((state) => state.members.one.age);
 
-    const newMember = useSelector((state) => state.members.newMember);
-
-    // const updateInputValue = (e) => {
-    //     let value = e.target.value;
-    //     switch (e.target.id) {
-    //         case "name":
-    //             dispatch(newName({ name: value }));
-    //             break;
-    //         case "age":
-    //             dispatch(newAge({ age: value }));
-    //             break;
-    //     }
-    // };
-
+    const updateInputValue = (e) => {
+        let value = e.target.value;
+        switch (e.target.id) {
+            case "name":
+                dispatch(updateMemberName({ name: value }));
+                break;
+            case "age":
+                dispatch(updateMemberAge({ age: value }));
+                break;
+        }
+    };
     const renderInputs = () => {
         let inputValues = [
             {
@@ -56,19 +69,16 @@ const MemberOne = (props) => {
                 value={input.value}
                 name={input.name}
                 placeholder={input.placehoder}
-                // onChange={updateInputValue}
+                onChange={updateInputValue}
             />
         ));
     };
-    getMembersIdAPI(memberId);
     const updateMember = () => {
-        let member = {
-            name: name,
-            age: age,
-        };
-        console.log("member :>> ", member);
-        // patchMembersAPI(id, name, age); // 특정 멤버 수정
-
+        // let member = {
+        //     name: name,
+        //     age: age,
+        // };
+        // console.log("member :>> ", member);
         // dispatch(addMember({ newMember: member }));
     };
     return (
