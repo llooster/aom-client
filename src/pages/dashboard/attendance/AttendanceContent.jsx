@@ -1,13 +1,15 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { updateWeek } from "../../../redux/reducers/attendanceReducer";
+import { updateAttStatus } from "../../../redux/attendance/attendanceActions";
 import "../content.css";
 
 const paymentRenderValue = {
     Att: "Att",
     Yet: "Yet",
 };
+
 let toggleNum = 1;
+
 export default function AttendanceContent({ value }) {
     const dispatch = useDispatch();
     const headerTags = () =>
@@ -38,7 +40,7 @@ export default function AttendanceContent({ value }) {
         //                 ? paymentRenderValue.Yet
         //                 : paymentRenderValue.Att)
         // );
-        dispatch(updateWeek({ update: updatedValue }));
+        dispatch(updateAttStatus({ update: updatedValue }));
     };
     const updatedEach = (e) => {
         const member = e.target.dataset.member;
@@ -49,7 +51,7 @@ export default function AttendanceContent({ value }) {
             paymentRenderValue.Att
                 ? paymentRenderValue.Yet
                 : paymentRenderValue.Att;
-        dispatch(updateWeek({ update: updatedValue }));
+        dispatch(updateAttStatus({ update: updatedValue }));
     };
 
     // 배열의 인덱스> vs id 값?  >> 로직

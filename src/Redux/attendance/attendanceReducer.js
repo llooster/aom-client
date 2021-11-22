@@ -1,11 +1,6 @@
-import { handleActions, createAction } from "redux-actions";
+import { handleActions } from "redux-actions";
+import { UPDATE_ATT_STATUS } from "./attendanceType";
 
-const UPDATE_ATT = "UPDATE_ATT";
-
-export const updateWeek = createAction(UPDATE_ATT);
-
-// 이름 key값도 필요할 것 같음
-// 하루에 여러 레슨이 있을 수 있으니 lessons은 배열이면 좋을 것 같음
 const initState = {
     attendance: {
         date: "2021-11-15",
@@ -81,7 +76,7 @@ const initState = {
 
 const attendanceReducer = handleActions(
     {
-        [UPDATE_ATT]: (state, action) => ({
+        [UPDATE_ATT_STATUS]: (state, action) => ({
             ...state,
             attendance: {
                 ...state.attendance,

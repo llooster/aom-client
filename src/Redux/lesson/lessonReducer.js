@@ -28,15 +28,17 @@ const initLessonsState = {
 const lessonsReducer = handleActions(
     {
         [REQUEST_LESSON]: (state, action) => ({
-            loading: true,
             ...state,
+            loading: true,
         }),
         [REQUEST_SUCCESS_LESSON]: (state, action) => ({
+            ...state,
             laoding: false,
             message: "SUCCESS",
             lessons: action.payload.lessons
         }),
         [REQUEST_FAILURE_LESSON]: (state, action) => ({
+            ...state,
             loading: false,
             message: "FAILURE"
         }),
