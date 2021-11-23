@@ -84,7 +84,7 @@ export default function Payment() {
         );
     }, [date]);
 
-    const LessonButton = () => (
+    const LessonButtonRender = () => (
         <Box>
             {lessons.map((lesson) => (
                 <Button
@@ -147,7 +147,7 @@ export default function Payment() {
                         nextMonth={onNextMonth}
                         onSelect={onSelectDate}
                     />
-                    {LessonButton()}
+                    {LessonButtonRender()}
                 </Col>
                 <Col className="attendance-content" span={19}>
                     <ContentBox>

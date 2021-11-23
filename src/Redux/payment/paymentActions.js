@@ -8,6 +8,8 @@ import {
     REQUEST_SUCCESS_DAY_LESSON,
     REQUEST_LESSON_PAYMENT,
     REQUEST_LESSON_PAYMENT_SUCCESS,
+    UPDATE_NEW_PAYMENT,
+    SUCCESS_UPDATE_NEW_PAYMENT,
 } from "./paymentType";
 
 export const updatePaymentStatus = createAction(UPDATE_PAYMENT_STATUS);
@@ -22,3 +24,5 @@ export const fetchLessonPaymentRequest = createAction(REQUEST_LESSON_PAYMENT);
 export const fetchLessonPaymentSuccess = createAction(
     REQUEST_LESSON_PAYMENT_SUCCESS
 );
+export const updateNewPayment = createAction(UPDATE_NEW_PAYMENT);
+export const successUpdateNewPayment = createAction(SUCCESS_UPDATE_NEW_PAYMENT);

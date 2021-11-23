@@ -19,7 +19,6 @@ const updatingAttendanceAPI = {
 
 export default function AttendanceContent({ value, attendance }) {
     const members = useSelector((state) => state.attendance.attendance.members);
-    const [getAttendance, setGetAttendance] = useState(attendance);
     const dispatch = useDispatch();
     const headerTags = () => (
         <>
@@ -41,7 +40,6 @@ export default function AttendanceContent({ value, attendance }) {
                 (member.attendances[week].state =
                     updateToState[member.attendances[week].state])
         );
-        setGetAttendance(updatedMembers);
         dispatch(updateAttStatus({ update: updatedMembers }));
     };
     const updatedEach = (e) => {
@@ -63,7 +61,6 @@ export default function AttendanceContent({ value, attendance }) {
         ].attendanceIds.push(targetAttendanceId);
         console.log("YET :>> ", updatingAttendanceAPI.YET);
         console.log("ATT :>> ", updatingAttendanceAPI.ATT);
-        setGetAttendance(updatedMembers);
         dispatch(updateAttStatus({ update: updatedMembers }));
     };
     const content = () =>

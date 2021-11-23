@@ -11,8 +11,9 @@ import {
 import {
     REQUEST_DAY_LESSON_PAYMENT,
     REQUEST_LESSON_PAYMENT,
+    UPDATE_NEW_PAYMENT,
 } from "../redux/payment/paymentType";
-import { getAPIs, postAPIs } from "../apis";
+import { getAPIs, postAPIs, putAPIs } from "../apis";
 import _ from "lodash";
 
 function* fetchRequest(action) {
@@ -52,6 +53,25 @@ function* postRequest(action) {
     }
 }
 
+function* putRequest(action) {
+    let path = action.payload.api.path;
+    let params = action.payload.api.params;
+    let body = action.payload.api.body;
+    let success = action.payload.actions.success;
+    let failure = action.payload.actions.failure;
+
+    if (_.isEmpty(path)) {
+        yield put({ type: failure, error: "API Path is mandatory" });
+    }
+
+    try {
+        const res = yield call(putAPIs, { path, params, body });
+        yield put({ type: success, payload: res });
+    } catch (error) {
+        yield put({ type: failure, error });
+    }
+}
+
 function* rootSaga() {
     yield takeEvery(
         [
@@ -65,6 +85,7 @@ function* rootSaga() {
         fetchRequest
     );
     yield takeEvery(REQUEST_POST_LESSON, postRequest);
+    yield takeEvery(UPDATE_NEW_PAYMENT, putRequest);
 }
 
 export default rootSaga;

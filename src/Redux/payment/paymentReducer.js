@@ -7,6 +7,7 @@ import {
     REQUEST_SUCCESS_DAY_LESSON,
     REQUEST_FAILURE,
     REQUEST_LESSON_PAYMENT_SUCCESS,
+    SUCCESS_UPDATE_NEW_PAYMENT,
 } from "./paymentType";
 import moment from "moment";
 
@@ -63,6 +64,9 @@ const paymentReducer = handleActions(
             message: "FAILURE",
             lessons: [],
         }),
+        // [SUCCESS_UPDATE_NEW_PAYMENT]: (state, action) => ({
+        //     ...state,
+        // }),
     },
     initState
 );
