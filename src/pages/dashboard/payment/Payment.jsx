@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Calendar } from "../../../components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import PaymentContent from "./PaymentContent";
+
+import { reauestPayment } from "../../../redux/payment/paymentActions";
+import {
+    REQUEST_SUCCESS_TODAY_LESSON,
+    REQUEST_SUCCESS_TODAY_PAYMENT,
+} from "../../../redux/payment/paymentType";
 
 const Container = styled.div`
     display: grid;
@@ -57,21 +63,48 @@ const Button = styled.button`
 `;
 
 export default function Payment() {
-    const payment = useSelector((state) => state.payment.payment);
-    const [lessons, setLessons] = useState(
-        useSelector((state) => state.lessons.lessons)
-    );
+    const dispatch = useDispatch();
+    const year = new Date().getFullYear();
+    const month = ("0" + (new Date().getMonth() + 1)).slice(-2);
+    const day = ("0" + new Date().getDate()).slice(-2);
+    const [today, setToday] = useState(year + "-" + month + "-" + day);
+    useEffect(() => {
+        dispatch(
+            reauestPayment({
+                api: {
+                    path: `/lessons?date=${today}`,
+                },
+                actions: {
+                    success: REQUEST_SUCCESS_TODAY_LESSON,
+                },
+            })
+        );
+    }, []);
+
+    const lessons = useSelector((state) => state.payment.lessons);
+    const selectedLessonId = console.log("lessons :>> ", lessons);
 
     const LessonButton = () =>
         lessons.map((lesson) => (
-            <Button name={lesson} onClick={clickLesson}>
+            <Button id={lesson.id} onClick={clickLesson}>
                 {lesson.name}
             </Button>
         ));
     // create lesson button
+    const payment = useSelector((state) => state.payment.payment);
 
     const clickLesson = (e) => {
-        // setTargetLessonData(Payment);
+        // setSelectedLessonId(e.target.id);
+        dispatch(
+            reauestPayment({
+                api: {
+                    path: `/lessons/${e.target.id}/payments?date=${today}`,
+                },
+                actions: {
+                    success: REQUEST_SUCCESS_TODAY_PAYMENT,
+                },
+            })
+        );
     };
     return (
         <Container>
@@ -84,7 +117,7 @@ export default function Payment() {
             </SideBar>
             <ContentBox>
                 <MainContentBox>
-                    <PaymentContent value={payment.members} />
+                    <PaymentContent payment={payment} value={payment.members} />
                 </MainContentBox>
             </ContentBox>
         </Container>
