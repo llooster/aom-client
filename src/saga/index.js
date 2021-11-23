@@ -1,8 +1,16 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { REQUEST_LESSON, REQUEST_POST_LESSON } from "../redux/lesson/lessonTypes";
-import { REQUEST_MEMBER, } from "../redux/member/memberTypes";
+import {
+    REQUEST_LESSON,
+    REQUEST_POST_LESSON,
+} from "../redux/lesson/lessonTypes";
+import {
+    REQUEST_MEMBER,
+    REQUEST_SUCCESS_MEMBER,
+    REQUEST_FAILURE_MEMBER,
+} from "../redux/member/memberTypes";
 import { getAPIs, postAPIs } from "../apis";
 import _ from "lodash";
+import { REQUEST_PAYMENT } from "../redux/payment/paymentType";
 
 function* fetchRequest(action) {
     let path = action.payload.api.path;
@@ -44,6 +52,7 @@ function* postRequest(action) {
 function* rootSaga() {
     yield takeEvery(REQUEST_LESSON, fetchRequest);
     yield takeEvery(REQUEST_MEMBER, fetchRequest);
+    yield takeEvery(REQUEST_PAYMENT, fetchRequest);
     yield takeEvery(REQUEST_POST_LESSON, postRequest);
 }
 

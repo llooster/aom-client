@@ -1,157 +1,29 @@
 import { handleActions } from "redux-actions";
-import { UPDATE_PAYMENT } from "./paymentType";
+import {
+    UPDATE_PAYMENT,
+    REQUEST_SUCCESS_TODAY_LESSON,
+    REQUEST_SUCCESS_TODAY_PAYMENT,
+} from "./paymentType";
 
 const initState = {
-    payment: {
-        date: "2021-11-15",
-        year: 2021,
-        month: 11,
-        members: [
-            {
-                id: 1,
-                name: "Lee",
-                payments: [
-                    {
-                        id: 1,
-                        date: "2021-01-28",
-                        state: "UNDEFINED",
-                    },
-                    {
-                        id: 2,
-                        date: "2021-02-28",
-                        state: "CARD",
-                    },
-                    {
-                        id: 3,
-                        date: "2021-03-28",
-                        state: "CASH",
-                    },
-                    {
-                        id: 4,
-                        date: "2021-04-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 5,
-                        date: "2021-05-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 6,
-                        date: "2021-06-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 7,
-                        date: "2021-07-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 8,
-                        date: "2021-08-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 9,
-                        date: "2021-09-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 10,
-                        date: "2021-10-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 11,
-                        date: "2021-11-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 12,
-                        date: "2021-12-28",
-                        state: "Y",
-                    },
-                ],
-            },
-            {
-                id: 2,
-                name: "Hangyeol",
-                payments: [
-                    {
-                        id: 13,
-                        date: "2021-01-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 14,
-                        date: "2021-02-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 15,
-                        date: "2021-03-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 16,
-                        date: "2021-04-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 17,
-                        date: "2021-05-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 18,
-                        date: "2021-06-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 19,
-                        date: "2021-07-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 20,
-                        date: "2021-08-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 21,
-                        date: "2021-09-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 22,
-                        date: "2021-10-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 23,
-                        date: "2021-11-28",
-                        state: "Y",
-                    },
-                    {
-                        id: 24,
-                        date: "2021-12-28",
-                        state: "Y",
-                    },
-                ],
-            },
-        ],
-    },
+    lessons: [],
+    payment: {},
     selected: [],
 };
 
 const paymentReducer = handleActions(
     {
+        [REQUEST_SUCCESS_TODAY_LESSON]: (state, action) => ({
+            ...state,
+            lessons: action.payload.lessons,
+        }),
+        [REQUEST_SUCCESS_TODAY_PAYMENT]: (state, action) => ({
+            ...state,
+            payment: action.payload,
+        }),
         [UPDATE_PAYMENT]: (state, action) => ({
             ...state,
-            payment: {
-                ...state.payment,
-                members: action.payload.update,
-            },
+            members: action.payload.update,
         }),
     },
     initState
