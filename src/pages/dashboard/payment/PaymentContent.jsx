@@ -1,78 +1,113 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updatePayment } from "../../../redux/payment/paymentActions";
+import { updatePaymentStatus } from "../../../redux/payment/paymentActions";
+import { Button } from "../../../components";
+import _ from "lodash";
 
 const updateToState = {
-    Y: "CARD",
     UNDEFINED: "CARD",
     CARD: "CASH",
     CASH: "CARD",
 };
+const CARD = { state: "CARD", paymentIds: [] };
+const updatingPaymentAPI = {
+    UNDEFINED: CARD,
+    CARD: CARD,
+    CASH: { state: "CASH", paymentIds: [] },
+};
 
-export default function PaymentContent({ payment, value }) {
-    const [todayPayment, setTodayPayment] = useState(payment);
-    console.log("todayPayment :>> ", todayPayment);
+export default function PaymentContent({ value, payment }) {
+    const members = useSelector((state) => state.payment.payment.members);
+    const [getPayment, setGetPayment] = useState(payment);
     const dispatch = useDispatch();
-    const headerTags = () =>
-        Array(12)
-            .fill()
-            .map((each, index) => (
-                <a class="part" type={index} onClick={updatedWeek}>{`${
-                    index + 1
-                }월`}</a>
-            ));
-    // 가로 이름, 세로 주차 하면 어떨지
+    const headerTags = () => (
+        <>
+            <div className="part">name</div>
+            {Array(12)
+                .fill()
+                .map((each, index) => (
+                    <a className="part" type={index} onClick={updatedWeek}>{`${
+                        index + 1
+                    }월`}</a>
+                ))}
+            <div className="part">all</div>
+        </>
+    );
     const updatedWeek = (e) => {
-        var updatedValue = [...value];
+        var updatedMembers = [...members];
         const week = e.target.type;
-        updatedValue.forEach(
+        updatedMembers.forEach(
             (member) =>
                 (member.payments[week].state =
                     updateToState[member.payments[week].state])
         );
-        setTodayPayment(updatedValue);
-        dispatch(updatePayment({ update: updatedValue }));
+        setGetPayment(updatedMembers);
+        dispatch(updatePaymentStatus({ update: updatedMembers }));
     };
     const updatedEach = (e) => {
-        // const member = e.target.dataset.member;
-        // const week = e.target.dataset.week;
-        // var updatedValue = [...value];
-        // updatedValue[member].payments[week].state =
-        //     updatedValue[member].payments[week].state ===
-        //     paymentRenderValue.Paid
-        //         ? paymentRenderValue.Yet
-        //         : paymentRenderValue.Paid;
-        // dispatch(updatePayment({ update: updatedValue }));
+        const member = e.target.dataset.member;
+        const week = e.target.dataset.week;
+        const targetPaymentId = e.target.dataset.id;
+        let updatedMembers = [...members];
+        var targetState = updatedMembers[member].payments[week].state;
+        updatingPaymentAPI[targetState].paymentIds = updatingPaymentAPI[
+            targetState
+        ].paymentIds.filter((item) => item !== targetPaymentId);
+
+        updatedMembers[member].payments[week].state =
+            updateToState[updatedMembers[member].payments[week].state];
+        updatingPaymentAPI[
+            updatedMembers[member].payments[week].state
+        ].paymentIds.push(targetPaymentId);
+        console.log("CARD :>> ", updatingPaymentAPI.CARD);
+        console.log("CASH :>> ", updatingPaymentAPI.CASH);
+        setGetPayment(updatedMembers);
+        dispatch(updatePaymentStatus({ update: updatedMembers }));
     };
     const content = () =>
-        value &&
-        value.map((member, index1) => (
-            <div class="rowsWrapper">
-                <div class="part">{member.name || ""}</div>
-                {member.payments.map((payment, index2) => {
-                    return (
-                        <a
-                            class="part"
-                            data-member={index1}
-                            data-week={index2}
-                            onClick={updatedEach}
-                        >
-                            {payment.state}
-                        </a>
-                    );
-                })}
-                <a class="part">{"all"}</a>
-            </div>
+        members &&
+        members.map((member, index1) => (
+            <>
+                <div className="rowsWrapper">
+                    <div className="part">{member.name || ""}</div>
+                    {member.payments.map((payment, index2) => {
+                        return (
+                            <a
+                                className="part"
+                                data-member={index1}
+                                data-week={index2}
+                                data-id={payment.id}
+                                onClick={updatedEach}
+                            >
+                                {payment.state}
+                            </a>
+                        );
+                    })}
+                    <a className="part">{"all"}</a>
+                </div>
+            </>
         ));
+
     // 배열의 인덱스> vs id 값?  >> 로직
+    const renderTables = () => {
+        return (
+            <>
+                <Button className="btn-register" label="REGISTER" />
+                <div className="contentWrapper">
+                    <div className="rowsWrapper">{headerTags()}</div>
+                    {content()}
+                </div>
+            </>
+        );
+    };
+    // 필요한 화면 render
+    const renderEmpty = () => {
+        return <div>NO MEMBERS</div>;
+    };
+    // no data 시 화면
     return (
-        <div class="contentWrapper">
-            <div class="rowsWrapper">
-                <div class="part">name</div>
-                {headerTags()}
-                <div class="part">all</div>
-            </div>
-            {content()}
+        <div className="contentWrapper">
+            {_.isEmpty(value) ? renderEmpty() : renderTables()}
         </div>
     );
 }
