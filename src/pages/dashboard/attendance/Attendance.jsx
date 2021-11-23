@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col } from "antd";
 import { V2Calendar } from "../../../components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchDayLessonRequest, updateDate } from "../../../redux/attendance/attendanceActions";
 import AttendanceContent from "./AttendanceContent";
 import styled from "styled-components";
 import moment from "moment";
+import { REQUEST_FAILURE_DAY_LESSON, REQUEST_SUCCESS_DAY_LESSON } from "../../../redux/attendance/attendanceType";
 
 const Container = styled.div`
     /* box-sizing: border-box; */
@@ -50,15 +52,29 @@ const Button = styled.button`
 
 export default function Attendance() {
     
+    const dispatch = useDispatch();
+    const date = useSelector((state) => state.attendance.date);
+    const lessons = useSelector((state) => state.attendance.lessons);
     const attendance = useSelector((state) => state.attendance.attendance);
     
-    const [lessons, setLessons] = useState(
-        useSelector((state) => state.lessons.lessons)
-    );
-    const [date, setDate] = useState(moment());
+    useEffect(() => {
+        let formattedDate = moment(date).format("YYYY-MM-DD");
+        dispatch(
+            fetchDayLessonRequest({
+                api: {
+                    path: "/lessons",
+                    params: {
+                        date: formattedDate
+                    }
+                },
+                actions: {
+                    success: REQUEST_SUCCESS_DAY_LESSON,
+                    failure: REQUEST_FAILURE_DAY_LESSON,
+                },
+            })
+        );
+    }, [date]);
 
-    const selectedDate = "TUESDAY";
-    
     const LessonButton = () =>
         lessons.map((lesson) => (
             <Button name={lesson} onClick={clickLesson}>
@@ -73,18 +89,17 @@ export default function Attendance() {
 
     const onPrevMonth = () => {
         let prev = moment(date).subtract(1, "M");
-        setDate(prev);
+        dispatch(updateDate(prev));
     };
     
     const onNextMonth = () => {
         let next = moment(date).add(1, "M");
-        setDate(next);
+        dispatch(updateDate(next));
     };
 
     const onSelectDate = (date) => {
-        setDate(date);
-        // setSelectedKey(null);
         console.log(date);
+        dispatch(updateDate(date));
       };
 
     return (

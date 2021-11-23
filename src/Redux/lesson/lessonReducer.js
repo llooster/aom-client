@@ -12,6 +12,17 @@ import {
     REQUEST_SUCCESS_LESSON_ONE,
     REQUEST_SUCCESS_POST_LESSON
 } from "./lessonTypes";
+import _ from "lodash";
+
+const initialDays = {
+    sunday: [],
+    monday: [],
+    tuesday: [],
+    wednesday: [],
+    thursday: [],
+    friday: [],
+    saturday: []
+}
 
 const initialOne = {
     name: "",
@@ -24,6 +35,7 @@ const initLessonsState = {
     loading: false,
     message: "",
     lessons: [],
+    days: initialDays,
     one: initialOne,
     newMember: {},
 };
@@ -39,12 +51,23 @@ const lessonsReducer = handleActions(
             loading: false,
             message: "FAILURE"
         }),
-        [REQUEST_SUCCESS_LESSONS]: (state, action) => ({
-            ...state,
-            laoding: false,
-            message: "SUCCESS",
-            lessons: action.payload.lessons
-        }),
+        [REQUEST_SUCCESS_LESSONS]: (state, action) => {
+            let items = action.payload.lessons.filter((lesson) => {
+                return _.isEmpty(lesson.name) === false && _.isEmpty(lesson.day) === false;
+            });
+            let days = initialDays;
+            items.forEach((item) => {
+                let day = item.day.toLowerCase();
+                days[day].push(item);
+            })
+            return {
+                ...state,
+                loading: false,
+                message: "SUCCESS",
+                lessons: items,
+                days: days
+            }
+        },
         [REQUEST_SUCCESS_LESSON_ONE]: (state, action) => ({
             ...state,
             loading: false,

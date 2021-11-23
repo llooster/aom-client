@@ -1,7 +1,18 @@
 import { handleActions } from "redux-actions";
-import { UPDATE_ATT_STATUS } from "./attendanceType";
+import { 
+    UPDATE_DATE,
+    UPDATE_ATT_STATUS,  
+    REQUEST_DAY_LESSON,
+    REQUEST_SUCCESS_DAY_LESSON,
+    REQUEST_FAILURE_DAY_LESSON
+} from "./attendanceType";
+import moment from "moment";
 
 const initState = {
+    loading: false,
+    message: "",
+    date: moment(),
+    lessons: [],
     attendance: {
         date: "2021-11-15",
         year: 2021,
@@ -76,6 +87,23 @@ const initState = {
 
 const attendanceReducer = handleActions(
     {
+        [REQUEST_DAY_LESSON]: (state, action) => ({
+            ...state,
+            loading: true,
+            message: "REQUEST"
+        }),
+        [REQUEST_SUCCESS_DAY_LESSON]: (state, action) => ({
+            ...state,
+            loading: false,
+            message: "SUCCESS",
+            lessons: action.payload.lessons
+        }),
+        [REQUEST_FAILURE_DAY_LESSON]: (state, action) => ({
+            ...state,
+            loading: false,
+            message: "FAILURE",
+            lessons: []
+        }),
         [UPDATE_ATT_STATUS]: (state, action) => ({
             ...state,
             attendance: {
@@ -83,6 +111,10 @@ const attendanceReducer = handleActions(
                 members: action.payload.update,
             },
         }),
+        [UPDATE_DATE]: (state, action) => ({
+            ...state,
+            date: action.payload
+        })
     },
     initState
 );
