@@ -1,0 +1,31 @@
+@import "public/styles/Size.scss";
+@import "public/styles/Color.scss";
+
+.Attendance {
+    .Box {
+        border: none;
+        padding: 6px 0px;
+
+        .box-body button {
+            border: none;
+            border-radius: 12px;
+            background: none;
+            color: $color-menu-font;
+            padding: 6px 12px;
+            margin-bottom: 6px;
+        }
+
+        .box-body button:hover {
+            cursor: pointer;
+            color: $color-menu-font-hover;
+            background-color: $color-menu-item-background;
+        }
+
+        .box-body button.selected {
+            color: $color-menu-font-hover;
+            font-weight: 700;
+            background-color: $color-menu-item-background;
+        }
+        
+    }
+}

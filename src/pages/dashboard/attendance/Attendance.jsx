@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Row, Col } from "antd";
-import { V2Calendar } from "../../../components";
+import { Box, V2Calendar } from "../../../components";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchDayLessonRequest, updateDate } from "../../../redux/attendance/attendanceActions";
+import { fetchDayLessonRequest, selectLesson, updateDate } from "../../../redux/attendance/attendanceActions";
+import { REQUEST_FAILURE_DAY_LESSON, REQUEST_SUCCESS_DAY_LESSON } from "../../../redux/attendance/attendanceType";
 import AttendanceContent from "./AttendanceContent";
 import styled from "styled-components";
 import moment from "moment";
-import { REQUEST_FAILURE_DAY_LESSON, REQUEST_SUCCESS_DAY_LESSON } from "../../../redux/attendance/attendanceType";
+import "./Attendance.scss";
 
 const Container = styled.div`
     /* box-sizing: border-box; */
@@ -44,17 +45,20 @@ const MainContentBox = styled.div`
 `;
 
 const Button = styled.button`
-    color: black;
-    width: auto;
-    min-width: 120px;
-    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 `;
+
+
 
 export default function Attendance() {
     
     const dispatch = useDispatch();
     const date = useSelector((state) => state.attendance.date);
     const lessons = useSelector((state) => state.attendance.lessons);
+    const selected = useSelector((state) => state.attendance.selected);
     const attendance = useSelector((state) => state.attendance.attendance);
     
     useEffect(() => {
@@ -75,16 +79,25 @@ export default function Attendance() {
         );
     }, [date]);
 
-    const LessonButton = () =>
-        lessons.map((lesson) => (
-            <Button name={lesson} onClick={clickLesson}>
-                {lesson.name}
-            </Button>
-        ));
-    // create lesson button
+    const LessonButton = () => {
+        return <Box>
+            {lessons.map((lesson) => {
+                return <Button 
+                    id={lesson.id} 
+                    className={lesson.id === selected ? "selected" : ""} 
+                    onClick={clickLesson}
+                >
+                    {lesson.name}
+                </Button>
+            })}
+        </Box>
+    }
 
     const clickLesson = (e) => {
-        // setTargetLessonData(attendance);
+        let lessonId = e.target.id;
+        dispatch(selectLesson({
+            id: lessonId
+        }));
     };
 
     const onPrevMonth = () => {
@@ -98,13 +111,12 @@ export default function Attendance() {
     };
 
     const onSelectDate = (date) => {
-        console.log(date);
         dispatch(updateDate(date));
       };
 
     return (
         <Container>
-            <Row>
+            <Row className="Attendance">
                 <Col span={5}>
                     <V2Calendar
                         date={date}

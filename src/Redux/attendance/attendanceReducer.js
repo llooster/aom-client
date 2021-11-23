@@ -2,6 +2,7 @@ import { handleActions } from "redux-actions";
 import { 
     UPDATE_DATE,
     UPDATE_ATT_STATUS,  
+    SELECT_LESSON,
     REQUEST_DAY_LESSON,
     REQUEST_SUCCESS_DAY_LESSON,
     REQUEST_FAILURE_DAY_LESSON
@@ -13,6 +14,7 @@ const initState = {
     message: "",
     date: moment(),
     lessons: [],
+    selected: null,
     attendance: {
         date: "2021-11-15",
         year: 2021,
@@ -104,6 +106,10 @@ const attendanceReducer = handleActions(
             message: "FAILURE",
             lessons: []
         }),
+        [SELECT_LESSON]: (state, action) => ({
+            ...state,
+            selected: Number(action.payload.id)
+        }),
         [UPDATE_ATT_STATUS]: (state, action) => ({
             ...state,
             attendance: {
@@ -113,7 +119,8 @@ const attendanceReducer = handleActions(
         }),
         [UPDATE_DATE]: (state, action) => ({
             ...state,
-            date: action.payload
+            date: action.payload,
+            selected: null
         })
     },
     initState
