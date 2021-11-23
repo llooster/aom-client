@@ -1,0 +1,95 @@
+.V2Calendar {
+    padding: 20px;
+    margin-bottom: 10px;
+    user-select: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-family: rotobo;
+    height: 410px;
+    max-height: 410px;
+    transition: all 0.25s ease-in;
+    span {
+      display: block;
+    }
+    .head {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      .title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .arrow {
+        padding: 0px;
+      }
+      span {
+        font-size: 24px;
+        font-weight: 700;
+      }
+      button {
+        cursor: pointer;
+        outline: none;
+        background: transparent;
+        border: none;
+        font-size: 20pt;
+        padding: 4px;
+        border-radius: 4px;
+        &:hover {
+          background-color: rgba(gray, 0.1);
+          transition: background-color 0.25s ease-in;
+        }
+        &:active {
+          background-color: rgba(gray, 0.2);
+          transition: background-color 0.25s ease-in;
+        }
+      }
+    }
+  
+    .middle {
+      color: #c9c9c9;
+      padding: 15px 0px;
+    }
+  
+    .body .ant-col {
+      display: flex;
+      width: 100%;
+      .box {
+        display: flex;
+        justify-content: center;
+        width: calc(100% / 7);
+        cursor: pointer;
+        &:first-child {
+          color: red;
+        }
+        &:last-child {
+          color: #588dff;
+        }
+        &.grayed {
+          color: gray;
+        }
+        &:hover {
+          span.text {
+            background-color: rgba(#588dff, 0.1);
+            transition: background-color 0.25s ease-in;
+          }
+        }
+        &.selected {
+          span.text {
+            background-color: #588dff;
+            color: white;
+            transition: all 0.25s ease-in;
+          }
+        }
+        &.hidden {
+          visibility: hidden;
+        }
+        .text {
+          width: 40px;
+          height: 40px;
+          padding: 10px;
+          border-radius: 50%;
+        }
+      }
+    }
+  }

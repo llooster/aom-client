@@ -2,6 +2,7 @@ export { default as Box } from "./box/Box";
 export { default as Button } from "./button/Button.jsx";
 export { default as Footer } from "./footer/Footer.jsx";
 export { default as Header } from "./header/Header.jsx";
+export { default as V2Header } from "./header/v2/V2Header";
 export { default as Icon } from "./icon/Icon.jsx";
 export { default as Input } from "./input/Input.jsx";
 export { default as Link } from "./link/Link.jsx";
@@ -15,4 +16,5 @@ export { default as HorizontalWrapper } from "./wrapper/horizontal/HorizontalWra
 export { default as VerticalWrapper } from "./wrapper/vertical/VerticalWrapper.jsx";
 export { default as ModalBox } from "./modal/ModalBox.jsx";
 export { default as Calendar } from "./calendar/Calendar.jsx";
+export { default as V2Calendar } from "./calendar/V2Calendar";
 export { default as Transfer } from "./transfer/Transfer";

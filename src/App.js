@@ -4,7 +4,7 @@ import { createStore, compose, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { DefaultRouter } from "./router";
 import rootReducer from "./redux";
-import { DefaultLayout, MainLayout } from "./layout";
+import { DefaultLayout, FullWidthLayout, MainLayout } from "./layout";
 import {
     LoginPage,
     RegisterPage,
@@ -91,13 +91,13 @@ function App() {
                         exact
                         path={"/attendance"}
                         component={Attendance}
-                        layout={MainLayout}
+                        layout={FullWidthLayout}
                     />
                     <DefaultRouter
                         exact
                         path={"/payment"}
                         component={Payment}
-                        layout={MainLayout}
+                        layout={FullWidthLayout}
                     />
                 </Switch>
             </BrowserRouter>

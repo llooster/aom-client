@@ -1,11 +1,6 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { REQUEST_LESSON, REQUEST_POST_LESSON } from "../redux/lesson/lessonTypes";
-import {
-    REQUEST_MEMBER,
-    REQUEST_SUCCESS_MEMBER,
-    REQUEST_FAILURE_MEMBER,
-} from "../redux/member/memberTypes";
-
+import { REQUEST_MEMBER, } from "../redux/member/memberTypes";
 import { getAPIs, postAPIs } from "../apis";
 import _ from "lodash";
 

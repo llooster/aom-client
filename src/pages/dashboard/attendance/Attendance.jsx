@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { Calendar } from "../../../components";
+import { Row, Col } from "antd";
+import { V2Calendar } from "../../../components";
 import { useSelector } from "react-redux";
 import AttendanceContent from "./AttendanceContent";
-import { getAttendanceAPI } from "../../../apis/attendance/attendanceAPI";
+import styled from "styled-components";
+import moment from "moment";
 
 const Container = styled.div`
     /* box-sizing: border-box; */
@@ -14,8 +14,8 @@ const Container = styled.div`
     color: white;
     min-width: 1000px;
 
-    grid-template-rows: 10%;
-    grid-template-columns: 20%;
+    // grid-template-rows: 10%;
+    // grid-template-columns: 20%;
     /* Container자식 컴포넌트의 row의 길이 */
     grid-template-areas:
         "main main main main"
@@ -64,13 +64,16 @@ const Button = styled.button`
 `;
 
 export default function Attendance() {
+    
     const attendance = useSelector((state) => state.attendance.attendance);
+    
     const [lessons, setLessons] = useState(
         useSelector((state) => state.lessons.lessons)
     );
+    const [date, setDate] = useState(moment());
+
     const selectedDate = "TUESDAY";
-    // Dummy date(selected)
-    getAttendanceAPI();
+    
     const LessonButton = () =>
         lessons.map((lesson) => (
             <Button name={lesson} onClick={clickLesson}>
@@ -82,20 +85,43 @@ export default function Attendance() {
     const clickLesson = (e) => {
         // setTargetLessonData(attendance);
     };
+
+    const onPrevMonth = () => {
+        let prev = moment(date).subtract(1, "M");
+        setDate(prev);
+    };
+    
+    const onNextMonth = () => {
+        let next = moment(date).add(1, "M");
+        setDate(next);
+    };
+
+    const onSelectDate = (date) => {
+        setDate(date);
+        // setSelectedKey(null);
+        console.log(date);
+      };
+
     return (
         <Container>
-            <Main>
-                <Link to="/payment">Payment</Link>
-            </Main>
-            <SideBar>
-                <Calendar></Calendar>
-                {LessonButton()}
-            </SideBar>
-            <ContentBox>
-                <MainContentBox>
-                    <AttendanceContent value={attendance.members} />
-                </MainContentBox>
-            </ContentBox>
+            <Row>
+                <Col span={4}>
+                    <V2Calendar
+                        date={date}
+                        prevMonth={onPrevMonth}
+                        nextMonth={onNextMonth}
+                        onSelect={onSelectDate}
+                    />
+                    {LessonButton()}
+                </Col>
+                <Col span={18}>
+                    <ContentBox>
+                        <MainContentBox>
+                            <AttendanceContent value={attendance.members} />
+                        </MainContentBox>
+                    </ContentBox>
+                </Col>
+            </Row>
         </Container>
     );
 }

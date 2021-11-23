@@ -1,0 +1,55 @@
+@import "public/styles/Size.scss";
+@import "public/styles/Color.scss";
+
+.V2Header {
+    display: flex;
+    width: 100%;
+    min-width: 100vw;
+    padding: 24px 20px 16px 20px;
+    border-bottom: 1px solid rgba(145, 158, 171, 0.24);
+
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px 48px;
+        margin-right: 20px;
+        font-size: 18px;
+        font-weight: 700;
+
+        border-radius: 12px;
+        // border-right: 1px solid rgba(145, 158, 171, 0.24);
+        background-color: rgba(145, 158, 171, 0.12);
+    }
+   
+    .menu-item {
+        display: flex;
+        align-items: center;
+        border-radius: 12px;
+        padding: 10px 16px 10px 22px;
+        margin-bottom: 5px;
+        color: $color-menu-font;
+        transition: none;
+
+        &.selected {
+            color: $color-menu-font-hover;
+            font-weight: 700;
+            // background-color: $color-menu-item-background;
+        }
+
+        .menu-icon {
+            margin-right: 8px;
+        }
+
+        .menu-label span {
+            position: relative;
+            top: 1px;
+        }
+    }
+
+    .menu-item:hover {
+        color: $color-menu-font-hover;
+        // background-color: $color-menu-item-background;
+    }
+
+}

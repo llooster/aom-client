@@ -1,7 +1,7 @@
 @import "public/styles/Size.scss";
 @import "public/styles/Color.scss";
 
-.MainLayout {
+.FullWidthLayout {
     display: flex;
     width: 100%;
     height: 100%;
@@ -9,10 +9,6 @@
     
     .V2Header {
         display: flex;
-    }
-    
-    .container {
-        margin: 0 auto;
     }
     
     .content {

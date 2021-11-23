@@ -1,20 +1,20 @@
 import React from "react";
 import { Row, Col } from 'antd';
-import { Header, SideBar, V2Header } from "../../components";
-import "./MainLayout.scss";
+import { V2Header } from "../../components";
+import "./FullWidthLayout.scss";
 
-const MainLayout = (props) => {
+const FullWidthLayout = (props) => {
     
     const { children } = props;
    
-    return <Row className="MainLayout">
+    return <Row className="FullWidthLayout">
         <Col span={24} className="header">
             <V2Header/>
         </Col>
-        <Col span={18} className="container">
+        <Col span={24} className="container">
             <div className="content">{children}</div>
         </Col>
     </Row>
 }
 
-export default MainLayout;
+export default FullWidthLayout;
