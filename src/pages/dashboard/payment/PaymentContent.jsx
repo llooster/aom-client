@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updatePaymentStatus } from "../../../redux/payment/paymentActions";
+import {
+    updatePaymentStatus,
+    updateNewPayment,
+} from "../../../redux/payment/paymentActions";
+import { SUCCESS_UPDATE_NEW_PAYMENT } from "../../../redux/payment/paymentType";
 import { Button } from "../../../components";
 import _ from "lodash";
+import axios from "axios";
 
 const updateToState = {
     UNDEFINED: "CARD",
@@ -18,7 +23,24 @@ const updatingPaymentAPI = {
 
 export default function PaymentContent({ value, payment }) {
     const members = useSelector((state) => state.payment.payment.members);
-    const [getPayment, setGetPayment] = useState(payment);
+    const selectedId = useSelector((state) => state.payment.selected);
+    console.log(">>> 주 클릭 시 PUT /API <<< ");
+    // let cards = [];
+    // let cashs = [];
+    // payment.members &&
+    //     payment.members.forEach((member, index) => {
+    //         // console.log("member :>> ", member.payments);
+    //         var newcards = member.payments.filter(
+    //             (item) => item.state === "CARD"
+    //         );
+    //         var newcashs = member.payments.filter(
+    //             (item) => item.state === "CARD"
+    //         );
+    //         cards = newcards.map((item) => item.id);
+    //         cashs = newcards.map((item) => item.id);
+    // });
+    // console.log("cards :>> ", cards);
+    // console.log("cashs :>> ", cashs);
     const dispatch = useDispatch();
     const headerTags = () => (
         <>
@@ -41,7 +63,8 @@ export default function PaymentContent({ value, payment }) {
                 (member.payments[week].state =
                     updateToState[member.payments[week].state])
         );
-        setGetPayment(updatedMembers);
+
+        //updatingPaymentAPI 여기부터
         dispatch(updatePaymentStatus({ update: updatedMembers }));
     };
     const updatedEach = (e) => {
@@ -61,7 +84,6 @@ export default function PaymentContent({ value, payment }) {
         ].paymentIds.push(targetPaymentId);
         console.log("CARD :>> ", updatingPaymentAPI.CARD);
         console.log("CASH :>> ", updatingPaymentAPI.CASH);
-        setGetPayment(updatedMembers);
         dispatch(updatePaymentStatus({ update: updatedMembers }));
     };
     const content = () =>
@@ -89,10 +111,36 @@ export default function PaymentContent({ value, payment }) {
         ));
 
     // 배열의 인덱스> vs id 값?  >> 로직
+    const updatePayment = () => {
+        dispatch(
+            updateNewPayment({
+                api: {
+                    path: `/lessons/${selectedId}/payments`,
+                    body: updatingPaymentAPI.CARD,
+                },
+                actions: {
+                    success: SUCCESS_UPDATE_NEW_PAYMENT,
+                },
+            }),
+            updateNewPayment({
+                api: {
+                    path: `/lessons/${selectedId}/payments`,
+                    body: updatingPaymentAPI.CASH,
+                },
+                actions: {
+                    success: SUCCESS_UPDATE_NEW_PAYMENT,
+                },
+            })
+        );
+    };
     const renderTables = () => {
         return (
             <>
-                <Button className="btn-register" label="REGISTER" />
+                <Button
+                    className="btn-register"
+                    onClick={updatePayment}
+                    label="UPDATE"
+                />
                 <div className="contentWrapper">
                     <div className="rowsWrapper">{headerTags()}</div>
                     {content()}
