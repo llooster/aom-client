@@ -17,28 +17,12 @@ const Container = styled.div`
     // grid-template-rows: 10%;
     // grid-template-columns: 20%;
     /* Container자식 컴포넌트의 row의 길이 */
-    grid-template-areas:
-        "main main main main"
-        "sidebar content content content";
+    // grid-template-areas:
+    //     "main main main main"
+    //     "sidebar content content content";
     /* "sidebar content content content"; */
     text-align: center;
     grid-gap: 5px;
-`;
-
-const Main = styled.main`
-    /* background: rgba(170, 200, 170, 0.2); */
-    /* height: 30%; */
-    border-radius: 20px;
-    color: white;
-    height: 100%;
-    grid-area: main;
-    padding: 0.25rem;
-`;
-const SideBar = styled.div`
-    /* background: rgba(170, 200, 170, 0.2); */
-    border-radius: 20px;
-    grid-area: sidebar;
-    padding: 0.4rem;
 `;
 
 const ContentBox = styled.div`
@@ -46,8 +30,9 @@ const ContentBox = styled.div`
     gap: 0.25rem;
     padding: 0.25rem;
     align-items: center;
-    grid-area: content;
+    // grid-area: content;
     justify-content: center;
+    padding: 0px 16px;
 `;
 const MainContentBox = styled.div`
     /* background: rgba(170, 200, 170, 0.2); */
@@ -105,7 +90,7 @@ export default function Attendance() {
     return (
         <Container>
             <Row>
-                <Col span={4}>
+                <Col span={5}>
                     <V2Calendar
                         date={date}
                         prevMonth={onPrevMonth}
@@ -114,7 +99,7 @@ export default function Attendance() {
                     />
                     {LessonButton()}
                 </Col>
-                <Col span={18}>
+                <Col className="attendance-content" span={19}>
                     <ContentBox>
                         <MainContentBox>
                             <AttendanceContent value={attendance.members} />

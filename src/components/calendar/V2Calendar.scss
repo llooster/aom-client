@@ -2,14 +2,16 @@
     padding: 20px;
     margin-bottom: 10px;
     user-select: none;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(145, 158, 171, 1);
     font-family: rotobo;
-    height: 410px;
-    max-height: 410px;
+    height: 350px;
+    max-height: 350px;
     transition: all 0.25s ease-in;
+    
     span {
       display: block;
     }
+
     .head {
       display: flex;
       justify-content: space-around;
@@ -85,10 +87,10 @@
           visibility: hidden;
         }
         .text {
-          width: 40px;
-          height: 40px;
-          padding: 10px;
-          border-radius: 50%;
+          width: 32px;
+          height: 32px;
+          padding: 6px;
+          border-radius: 100%;
         }
       }
     }
