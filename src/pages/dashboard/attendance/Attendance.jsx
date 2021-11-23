@@ -2,12 +2,21 @@ import React, { useEffect } from "react";
 import { Row, Col } from "antd";
 import { Box, V2Calendar } from "../../../components";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchDayLessonRequest, fetchLessonAttendanceRequest, selectLesson, updateDate } from "../../../redux/attendance/attendanceActions";
-import { REQUEST_FAILURE, REQUEST_LESSON_ATTENDANCE_SUCCESS, REQUEST_SUCCESS_DAY_LESSON } from "../../../redux/attendance/attendanceType";
 import AttendanceContent from "./AttendanceContent";
 import styled from "styled-components";
 import moment from "moment";
 import "./Attendance.scss";
+import {
+    fetchDayLessonRequest,
+    fetchLessonAttendanceRequest,
+    selectLesson,
+    updateDate,
+} from "../../../redux/attendance/attendanceActions";
+import {
+    REQUEST_FAILURE,
+    REQUEST_LESSON_ATTENDANCE_SUCCESS,
+    REQUEST_SUCCESS_DAY_LESSON,
+} from "../../../redux/attendance/attendanceType";
 
 const Container = styled.div`
     /* box-sizing: border-box; */
@@ -51,25 +60,21 @@ const Button = styled.button`
     width: 100%;
 `;
 
-
-
 export default function Attendance() {
-    
     const dispatch = useDispatch();
     const date = useSelector((state) => state.attendance.date);
     const strDate = useSelector((state) => state.attendance.strDate);
     const lessons = useSelector((state) => state.attendance.lessons);
     const selected = useSelector((state) => state.attendance.selected);
     const attendance = useSelector((state) => state.attendance.attendance);
-    
     useEffect(() => {
         dispatch(
             fetchDayLessonRequest({
                 api: {
                     path: "/lessons",
                     params: {
-                        date: strDate
-                    }
+                        date: strDate,
+                    },
                 },
                 actions: {
                     success: REQUEST_SUCCESS_DAY_LESSON,
@@ -80,32 +85,38 @@ export default function Attendance() {
     }, [date]);
 
     const LessonButton = () => {
-        return <Box>
-            {lessons.map((lesson) => {
-                return <Button 
-                    key={lesson.id}
-                    id={lesson.id} 
-                    className={lesson.id === selected ? "selected" : ""} 
-                    onClick={clickLesson}
-                >
-                    {lesson.name}
-                </Button>
-            })}
-        </Box>
-    }
+        return (
+            <Box>
+                {lessons.map((lesson) => {
+                    return (
+                        <Button
+                            key={lesson.id}
+                            id={lesson.id}
+                            className={lesson.id === selected ? "selected" : ""}
+                            onClick={clickLesson}
+                        >
+                            {lesson.name}
+                        </Button>
+                    );
+                })}
+            </Box>
+        );
+    };
 
     const clickLesson = (e) => {
         let lessonId = e.target.id;
-        dispatch(selectLesson({
-            id: lessonId
-        }));
+        dispatch(
+            selectLesson({
+                id: lessonId,
+            })
+        );
         dispatch(
             fetchLessonAttendanceRequest({
                 api: {
                     path: `/lessons/${lessonId}/attendances`,
                     params: {
-                        date: strDate
-                    }
+                        date: strDate,
+                    },
                 },
                 actions: {
                     success: REQUEST_LESSON_ATTENDANCE_SUCCESS,
@@ -119,7 +130,7 @@ export default function Attendance() {
         let prev = moment(date).subtract(1, "M");
         dispatch(updateDate(prev));
     };
-    
+
     const onNextMonth = () => {
         let next = moment(date).add(1, "M");
         dispatch(updateDate(next));
@@ -127,7 +138,7 @@ export default function Attendance() {
 
     const onSelectDate = (date) => {
         dispatch(updateDate(date));
-      };
+    };
 
     return (
         <Container>
@@ -144,7 +155,10 @@ export default function Attendance() {
                 <Col className="attendance-content" span={19}>
                     <ContentBox>
                         <MainContentBox>
-                            <AttendanceContent value={attendance.members} />
+                            <AttendanceContent
+                                value={attendance.members}
+                                attendance={attendance}
+                            />
                         </MainContentBox>
                     </ContentBox>
                 </Col>

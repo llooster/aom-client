@@ -1,20 +1,24 @@
 import { createAction } from "redux-actions";
 import {
-    UPDATE_PAYMENT,
-    REQUEST_PAYMENT,
-    REQUEST_SUCCESS_TODAY_LESSON,
-    REQUEST_FAILURE_PAYMENT,
-    REQUEST_PAYMENT_ONE,
-    REQUEST_SUCCESS_TODAY_PAYMENT,
+    UPDATE_PAYMENT_STATUS,
+    UPDATE_DATE,
+    SELECT_LESSON,
+    REQUEST_FAILURE,
+    REQUEST_DAY_LESSON_PAYMENT,
+    REQUEST_SUCCESS_DAY_LESSON,
+    REQUEST_LESSON_PAYMENT,
+    REQUEST_LESSON_PAYMENT_SUCCESS,
 } from "./paymentType";
 
-export const updatePayment = createAction(UPDATE_PAYMENT);
+export const updatePaymentStatus = createAction(UPDATE_PAYMENT_STATUS);
+export const updateDate = createAction(UPDATE_DATE);
+export const selectLesson = createAction(SELECT_LESSON);
 
-export const reauestPayment = createAction(REQUEST_PAYMENT);
-export const requestSuccessTodayPayment = createAction(
-    REQUEST_SUCCESS_TODAY_LESSON
+export const fetchDayLessonRequest = createAction(REQUEST_DAY_LESSON_PAYMENT);
+export const fetchDayLessonSuccess = createAction(REQUEST_SUCCESS_DAY_LESSON);
+export const fetchDayLessonFailure = createAction(REQUEST_FAILURE);
+
+export const fetchLessonPaymentRequest = createAction(REQUEST_LESSON_PAYMENT);
+export const fetchLessonPaymentSuccess = createAction(
+    REQUEST_LESSON_PAYMENT_SUCCESS
 );
-export const reauestSuccessTodayPayment = createAction(
-    REQUEST_SUCCESS_TODAY_PAYMENT
-);
-export const requestPaymentOne = createAction(REQUEST_PAYMENT_ONE);

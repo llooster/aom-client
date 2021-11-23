@@ -27,7 +27,8 @@ const store = createStore(
     rootReducer,
     compose(
         applyMiddleware(sagaMiddleware),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+            window.__REDUX_DEVTOOLS_EXTENSION__()
     )
 );
 
@@ -86,7 +87,6 @@ function App() {
                         component={MemberOne}
                         layout={MainLayout}
                     />
-                    {/* exact path로 각각 했는데 왜 path가 엉킴*/}
                     <DefaultRouter
                         exact
                         path={"/attendance"}

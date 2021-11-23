@@ -1,11 +1,19 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { REQUEST_LESSON, REQUEST_POST_LESSON } from "../redux/lesson/lessonTypes";
-import { REQUEST_MEMBER, } from "../redux/member/memberTypes";
-import { REQUEST_DAY_LESSON, REQUEST_LESSON_ATTENDANCE } from "../redux/attendance/attendanceType";
-import { REQUEST_PAYMENT } from "../redux/payment/paymentType";
+import {
+    REQUEST_LESSON,
+    REQUEST_POST_LESSON,
+} from "../redux/lesson/lessonTypes";
+import { REQUEST_MEMBER } from "../redux/member/memberTypes";
+import {
+    REQUEST_DAY_LESSON,
+    REQUEST_LESSON_ATTENDANCE,
+} from "../redux/attendance/attendanceType";
+import {
+    REQUEST_DAY_LESSON_PAYMENT,
+    REQUEST_LESSON_PAYMENT,
+} from "../redux/payment/paymentType";
 import { getAPIs, postAPIs } from "../apis";
 import _ from "lodash";
-
 
 function* fetchRequest(action) {
     let path = action.payload.api.path;
@@ -45,13 +53,17 @@ function* postRequest(action) {
 }
 
 function* rootSaga() {
-    yield takeEvery([
-        REQUEST_LESSON,
-        REQUEST_DAY_LESSON,
-        REQUEST_MEMBER,
-        REQUEST_PAYMENT,
-        REQUEST_LESSON_ATTENDANCE
-    ], fetchRequest);
+    yield takeEvery(
+        [
+            REQUEST_LESSON,
+            REQUEST_DAY_LESSON,
+            REQUEST_MEMBER,
+            REQUEST_DAY_LESSON_PAYMENT,
+            REQUEST_LESSON_ATTENDANCE,
+            REQUEST_LESSON_PAYMENT,
+        ],
+        fetchRequest
+    );
     yield takeEvery(REQUEST_POST_LESSON, postRequest);
 }
 

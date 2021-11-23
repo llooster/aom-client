@@ -1,94 +1,116 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { updateAttStatus } from "../../../redux/attendance/attendanceActions";
+import { Button } from "../../../components";
 import "../content.css";
 import _ from "lodash";
 
-const paymentRenderValue = {
-    Att: "Att",
-    Yet: "Yet",
+const updateToState = {
+    UNDEFINED: "YET",
+    YET: "ATT",
+    ATT: "YET",
+};
+const YET = { state: "YET", attendanceIds: [] };
+const updatingAttendanceAPI = {
+    UNDEFINED: YET,
+    YET: YET,
+    ATT: { state: "ATT", attendanceIds: [] },
 };
 
-let toggleNum = 1;
-
-export default function AttendanceContent({ value }) {
+export default function AttendanceContent({ value, attendance }) {
+    const members = useSelector((state) => state.attendance.attendance.members);
+    const [getAttendance, setGetAttendance] = useState(attendance);
     const dispatch = useDispatch();
-    const headerTags = () =>
-        value[0].attendances.map((each, index) => (
-            <a key={index} className="part" type={index} onClick={updatedWeek}>{`${
-                index + 1
-            }주차`}</a>
-        ));
+    const headerTags = () => (
+        <>
+            <div className="part">name</div>
+            {value[0].attendances.map((each, index) => (
+                <a className="part" type={index} onClick={updatedWeek}>{`${
+                    index + 1
+                }월`}</a>
+            ))}
+            <div className="part">all</div>
+        </>
+    );
     // 가로 이름, 세로 주차 하면 어떨지
     const updatedWeek = (e) => {
-        var updatedValue = [...value];
+        var updatedMembers = [...members];
         const week = e.target.type;
-        // 토글 1
-        updatedValue.map(
+        updatedMembers.forEach(
             (member) =>
                 (member.attendances[week].state =
-                    toggleNum % 2 == 0
-                        ? paymentRenderValue.Yet
-                        : paymentRenderValue.Att)
+                    updateToState[member.attendances[week].state])
         );
-        toggleNum++;
-
-        //토글 2
-        // updatedValue.map(
-        //     (member) =>
-        //         (member.attendances[week].state =
-        //             member.attendances[0].state != paymentRenderValue.Yet
-        //                 ? paymentRenderValue.Yet
-        //                 : paymentRenderValue.Att)
-        // );
-        dispatch(updateAttStatus({ update: updatedValue }));
+        setGetAttendance(updatedMembers);
+        dispatch(updateAttStatus({ update: updatedMembers }));
     };
     const updatedEach = (e) => {
         const member = e.target.dataset.member;
         const week = e.target.dataset.week;
-        var updatedValue = [...value];
-        updatedValue[member].attendances[week].state =
-            updatedValue[member].attendances[week].state ==
-            paymentRenderValue.Att
-                ? paymentRenderValue.Yet
-                : paymentRenderValue.Att;
-        dispatch(updateAttStatus({ update: updatedValue }));
+        const targetAttendanceId = e.target.dataset.id;
+        let updatedMembers = [...members];
+        var targetState = updatedMembers[member].attendances[week].state;
+        updatingAttendanceAPI[
+            targetState
+        ].attendanceIds = updatingAttendanceAPI[
+            targetState
+        ].attendanceIds.filter((item) => item !== targetAttendanceId);
+
+        updatedMembers[member].attendances[week].state =
+            updateToState[updatedMembers[member].attendances[week].state];
+        updatingAttendanceAPI[
+            updatedMembers[member].attendances[week].state
+        ].attendanceIds.push(targetAttendanceId);
+        console.log("YET :>> ", updatingAttendanceAPI.YET);
+        console.log("ATT :>> ", updatingAttendanceAPI.ATT);
+        setGetAttendance(updatedMembers);
+        dispatch(updateAttStatus({ update: updatedMembers }));
     };
-
-    const renderTables = () => {
-        return <div className="rowsWrapper">
-                    <div className="part">name</div>
-                    {headerTags()}
-                    {/* <div class="part">all</div> */}
+    const content = () =>
+        members &&
+        members.map((member, index1) => (
+            <>
+                <div className="rowsWrapper">
+                    <div className="part">{member.name || ""}</div>
+                    {member.attendances.map((attendance, index2) => {
+                        return (
+                            <a
+                                className="part"
+                                data-member={index1}
+                                data-week={index2}
+                                data-id={attendance.id}
+                                onClick={updatedEach}
+                            >
+                                {attendance.state}
+                            </a>
+                        );
+                    })}
+                    <a className="part">{"all"}</a>
                 </div>
-                {value.map((member, index1) => (
-                    <div key={index1} className="rowsWrapper">
-                        <div className="part">{member.name || ""}</div>
-                        {member.attendances.map((attendance, index2) => {
-                            return (
-                                <a
-                                    className="part"
-                                    data-member={index1}
-                                    data-week={index2}
-                                    onClick={updatedEach}
-                                >
-                                    {attendance.state}
-                                </a>
-                            );
-                        })}
-                        {/* <a class="part">{"all"}</a> */}
-                    </div>
-                ))}
-    }
-
-    const renderEmpty = () => {
-        return <div>NO MEMBERS</div>
-    }
+            </>
+        ));
 
     // 배열의 인덱스> vs id 값?  >> 로직
+    const renderTables = () => {
+        return (
+            <>
+                <Button className="btn-register" label="REGISTER" />
+                <div className="contentWrapper">
+                    <div className="rowsWrapper">{headerTags()}</div>
+                    {content()}
+                </div>
+            </>
+        );
+    };
+
+    const renderEmpty = () => {
+        return <div>NO MEMBERS</div>;
+    };
+
+    // // 배열의 인덱스> vs id 값?  >> 로직
     return (
         <div className="contentWrapper">
-            { _.isEmpty(value) ? renderEmpty() : renderTables() }
+            {_.isEmpty(value) ? renderEmpty() : renderTables()}
         </div>
     );
 }
