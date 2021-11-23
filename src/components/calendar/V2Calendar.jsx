@@ -10,11 +10,9 @@ const V2Calendar = (props) => {
 
   const drawDayOfWeeks = () => {
     return dayOfWeeks.map((dayOfWeek, index) => {
-      return (
-        <div key={index} className="box">
+      return <div key={index} className="box">
           <span className="text">{dayOfWeek}</span>
         </div>
-      );
     });
   };
 
@@ -29,7 +27,7 @@ const V2Calendar = (props) => {
     let calendar = [];
     for (let week = startWeek; week <= endWeek; week++) {
       calendar.push(
-        <Row>
+        <Row key={week}>
           <Col className="days" span={24}>
             {" "}
             {Array(7)
@@ -45,16 +43,14 @@ const V2Calendar = (props) => {
                 let visible = month === currentMonth ? "" : "hidden";
                 let selected = date.date() === currentDate ? "selected" : "";
 
-                return (
-                  <div
-                    className={`box box-${i} ${visible} ${selected}`}
+                return <div
                     key={i}
+                    className={`box box-${i} ${visible} ${selected}`}
                   >
                     <span className={`text`} onClick={() => onSelect(current)}>
                       {current.format("D")}
                     </span>
                   </div>
-                );
               })}
           </Col>
         </Row>

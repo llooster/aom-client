@@ -17,14 +17,15 @@
 
         .box-body button:hover {
             cursor: pointer;
-            color: $color-menu-font-hover;
-            background-color: $color-menu-item-background;
+            color: white;
+            font-weight: 700;
+            background-color: #a0afbd;
         }
 
         .box-body button.selected {
-            color: $color-menu-font-hover;
+            color: white;
             font-weight: 700;
-            background-color: $color-menu-item-background;
+            background-color: #a0afbd;
         }
         
     }

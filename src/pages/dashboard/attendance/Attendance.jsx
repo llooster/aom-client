@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { Row, Col } from "antd";
 import { Box, V2Calendar } from "../../../components";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchDayLessonRequest, selectLesson, updateDate } from "../../../redux/attendance/attendanceActions";
-import { REQUEST_FAILURE_DAY_LESSON, REQUEST_SUCCESS_DAY_LESSON } from "../../../redux/attendance/attendanceType";
+import { fetchDayLessonRequest, fetchLessonAttendanceRequest, selectLesson, updateDate } from "../../../redux/attendance/attendanceActions";
+import { REQUEST_FAILURE, REQUEST_LESSON_ATTENDANCE_SUCCESS, REQUEST_SUCCESS_DAY_LESSON } from "../../../redux/attendance/attendanceType";
 import AttendanceContent from "./AttendanceContent";
 import styled from "styled-components";
 import moment from "moment";
@@ -57,23 +57,23 @@ export default function Attendance() {
     
     const dispatch = useDispatch();
     const date = useSelector((state) => state.attendance.date);
+    const strDate = useSelector((state) => state.attendance.strDate);
     const lessons = useSelector((state) => state.attendance.lessons);
     const selected = useSelector((state) => state.attendance.selected);
     const attendance = useSelector((state) => state.attendance.attendance);
     
     useEffect(() => {
-        let formattedDate = moment(date).format("YYYY-MM-DD");
         dispatch(
             fetchDayLessonRequest({
                 api: {
                     path: "/lessons",
                     params: {
-                        date: formattedDate
+                        date: strDate
                     }
                 },
                 actions: {
                     success: REQUEST_SUCCESS_DAY_LESSON,
-                    failure: REQUEST_FAILURE_DAY_LESSON,
+                    failure: REQUEST_FAILURE,
                 },
             })
         );
@@ -83,6 +83,7 @@ export default function Attendance() {
         return <Box>
             {lessons.map((lesson) => {
                 return <Button 
+                    key={lesson.id}
                     id={lesson.id} 
                     className={lesson.id === selected ? "selected" : ""} 
                     onClick={clickLesson}
@@ -98,6 +99,20 @@ export default function Attendance() {
         dispatch(selectLesson({
             id: lessonId
         }));
+        dispatch(
+            fetchLessonAttendanceRequest({
+                api: {
+                    path: `/lessons/${lessonId}/attendances`,
+                    params: {
+                        date: strDate
+                    }
+                },
+                actions: {
+                    success: REQUEST_LESSON_ATTENDANCE_SUCCESS,
+                    failure: REQUEST_FAILURE,
+                },
+            })
+        );
     };
 
     const onPrevMonth = () => {

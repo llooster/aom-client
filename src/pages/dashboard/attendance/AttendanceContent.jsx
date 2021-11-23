@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { updateAttStatus } from "../../../redux/attendance/attendanceActions";
 import "../content.css";
+import _ from "lodash";
 
 const paymentRenderValue = {
     Att: "Att",
@@ -14,7 +15,7 @@ export default function AttendanceContent({ value }) {
     const dispatch = useDispatch();
     const headerTags = () =>
         value[0].attendances.map((each, index) => (
-            <a class="part" type={index} onClick={updatedWeek}>{`${
+            <a key={index} className="part" type={index} onClick={updatedWeek}>{`${
                 index + 1
             }주차`}</a>
         ));
@@ -54,32 +55,40 @@ export default function AttendanceContent({ value }) {
         dispatch(updateAttStatus({ update: updatedValue }));
     };
 
+    const renderTables = () => {
+        return <div className="rowsWrapper">
+                    <div className="part">name</div>
+                    {headerTags()}
+                    {/* <div class="part">all</div> */}
+                </div>
+                {value.map((member, index1) => (
+                    <div key={index1} className="rowsWrapper">
+                        <div className="part">{member.name || ""}</div>
+                        {member.attendances.map((attendance, index2) => {
+                            return (
+                                <a
+                                    className="part"
+                                    data-member={index1}
+                                    data-week={index2}
+                                    onClick={updatedEach}
+                                >
+                                    {attendance.state}
+                                </a>
+                            );
+                        })}
+                        {/* <a class="part">{"all"}</a> */}
+                    </div>
+                ))}
+    }
+
+    const renderEmpty = () => {
+        return <div>NO MEMBERS</div>
+    }
+
     // 배열의 인덱스> vs id 값?  >> 로직
     return (
-        <div class="contentWrapper">
-            <div class="rowsWrapper">
-                <div class="part">name</div>
-                {headerTags()}
-                {/* <div class="part">all</div> */}
-            </div>
-            {value.map((member, index1) => (
-                <div class="rowsWrapper">
-                    <div class="part">{member.name || ""}</div>
-                    {member.attendances.map((attendance, index2) => {
-                        return (
-                            <a
-                                class="part"
-                                data-member={index1}
-                                data-week={index2}
-                                onClick={updatedEach}
-                            >
-                                {attendance.state}
-                            </a>
-                        );
-                    })}
-                    {/* <a class="part">{"all"}</a> */}
-                </div>
-            ))}
+        <div className="contentWrapper">
+            { _.isEmpty(value) ? renderEmpty() : renderTables() }
         </div>
     );
 }

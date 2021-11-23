@@ -5,14 +5,18 @@ import {
     SELECT_LESSON,
     REQUEST_DAY_LESSON,
     REQUEST_SUCCESS_DAY_LESSON,
-    REQUEST_FAILURE_DAY_LESSON
+    REQUEST_FAILURE,
+    REQUEST_LESSON_ATTENDANCE_SUCCESS
 } from "./attendanceType";
 import moment from "moment";
+
+let today = moment();
 
 const initState = {
     loading: false,
     message: "",
-    date: moment(),
+    date: today,
+    strDate: moment(today).format("YYYY-MM-DD"),
     lessons: [],
     selected: null,
     attendance: {
@@ -100,7 +104,7 @@ const attendanceReducer = handleActions(
             message: "SUCCESS",
             lessons: action.payload.lessons
         }),
-        [REQUEST_FAILURE_DAY_LESSON]: (state, action) => ({
+        [REQUEST_FAILURE]: (state, action) => ({
             ...state,
             loading: false,
             message: "FAILURE",
@@ -120,8 +124,14 @@ const attendanceReducer = handleActions(
         [UPDATE_DATE]: (state, action) => ({
             ...state,
             date: action.payload,
+            strDate: moment(action.payload).format("YYYY-MM-DD"),
             selected: null
+        }),
+        [REQUEST_LESSON_ATTENDANCE_SUCCESS]: (state, action) => ({
+            ...state,
+            attendance: action.payload
         })
+
     },
     initState
 );
