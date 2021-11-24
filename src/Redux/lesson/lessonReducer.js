@@ -14,18 +14,12 @@ import {
     REQUEST_SUCCESS_POST_LESSON,
     REQUEST_NON_MEMBER,
     REQUEST_NON_MEMBER_SUCCESS,
+    REQUEST_UPDATE_LESSON,
+    REQUEST_UPDATE_LESSON_SUCCESS,
+    SHOW_ALERT,
+    DISABLE_ALERT,
 } from "./lessonTypes";
 import _ from "lodash";
-
-const initialDays = {
-    sunday: [],
-    monday: [],
-    tuesday: [],
-    wednesday: [],
-    thursday: [],
-    friday: [],
-    saturday: []
-}
 
 const initialOne = {
     name: "",
@@ -38,12 +32,17 @@ const initialOne = {
     deleteMemberIds: []
 }
 
+const initialAlert = {
+    isShow: false,
+    message: "",
+    type: "success"
+}
+
 const initLessonsState = {
     loading: false,
-    message: "",
-    lessons: [],
-    days: initialDays,
     one: initialOne,
+    alert: initialAlert,
+    lessons: [],
     newMember: {},
 };
 
@@ -56,25 +55,18 @@ const lessonsReducer = handleActions(
         [REQUEST_FAILURE_LESSON]: (state, action) => ({
             ...state,
             loading: false,
-            message: "FAILURE"
-        }),
-        [REQUEST_SUCCESS_LESSONS]: (state, action) => {
-            let items = action.payload.lessons.filter((lesson) => {
-                return _.isEmpty(lesson.name) === false && _.isEmpty(lesson.day) === false;
-            });
-            let days = initialDays;
-            items.forEach((item) => {
-                let day = item.day.toLowerCase();
-                days[day].push(item);
-            })
-            return {
-                ...state,
-                loading: false,
-                message: "SUCCESS",
-                lessons: items,
-                days: days
+            alert: {
+                isShow: true,
+                message: "작업이 완료되지 못했습니다.",
+                type: "warning"
             }
-        },
+        }),
+        [REQUEST_SUCCESS_LESSONS]: (state, action) => ({
+            ...state,
+            loading: false,
+            message: "SUCCESS",
+            lessons: action.payload.lessons,
+        }),
         [REQUEST_SUCCESS_LESSON_ONE]: (state, action) => ({
             ...state,
             loading: false,
@@ -164,7 +156,31 @@ const lessonsReducer = handleActions(
                     deleteMemberIds: memberIds
                 }
             }
-        }
+        },
+        [REQUEST_UPDATE_LESSON]: (state, action) => ({
+            ...state,
+            loading: true
+        }),
+        [REQUEST_UPDATE_LESSON_SUCCESS]: (state, action) => ({
+            ...state,
+            loading: false,
+            alert: {
+                isShow: true,
+                message: "업데이트를 성공했습니다.",
+                type: "success"
+            }
+        }),
+        [SHOW_ALERT]: (state, action) => ({
+            ...state,
+            
+        }),
+        [DISABLE_ALERT]: (state, action) => ({
+            ...state,
+            alert: {
+                isShow: false,
+                message: ""
+            }
+        })
     },
     initLessonsState
 );

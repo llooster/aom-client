@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
 import {
+    Alert,
     Input,
     Icon,
     Button,
@@ -19,11 +20,14 @@ import {
     updateLessonTime, 
     addMemberToLesson, 
     deleteMemberFromLesson, 
+    putLesson,
+    disableAlert
 } from "../../../redux/lesson/lessonActions";
 import { 
     REQUEST_FAILURE_LESSON, 
     REQUEST_SUCCESS_LESSON_ONE, 
-    REQUEST_NON_MEMBER_SUCCESS 
+    REQUEST_NON_MEMBER_SUCCESS, 
+    REQUEST_UPDATE_LESSON_SUCCESS,
 } from "../../../redux/lesson/lessonTypes";
 import "./LessonOne.scss";
 
@@ -33,6 +37,7 @@ const LessonOne = (props) => {
 
     const dispatch = useDispatch();
 
+    const alert = useSelector((state) => state.lessons.alert);
     const name = useSelector((state) => state.lessons.one.name);
     const day = useSelector((state) => state.lessons.one.day);
     const startTime = useSelector((state) => state.lessons.one.startTime);
@@ -178,8 +183,34 @@ const LessonOne = (props) => {
 
     const deleteLesson = () => {};
 
+    const updateLesson = () => {
+        dispatch(
+            putLesson({
+                api: {
+                    path: `/lessons/${lessonId}`,
+                    body: {
+                        addMemberIds: addMemberIds,
+                        deleteMemberIds: deleteMemberIds
+                    }
+                },
+                actions: {
+                    success: REQUEST_UPDATE_LESSON_SUCCESS,
+                    failure: REQUEST_FAILURE_LESSON,
+                },
+            })
+        )
+        setTimeout(() => {
+            dispatch(disableAlert());
+        }, 3000);
+    }
+
     return (
         <Row className="LessonOne">
+            <Alert 
+                type={alert.type}
+                isShow={alert.isShow}
+                label={alert.message}
+            />
             <Col span={24}>
                 <Col className="header" span={24}>
                     <Link
@@ -204,7 +235,9 @@ const LessonOne = (props) => {
                         // to = "/lessons"해야해서 Link로 바꾸는게 어떤지
                         onClick={deleteLesson}
                     />
-                    <Button label="UPDATE" />
+                    <Button label="UPDATE" 
+                        onClick={updateLesson}
+                    />
                 </Col>
             </Col>
         </Row>

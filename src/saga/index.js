@@ -2,7 +2,8 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import {
     REQUEST_LESSON,
     REQUEST_POST_LESSON,
-    REQUEST_NON_MEMBER
+    REQUEST_NON_MEMBER,
+    REQUEST_UPDATE_LESSON
 } from "../redux/lesson/lessonTypes";
 import { REQUEST_MEMBER } from "../redux/member/memberTypes";
 import {
@@ -87,7 +88,10 @@ function* rootSaga() {
         fetchRequest
     );
     yield takeEvery(REQUEST_POST_LESSON, postRequest);
-    yield takeEvery(UPDATE_NEW_PAYMENT, putRequest);
+    yield takeEvery([
+        UPDATE_NEW_PAYMENT,
+        REQUEST_UPDATE_LESSON
+    ], putRequest);
 }
 
 export default rootSaga;
