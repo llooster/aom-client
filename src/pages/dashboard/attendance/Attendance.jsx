@@ -87,18 +87,21 @@ export default function Attendance() {
     const LessonButton = () => {
         return (
             <Box>
-                {lessons.map((lesson) => {
-                    return (
-                        <Button
-                            key={lesson.id}
-                            id={lesson.id}
-                            className={lesson.id === selected ? "selected" : ""}
-                            onClick={clickLesson}
-                        >
-                            {lesson.name}
-                        </Button>
-                    );
-                })}
+                {lessons &&
+                    lessons.map((lesson) => {
+                        return (
+                            <Button
+                                key={lesson.id}
+                                id={lesson.id}
+                                className={
+                                    lesson.id === selected ? "selected" : ""
+                                }
+                                onClick={clickLesson}
+                            >
+                                {lesson.name}
+                            </Button>
+                        );
+                    })}
             </Box>
         );
     };

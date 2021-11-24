@@ -64,9 +64,9 @@ const paymentReducer = handleActions(
             message: "FAILURE",
             lessons: [],
         }),
-        // [SUCCESS_UPDATE_NEW_PAYMENT]: (state, action) => ({
-        //     ...state,
-        // }),
+        [SUCCESS_UPDATE_NEW_PAYMENT]: (state, action) => ({
+            ...state,
+        }),
     },
     initState
 );

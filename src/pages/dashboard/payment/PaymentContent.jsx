@@ -7,6 +7,7 @@ import {
 import { SUCCESS_UPDATE_NEW_PAYMENT } from "../../../redux/payment/paymentType";
 import { Button } from "../../../components";
 import _ from "lodash";
+import "../attendance/Attendance.scss";
 import axios from "axios";
 
 const updateToState = {
@@ -24,23 +25,6 @@ const updatingPaymentAPI = {
 export default function PaymentContent({ value, payment }) {
     const members = useSelector((state) => state.payment.payment.members);
     const selectedId = useSelector((state) => state.payment.selected);
-    console.log(">>> 주 클릭 시 PUT /API <<< ");
-    // let cards = [];
-    // let cashs = [];
-    // payment.members &&
-    //     payment.members.forEach((member, index) => {
-    //         // console.log("member :>> ", member.payments);
-    //         var newcards = member.payments.filter(
-    //             (item) => item.state === "CARD"
-    //         );
-    //         var newcashs = member.payments.filter(
-    //             (item) => item.state === "CARD"
-    //         );
-    //         cards = newcards.map((item) => item.id);
-    //         cashs = newcards.map((item) => item.id);
-    // });
-    // console.log("cards :>> ", cards);
-    // console.log("cashs :>> ", cashs);
     const dispatch = useDispatch();
     const headerTags = () => (
         <>
@@ -48,29 +32,48 @@ export default function PaymentContent({ value, payment }) {
             {Array(12)
                 .fill()
                 .map((each, index) => (
-                    <a className="part" type={index} onClick={updatedWeek}>{`${
+                    <a className="each" type={index} onClick={updatedWeek}>{`${
                         index + 1
                     }월`}</a>
                 ))}
-            <div className="part">all</div>
         </>
     );
     const updatedWeek = (e) => {
         var updatedMembers = [...members];
         const week = e.target.type;
+        console.log("payment.members :>> ", payment.members);
+        payment.members.forEach((member, index1) => {
+            if (
+                member.payments[week].state === "CASH" ||
+                member.payments[week].state === "UNDEFINED"
+            ) {
+                updatingPaymentAPI.CASH.paymentIds = updatingPaymentAPI.CASH.paymentIds.filter(
+                    (id) => id !== member.payments[week].id
+                );
+                updatingPaymentAPI.CARD.paymentIds.push(
+                    member.payments[week].id
+                );
+            } else {
+                updatingPaymentAPI.CARD.paymentIds = updatingPaymentAPI.CARD.paymentIds.filter(
+                    (id) => id !== member.payments[week].id
+                );
+                updatingPaymentAPI.CASH.paymentIds.push(
+                    member.payments[week].id
+                );
+            }
+        });
         updatedMembers.forEach(
             (member) =>
                 (member.payments[week].state =
                     updateToState[member.payments[week].state])
         );
-
-        //updatingPaymentAPI 여기부터
         dispatch(updatePaymentStatus({ update: updatedMembers }));
     };
     const updatedEach = (e) => {
         const member = e.target.dataset.member;
         const week = e.target.dataset.week;
-        const targetPaymentId = e.target.dataset.id;
+        const targetPaymentId = Number(e.target.dataset.id);
+        console.log("targetPaymentId :>> ", targetPaymentId);
         let updatedMembers = [...members];
         var targetState = updatedMembers[member].payments[week].state;
         updatingPaymentAPI[targetState].paymentIds = updatingPaymentAPI[
@@ -82,8 +85,6 @@ export default function PaymentContent({ value, payment }) {
         updatingPaymentAPI[
             updatedMembers[member].payments[week].state
         ].paymentIds.push(targetPaymentId);
-        console.log("CARD :>> ", updatingPaymentAPI.CARD);
-        console.log("CASH :>> ", updatingPaymentAPI.CASH);
         dispatch(updatePaymentStatus({ update: updatedMembers }));
     };
     const content = () =>
@@ -95,7 +96,7 @@ export default function PaymentContent({ value, payment }) {
                     {member.payments.map((payment, index2) => {
                         return (
                             <a
-                                className="part"
+                                className="each"
                                 data-member={index1}
                                 data-week={index2}
                                 data-id={payment.id}
@@ -105,12 +106,13 @@ export default function PaymentContent({ value, payment }) {
                             </a>
                         );
                     })}
-                    <a className="part">{"all"}</a>
                 </div>
             </>
         ));
 
     // 배열의 인덱스> vs id 값?  >> 로직
+    // console.log("CARD :>> ", updatingPaymentAPI.CARD.paymentIds);
+    // console.log("CASH :>> ", updatingPaymentAPI.CASH.paymentIds);
     const updatePayment = () => {
         dispatch(
             updateNewPayment({
@@ -121,7 +123,9 @@ export default function PaymentContent({ value, payment }) {
                 actions: {
                     success: SUCCESS_UPDATE_NEW_PAYMENT,
                 },
-            }),
+            })
+        );
+        dispatch(
             updateNewPayment({
                 api: {
                     path: `/lessons/${selectedId}/payments`,

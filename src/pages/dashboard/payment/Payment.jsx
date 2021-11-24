@@ -26,13 +26,13 @@ const Container = styled.div`
     height: 100%;
     color: white;
     min-width: 1000px;
-
-    // grid-template-rows: 10%;
-    // grid-template-columns: 20%;
+    /* 
+    grid-template-rows: 10%; */
+    /* grid-template-columns: 20%; */
     /* Container자식 컴포넌트의 row의 길이 */
-    // grid-template-areas:
-    //     "main main main main"
-    //     "sidebar content content content";
+    /* grid-template-areas:
+        "main main main main"
+        "sidebar content content content"; */
     /* "sidebar content content content"; */
     text-align: center;
     grid-gap: 5px;
@@ -86,16 +86,17 @@ export default function Payment() {
 
     const LessonButtonRender = () => (
         <Box>
-            {lessons.map((lesson) => (
-                <Button
-                    key={lesson.id}
-                    className={lesson.id === selected ? "selected" : ""}
-                    id={lesson.id}
-                    onClick={clickLesson}
-                >
-                    {lesson.name}
-                </Button>
-            ))}
+            {lessons &&
+                lessons.map((lesson) => (
+                    <Button
+                        key={lesson.id}
+                        className={lesson.id === selected ? "selected" : ""}
+                        id={lesson.id}
+                        onClick={clickLesson}
+                    >
+                        {lesson.name}
+                    </Button>
+                ))}
         </Box>
     );
     // create lessons button

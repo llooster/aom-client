@@ -27,3 +27,12 @@
     justify-content: center;
     align-items: center;
 }
+.each {
+    width: 50px;
+    height: 30px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+}
