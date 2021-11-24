@@ -2,6 +2,7 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import {
     REQUEST_LESSON,
     REQUEST_POST_LESSON,
+    REQUEST_NON_MEMBER
 } from "../redux/lesson/lessonTypes";
 import { REQUEST_MEMBER } from "../redux/member/memberTypes";
 import {
@@ -81,6 +82,7 @@ function* rootSaga() {
             REQUEST_DAY_LESSON_PAYMENT,
             REQUEST_LESSON_ATTENDANCE,
             REQUEST_LESSON_PAYMENT,
+            REQUEST_NON_MEMBER
         ],
         fetchRequest
     );

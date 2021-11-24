@@ -10,7 +10,9 @@ import {
     REQUEST_FAILURE_LESSON, 
     REQUEST_SUCCESS_LESSONS,
     REQUEST_SUCCESS_LESSON_ONE,
-    REQUEST_SUCCESS_POST_LESSON
+    REQUEST_SUCCESS_POST_LESSON,
+    REQUEST_NON_MEMBER,
+    REQUEST_NON_MEMBER_SUCCESS,
 } from "./lessonTypes";
 import _ from "lodash";
 
@@ -38,6 +40,8 @@ const initLessonsState = {
     days: initialDays,
     one: initialOne,
     newMember: {},
+    nonMembers: [],
+    addMemberIds: []
 };
 
 const lessonsReducer = handleActions(
@@ -119,7 +123,25 @@ const lessonsReducer = handleActions(
             lessons: [...state.lessons, action.payload.one],
             one: {},
         }),
-        [ADD_MEMBER_TO_LESSON]: (state, action) => ({}),
+        [ADD_MEMBER_TO_LESSON]: (state, action) => {
+            let id = action.payload;
+            let memberIds = [...state.addMemberIds];
+            let index = memberIds.indexOf(id);
+            index > -1 ? memberIds.splice(index, 1) : memberIds.push(id);
+            return {
+                ...state,
+                addMemberIds: memberIds
+            }
+        },
+        [REQUEST_NON_MEMBER]: (state, action) => ({
+            ...state,
+            loading: true
+        }),
+        [REQUEST_NON_MEMBER_SUCCESS]: (state, action) => ({
+            ...state,
+            loading: false,
+            nonMembers: action.payload.members
+        })
     },
     initLessonsState
 );

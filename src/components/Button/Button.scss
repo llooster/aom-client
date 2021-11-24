@@ -40,3 +40,17 @@
     background: none;
     box-shadow: none;
 }
+
+.btn.gray {
+    color: #9e9e9e;
+    border: 1px solid #d9d9d9;
+    background: white;
+}
+
+.btn.gray.selected,
+.btn.gray:hover {
+    color: white;
+    border: 1px solid #3296ed;
+    background-color: #3296ed;
+}
+

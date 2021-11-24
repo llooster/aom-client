@@ -3,6 +3,7 @@ import "./Button.scss";
 
 const Button = (props) => {
     const {
+        id,
         className = "",
         type = "primary",
         label,
@@ -10,7 +11,11 @@ const Button = (props) => {
     } = props;
 
     return (
-        <button className={[className, "btn", type].join(" ")} onClick={onClick}>
+        <button 
+            id={id} 
+            className={[className, "btn", type].join(" ")} 
+            onClick={onClick}
+        >
             {label}
         </button>
     );

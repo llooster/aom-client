@@ -4,9 +4,9 @@ import "./Box.scss";
 
 const Box = (props) => {
     
-    const { label, children } = props;
+    const { className, label, children } = props;
     
-    return <Row className="Box">
+    return <Row className={["Box", className].join(" ")}>
         <Col span={24}>
             <Col className="label" span={24}>{label}</Col>
             <Col className="box-body" span={24}>{children}</Col>
