@@ -5,14 +5,26 @@ import {
     Input,
     Icon,
     Button,
-    Transfer,
     Link,
     Radio,
     RangePicker,
     Box,
 } from "../../../components";
-import { fetchLessonRequest, initForm, updateLessonName, updateLessonDay, updateLessonTime } from "../../../redux/lesson/lessonActions";
-import { REQUEST_FAILURE_LESSON, REQUEST_SUCCESS_LESSON_ONE } from "../../../redux/lesson/lessonTypes";
+import { 
+    fetchLessonRequest, 
+    fetchNonMembersRequest,
+    initForm, 
+    updateLessonName, 
+    updateLessonDay, 
+    updateLessonTime, 
+    addMemberToLesson, 
+    deleteMemberFromLesson, 
+} from "../../../redux/lesson/lessonActions";
+import { 
+    REQUEST_FAILURE_LESSON, 
+    REQUEST_SUCCESS_LESSON_ONE, 
+    REQUEST_NON_MEMBER_SUCCESS 
+} from "../../../redux/lesson/lessonTypes";
 import "./LessonOne.scss";
 
 const LessonOne = (props) => {
@@ -25,7 +37,11 @@ const LessonOne = (props) => {
     const day = useSelector((state) => state.lessons.one.day);
     const startTime = useSelector((state) => state.lessons.one.startTime);
     const endTime = useSelector((state) => state.lessons.one.endTime);
-
+    const members = useSelector((state) => state.lessons.one.members);
+    const nonMembers = useSelector((state) => state.lessons.one.nonMembers);
+    const addMemberIds = useSelector((state) => state.lessons.one.addMemberIds);
+    const deleteMemberIds = useSelector((state) => state.lessons.one.deleteMemberIds);
+    
     useEffect(() => {
         dispatch(initForm());
         dispatch(
@@ -39,6 +55,17 @@ const LessonOne = (props) => {
                 },
             })
         );
+        dispatch(
+            fetchNonMembersRequest({
+                api: {
+                    path: "/members/none"
+                },
+                actions: {
+                    success: REQUEST_NON_MEMBER_SUCCESS,
+                    failure: REQUEST_FAILURE_LESSON
+                }
+            })
+        )    
     }, [lessonId]);
 
     const updateInputValue = (e) => {
@@ -111,13 +138,44 @@ const LessonOne = (props) => {
         );
     };
 
-    const renderTransfer = () => {
+    
+    const deleteMemberClicked = (e) => {
+        dispatch(deleteMemberFromLesson(Number(e.currentTarget.id)));
+    }
+
+    const addMemberClicked = (e) => {
+        dispatch(addMemberToLesson(Number(e.currentTarget.id)));
+    }
+
+    const memberButton = (member, memberIds, type, onClick) => {
+        return <Button 
+                key={member.id}
+                id={member.id}
+                type={type}
+                className={["btn-member", memberIds.includes(member.id) ? "selected": ""].join(" ")}
+                onClick={onClick}
+                label={`${member.name}(${member.age})`}
+            />
+    }
+
+    const renderMembers = () => {
+        return <Box className="lesson-members" label="레슨에서 삭제">
+            {members.map((member) => {
+                return memberButton(member, deleteMemberIds, "gray-danger", deleteMemberClicked);
+            })}
+        </Box>
+    }
+
+    const renderNonMembers = () => {
         return (
-            <Box label="Add Members">
-                <Transfer />
+            <Box className="non-members" label="레슨에 추가">
+                {nonMembers.map((member) => {
+                    return memberButton(member, addMemberIds, "gray", addMemberClicked);
+                })}
             </Box>
         );
     };
+
     const deleteLesson = () => {};
 
     return (
@@ -135,7 +193,8 @@ const LessonOne = (props) => {
                     {renderInputs()}
                     {renderRadio()}
                     {renderTimePicker()}
-                    {renderTransfer()}
+                    {renderMembers()}
+                    {renderNonMembers()}
                 </Col>
                 <Col className="footer" span={24}>
                     <Button

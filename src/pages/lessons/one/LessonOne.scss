@@ -23,6 +23,18 @@
 
     .body {
         padding: 24px 0px;
+
+        .non-members,
+        .lesson-members {
+            .box-body {
+                display: flex;
+            }
+            .btn-member {
+                display: flex;
+                margin: 0px 6px 6px 0px;
+                box-shadow: none;
+            }
+        }
     }
 
     .footer {
