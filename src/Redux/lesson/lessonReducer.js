@@ -6,6 +6,7 @@ import {
     UPDATE_LESSON_TIME,
     REGISTER_LESSON,
     ADD_MEMBER_TO_LESSON,
+    DELETE_MEMBER_FROM_LESSON,
     REQUEST_LESSON,  
     REQUEST_FAILURE_LESSON, 
     REQUEST_SUCCESS_LESSONS,
@@ -31,6 +32,10 @@ const initialOne = {
     day: "",
     startTime: "",
     endTime: "",
+    members: [],
+    nonMembers: [],
+    addMemberIds: [],
+    deleteMemberIds: []
 }
 
 const initLessonsState = {
@@ -40,8 +45,6 @@ const initLessonsState = {
     days: initialDays,
     one: initialOne,
     newMember: {},
-    nonMembers: [],
-    addMemberIds: []
 };
 
 const lessonsReducer = handleActions(
@@ -79,7 +82,8 @@ const lessonsReducer = handleActions(
             one: {
                 ...state.one,
                 name: action.payload.name,
-                day: action.payload.day
+                day: action.payload.day,
+                members: action.payload.members
                 // startTime: action.payload.startTime,
                 // endTime: action.payload.endTime
             }
@@ -125,12 +129,15 @@ const lessonsReducer = handleActions(
         }),
         [ADD_MEMBER_TO_LESSON]: (state, action) => {
             let id = action.payload;
-            let memberIds = [...state.addMemberIds];
+            let memberIds = [...state.one.addMemberIds];
             let index = memberIds.indexOf(id);
             index > -1 ? memberIds.splice(index, 1) : memberIds.push(id);
             return {
                 ...state,
-                addMemberIds: memberIds
+                one: {
+                    ...state.one,
+                    addMemberIds: memberIds
+                }
             }
         },
         [REQUEST_NON_MEMBER]: (state, action) => ({
@@ -140,8 +147,24 @@ const lessonsReducer = handleActions(
         [REQUEST_NON_MEMBER_SUCCESS]: (state, action) => ({
             ...state,
             loading: false,
-            nonMembers: action.payload.members
-        })
+            one: {
+                ...state.one,
+                nonMembers: action.payload.members
+            }
+        }),
+        [DELETE_MEMBER_FROM_LESSON]: (state, action) => {
+            let id = action.payload;
+            let memberIds = [...state.one.deleteMemberIds];
+            let index = memberIds.indexOf(id);
+            index > -1 ? memberIds.splice(index, 1) : memberIds.push(id);
+            return {
+                ...state,
+                one: {
+                    ...state.one,
+                    deleteMemberIds: memberIds
+                }
+            }
+        }
     },
     initLessonsState
 );

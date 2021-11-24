@@ -4,6 +4,7 @@ export const UPDATE_LESSON_DAY     = "lessons/UPDATE_LESSON_DAY";
 export const UPDATE_LESSON_TIME     = "lessons/UPDATE_LESSON_TIME";
 export const REGISTER_LESSON        = "lessons/REGISTER_LESSON";
 export const ADD_MEMBER_TO_LESSON   = "lessons/ADD_MEMBER_TO_LESSON";
+export const DELETE_MEMBER_FROM_LESSON = "lessons/DELETE_MEMBER_FROM_LESSON";
 
 export const REQUEST_LESSON         = "lessons/REQUEST_LESSON";
 export const REQUEST_POST_LESSON    = "lessons/REQUEST_POST_LESSON";

@@ -6,6 +6,7 @@ import {
     UPDATE_LESSON_TIME,
     REGISTER_LESSON,
     ADD_MEMBER_TO_LESSON,
+    DELETE_MEMBER_FROM_LESSON,
     REQUEST_LESSON,
     REQUEST_POST_LESSON,
     REQUEST_FAILURE_LESSON,
@@ -31,3 +32,4 @@ export const updateLessonName = createAction(UPDATE_LESSON_NAME);
 export const updateLessonTime = createAction(UPDATE_LESSON_TIME);
 export const registerLesson = createAction(REGISTER_LESSON);
 export const addMemberToLesson = createAction(ADD_MEMBER_TO_LESSON);
+export const deleteMemberFromLesson = createAction(DELETE_MEMBER_FROM_LESSON);

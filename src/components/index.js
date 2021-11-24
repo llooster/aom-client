@@ -17,4 +17,3 @@ export { default as VerticalWrapper } from "./wrapper/vertical/VerticalWrapper.j
 export { default as ModalBox } from "./modal/ModalBox.jsx";
 export { default as Calendar } from "./calendar/Calendar.jsx";
 export { default as V2Calendar } from "./calendar/V2Calendar";
-export { default as Transfer } from "./transfer/Transfer";

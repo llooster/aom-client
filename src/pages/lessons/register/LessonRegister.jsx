@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "antd";
 import {
     Input,
     Icon,
     Button,
-    Transfer,
     Link,
     Radio,
     RangePicker,
@@ -20,8 +19,12 @@ import {
     fetchNonMembersRequest,
     addMemberToLesson
 } from "../../../redux/lesson/lessonActions";
+import { 
+    REQUEST_FAILURE_LESSON, 
+    REQUEST_NON_MEMBER_SUCCESS, 
+    REQUEST_SUCCESS_POST_LESSON 
+} from "../../../redux/lesson/lessonTypes";
 import "./LessonRegister.scss";
-import { REQUEST_FAILURE_LESSON, REQUEST_NON_MEMBER_SUCCESS, REQUEST_SUCCESS_POST_LESSON } from "../../../redux/lesson/lessonTypes";
 
 const LessonRegister = (props) => {
 
@@ -31,8 +34,8 @@ const LessonRegister = (props) => {
     const day = useSelector((state) => state.lessons.one.day);
     const startTime = useSelector((state) => state.lessons.one.startTime);
     const endTime = useSelector((state) => state.lessons.one.endTime);
-    const nonMembers = useSelector((state) => state.lessons.nonMembers);
-    const addMemberIds = useSelector((state) => state.lessons.addMemberIds);
+    const nonMembers = useSelector((state) => state.lessons.one.nonMembers);
+    const addMemberIds = useSelector((state) => state.lessons.one.addMemberIds);
 
     useEffect(() => {
         dispatch(initForm());
@@ -120,7 +123,6 @@ const LessonRegister = (props) => {
     };
 
     const btnMemberClicked = (e) => {
-        console.log(e.currentTarget);
         dispatch(addMemberToLesson(Number(e.currentTarget.id)));
     }
 
