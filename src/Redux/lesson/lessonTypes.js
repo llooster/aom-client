@@ -5,6 +5,9 @@ export const UPDATE_LESSON_TIME     = "lessons/UPDATE_LESSON_TIME";
 export const REGISTER_LESSON        = "lessons/REGISTER_LESSON";
 export const ADD_MEMBER_TO_LESSON   = "lessons/ADD_MEMBER_TO_LESSON";
 export const DELETE_MEMBER_FROM_LESSON = "lessons/DELETE_MEMBER_FROM_LESSON";
+export const SHOW_ALERT = "lessons/SHOW_ALERT";
+export const DISABLE_ALERT = "lessons/DISABLE_ALERT";
+
 
 export const REQUEST_LESSON         = "lessons/REQUEST_LESSON";
 export const REQUEST_POST_LESSON    = "lessons/REQUEST_POST_LESSON";
@@ -14,3 +17,5 @@ export const REQUEST_SUCCESS_LESSON_ONE     = "lessons/REQUEST_SUCCESS_LESSON_ON
 export const REQUEST_SUCCESS_POST_LESSON    = "lessons/REQUEST_SUCCESS_POST_LESSON";
 export const REQUEST_NON_MEMBER     = "lessons/REQUEST_NON_MEMBER";
 export const REQUEST_NON_MEMBER_SUCCESS = "lessons/REQUEST_NON_MEMBER_SUCCESS"; 
+export const REQUEST_UPDATE_LESSON = "lessons/REQUEST_UPDATE_LESSON";
+export const REQUEST_UPDATE_LESSON_SUCCESS = "lessons/REQUEST_UPDATE_LESSON_SUCCESS";

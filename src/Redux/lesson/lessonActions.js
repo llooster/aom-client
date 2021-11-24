@@ -6,6 +6,8 @@ import {
     UPDATE_LESSON_TIME,
     REGISTER_LESSON,
     ADD_MEMBER_TO_LESSON,
+    SHOW_ALERT,
+    DISABLE_ALERT,
     DELETE_MEMBER_FROM_LESSON,
     REQUEST_LESSON,
     REQUEST_POST_LESSON,
@@ -14,7 +16,9 @@ import {
     REQUEST_SUCCESS_LESSON_ONE,
     REQUEST_SUCCESS_POST_LESSON,
     REQUEST_NON_MEMBER,
-    REQUEST_NON_MEMBER_SUCCESS
+    REQUEST_NON_MEMBER_SUCCESS,
+    REQUEST_UPDATE_LESSON_SUCCESS,
+    REQUEST_UPDATE_LESSON
 } from "./lessonTypes";
 
 export const fetchLessonRequest = createAction(REQUEST_LESSON);
@@ -25,6 +29,8 @@ export const postLesson         = createAction(REQUEST_POST_LESSON);
 export const postLessonSuccess  = createAction(REQUEST_SUCCESS_POST_LESSON);
 export const fetchNonMembersRequest = createAction(REQUEST_NON_MEMBER);
 export const fetchNonMembersSuccess = createAction(REQUEST_NON_MEMBER_SUCCESS);
+export const showAlert = createAction(SHOW_ALERT);
+export const disableAlert = createAction(DISABLE_ALERT);
 
 export const initForm = createAction(INIT_FORM);
 export const updateLessonDay = createAction(UPDATE_LESSON_DAY);
@@ -33,3 +39,4 @@ export const updateLessonTime = createAction(UPDATE_LESSON_TIME);
 export const registerLesson = createAction(REGISTER_LESSON);
 export const addMemberToLesson = createAction(ADD_MEMBER_TO_LESSON);
 export const deleteMemberFromLesson = createAction(DELETE_MEMBER_FROM_LESSON);
+export const putLesson = createAction(REQUEST_UPDATE_LESSON);

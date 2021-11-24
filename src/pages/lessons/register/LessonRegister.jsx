@@ -153,6 +153,7 @@ const LessonRegister = (props) => {
             day: day,
             startTime: startTime,
             endTime: endTime,
+            memberIds: addMemberIds
         };
 
         dispatch(

@@ -1,3 +1,4 @@
+export { default as Alert } from "./alert/Alert";
 export { default as Box } from "./box/Box";
 export { default as Button } from "./button/Button.jsx";
 export { default as Footer } from "./footer/Footer.jsx";
