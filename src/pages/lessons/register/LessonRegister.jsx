@@ -17,17 +17,16 @@ import {
     updateLessonDay,
     updateLessonTime,
     fetchNonMembersRequest,
-    addMemberToLesson
+    addMemberToLesson,
 } from "../../../redux/lesson/lessonActions";
-import { 
-    REQUEST_FAILURE_LESSON, 
-    REQUEST_NON_MEMBER_SUCCESS, 
-    REQUEST_SUCCESS_POST_LESSON 
+import {
+    REQUEST_FAILURE_LESSON,
+    REQUEST_NON_MEMBER_SUCCESS,
+    REQUEST_SUCCESS_POST_LESSON,
 } from "../../../redux/lesson/lessonTypes";
 import "./LessonRegister.scss";
 
 const LessonRegister = (props) => {
-
     const dispatch = useDispatch();
 
     const name = useSelector((state) => state.lessons.one.name);
@@ -36,20 +35,21 @@ const LessonRegister = (props) => {
     const endTime = useSelector((state) => state.lessons.one.endTime);
     const nonMembers = useSelector((state) => state.lessons.one.nonMembers);
     const addMemberIds = useSelector((state) => state.lessons.one.addMemberIds);
+    console.log("nonMembers :>> ", nonMembers);
 
     useEffect(() => {
         dispatch(initForm());
         dispatch(
             fetchNonMembersRequest({
                 api: {
-                    path: "/members/none"
+                    path: "/members/none",
                 },
                 actions: {
                     success: REQUEST_NON_MEMBER_SUCCESS,
-                    failure: REQUEST_FAILURE_LESSON
-                }
+                    failure: REQUEST_FAILURE_LESSON,
+                },
             })
-        )      
+        );
     }, []);
 
     const updateInputValue = (e) => {
@@ -124,18 +124,23 @@ const LessonRegister = (props) => {
 
     const btnMemberClicked = (e) => {
         dispatch(addMemberToLesson(Number(e.currentTarget.id)));
-    }
+    };
 
     const nonMemberLabel = (member) => {
-        return <Button 
+        return (
+            <Button
                 key={member.id}
                 id={member.id}
                 type="gray"
-                className={["btn-member", addMemberIds.includes(member.id) ? "selected": ""].join(" ")}
+                className={[
+                    "btn-member",
+                    addMemberIds.includes(member.id) ? "selected" : "",
+                ].join(" ")}
                 onClick={btnMemberClicked}
                 label={`${member.name}(${member.age})`}
             />
-    }
+        );
+    };
 
     const renderNonMembers = () => {
         return (
@@ -153,14 +158,14 @@ const LessonRegister = (props) => {
             day: day,
             startTime: startTime,
             endTime: endTime,
-            memberIds: addMemberIds
+            memberIds: addMemberIds,
         };
 
         dispatch(
             postLesson({
                 api: {
                     path: "/lessons",
-                    body: body
+                    body: body,
                 },
                 actions: {
                     success: REQUEST_SUCCESS_POST_LESSON,

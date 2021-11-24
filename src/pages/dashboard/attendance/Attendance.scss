@@ -2,6 +2,15 @@
 @import "public/styles/Color.scss";
 
 .Attendance {
+    .sub-header {
+        display: flex;
+        justify-content: right;
+
+        .btn,
+        .btn-remove {
+            margin-right: 0px;
+        }
+    }
     .Box {
         border: none;
         padding: 6px 0px;
@@ -27,6 +36,5 @@
             font-weight: 700;
             background-color: #a0afbd;
         }
-        
     }
 }

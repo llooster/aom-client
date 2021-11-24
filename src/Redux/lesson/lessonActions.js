@@ -17,16 +17,15 @@ import {
     REQUEST_SUCCESS_POST_LESSON,
     REQUEST_NON_MEMBER,
     REQUEST_NON_MEMBER_SUCCESS,
-    REQUEST_UPDATE_LESSON_SUCCESS,
-    REQUEST_UPDATE_LESSON
+    REQUEST_UPDATE_LESSON,
 } from "./lessonTypes";
 
 export const fetchLessonRequest = createAction(REQUEST_LESSON);
 export const fetchLessonFailure = createAction(REQUEST_FAILURE_LESSON);
 export const fetchLessonSuccess = createAction(REQUEST_SUCCESS_LESSONS);
 export const fetchLessonOneSuccess = createAction(REQUEST_SUCCESS_LESSON_ONE);
-export const postLesson         = createAction(REQUEST_POST_LESSON);
-export const postLessonSuccess  = createAction(REQUEST_SUCCESS_POST_LESSON);
+export const postLesson = createAction(REQUEST_POST_LESSON);
+export const postLessonSuccess = createAction(REQUEST_SUCCESS_POST_LESSON);
 export const fetchNonMembersRequest = createAction(REQUEST_NON_MEMBER);
 export const fetchNonMembersSuccess = createAction(REQUEST_NON_MEMBER_SUCCESS);
 export const showAlert = createAction(SHOW_ALERT);
