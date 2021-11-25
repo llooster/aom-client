@@ -9,6 +9,7 @@ import { Button } from "../../../components";
 import _ from "lodash";
 import "../attendance/Attendance.scss";
 import "../content.css";
+import { Row } from "antd";
 
 const toggleToState = {
     UNDEFINED: "CARD",
@@ -28,19 +29,21 @@ export default function PaymentContent({ value, payment }) {
     const dispatch = useDispatch();
     const headerTags = () => (
         <>
-            <div className="part">name</div>
+            <div className="part lineUpCenter">name</div>
             {Array(12)
                 .fill()
                 .map((each, index) => (
-                    <a className="each" type={index} onClick={updatedWeek}>{`${
-                        index + 1
-                    }월`}</a>
+                    <button
+                        className="each lineUpCenter"
+                        value={index}
+                        onClick={updatedWeek}
+                    >{`${index + 1}월`}</button>
                 ))}
         </>
     );
     const updatedWeek = (e) => {
         var updatedMembers = [...members];
-        const week = e.target.type;
+        const week = e.target.value;
         payment.members.forEach((member, index1) => {
             updatingPaymentAPI[
                 member.payments[week].state
@@ -75,8 +78,8 @@ export default function PaymentContent({ value, payment }) {
         ].paymentIds.push(targetPaymentId);
         dispatch(updatePaymentStatus({ update: updatedMembers }));
     };
-    console.log("CARD :>> ", updatingPaymentAPI.CARD.paymentIds);
-    console.log("CASH :>> ", updatingPaymentAPI.CASH.paymentIds);
+    // console.log("CARD :>> ", updatingPaymentAPI.CARD.paymentIds);
+    // console.log("CASH :>> ", updatingPaymentAPI.CASH.paymentIds);
 
     const content = () =>
         members &&
@@ -86,15 +89,15 @@ export default function PaymentContent({ value, payment }) {
                     <div className="part">{member.name || ""}</div>
                     {member.payments.map((payment, index2) => {
                         return (
-                            <a
-                                className="each"
+                            <button
+                                className="each lineUpCenter"
                                 data-member={index1}
                                 data-week={index2}
                                 data-id={payment.id}
                                 onClick={updatedEach}
                             >
                                 {payment.state}
-                            </a>
+                            </button>
                         );
                     })}
                 </div>
@@ -132,11 +135,13 @@ export default function PaymentContent({ value, payment }) {
     const renderTables = () => {
         return (
             <>
-                <Button
-                    className="btn-register"
-                    onClick={updatePayment}
-                    label="UPDATE"
-                />
+                <Row className="sub-header" span={6}>
+                    <Button
+                        className="btn-register"
+                        onClick={updatePayment}
+                        label="UPDATE"
+                    />
+                </Row>
                 <div className="contentWrapper">
                     <div className="rowsWrapper">{headerTags()}</div>
                     {content()}
@@ -145,13 +150,15 @@ export default function PaymentContent({ value, payment }) {
         );
     };
     // 필요한 화면 render
-    const renderEmpty = () => {
-        return <div>NO MEMBERS</div>;
+
+    const renderMemberEmpty = () => {
+        return <div className="danger lineUpCenter">NO MEMBERS</div>;
     };
+
     // no data 시 화면
     return (
         <div className="contentWrapper">
-            {_.isEmpty(value) ? renderEmpty() : renderTables()}
+            {_.isEmpty(value) ? renderMemberEmpty() : renderTables()}
         </div>
     );
 }

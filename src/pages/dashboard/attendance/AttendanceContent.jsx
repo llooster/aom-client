@@ -29,19 +29,20 @@ export default function AttendanceContent({ value, attendance }) {
     const dispatch = useDispatch();
     const headerTags = () => (
         <>
-            <div className="part">name</div>
+            <div className="part lineUpCenter">name</div>
             {value[0].attendances.map((each, index) => (
-                <a className="part" type={index} onClick={updatedWeek}>{`${
-                    index + 1
-                }월`}</a>
+                <button
+                    className="part lineUpCenter"
+                    value={index}
+                    onClick={updatedWeek}
+                >{`${index + 1}월`}</button>
             ))}
-            {/* <div className="part">all</div> */}
         </>
     );
     // 가로 이름, 세로 주차 하면 어떨지
     const updatedWeek = (e) => {
         var updatedMembers = [...members];
-        const week = e.target.type;
+        const week = e.target.value;
         attendance.members.forEach((member, index1) => {
             updatingAttendanceAPI[
                 member.attendances[week].state
@@ -60,8 +61,9 @@ export default function AttendanceContent({ value, attendance }) {
         dispatch(updateAttStatus({ update: updatedMembers }));
     };
     const updatedEach = (e) => {
+        // console.log("e.target :>> ", e.target);
         const member = e.target.dataset.member;
-        const week = e.target.dataset.week;
+        const week = Number(e.target.dataset.week);
         const targetAttendanceId = Number(e.target.dataset.id);
         let updatedMembers = [...members];
         var targetState = updatedMembers[member].attendances[week].state;
@@ -89,18 +91,19 @@ export default function AttendanceContent({ value, attendance }) {
         members.map((member, index1) => (
             <>
                 <div className="rowsWrapper">
-                    <div className="part">{member.name || ""}</div>
+                    <div className="part lineUpCenter">{member.name || ""}</div>
                     {member.attendances.map((attendance, index2) => {
                         return (
-                            <a
-                                className="part"
+                            <button
+                                className="each lineUpCenter"
                                 data-member={index1}
                                 data-week={index2}
                                 data-id={attendance.id}
+                                // value={dict}
                                 onClick={updatedEach}
                             >
                                 {attendance.state}
-                            </a>
+                            </button>
                         );
                     })}
                     {/* <a className="part">{"all"}</a> */}

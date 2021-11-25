@@ -73,7 +73,7 @@ export default function Attendance() {
         );
     }, [date]);
 
-    const LessonButton = () => {
+    const LessonButtonRender = () => {
         return (
             <Box>
                 {lessons &&
@@ -132,6 +132,9 @@ export default function Attendance() {
         dispatch(updateDate(date));
     };
 
+    const renderLessonEmpty = () => {
+        return <div className="each">NO LESSONS</div>;
+    };
     return (
         <Container>
             <Row className="Attendance">
@@ -142,7 +145,9 @@ export default function Attendance() {
                         nextMonth={onNextMonth}
                         onSelect={onSelectDate}
                     />
-                    {LessonButton()}
+                    {lessons[0] === undefined
+                        ? renderLessonEmpty()
+                        : LessonButtonRender()}
                 </Col>
                 <Col className="attendance-content" span={19}>
                     <ContentBox>
