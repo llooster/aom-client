@@ -37,6 +37,7 @@ const LessonOne = (props) => {
 
     const dispatch = useDispatch();
 
+    
     const alert = useSelector((state) => state.lessons.alert);
     const name = useSelector((state) => state.lessons.one.name);
     const day = useSelector((state) => state.lessons.one.day);
@@ -48,7 +49,7 @@ const LessonOne = (props) => {
     const deleteMemberIds = useSelector((state) => state.lessons.one.deleteMemberIds);
     
     useEffect(() => {
-        dispatch(initForm());
+        // dispatch(initForm());
         dispatch(
             fetchLessonRequest({
                 api: {
@@ -184,6 +185,8 @@ const LessonOne = (props) => {
     const deleteLesson = () => {};
 
     const updateLesson = () => {
+        console.log("AddMemberIDs : ", addMemberIds);
+        console.log("DelMemberIDs : ", deleteMemberIds);
         dispatch(
             putLesson({
                 api: {

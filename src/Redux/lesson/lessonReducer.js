@@ -125,8 +125,7 @@ const lessonsReducer = handleActions(
         [ADD_MEMBER_TO_LESSON]: (state, action) => {
             let id = action.payload;
             let memberIds = [...state.one.addMemberIds];
-            let index = memberIds.indexOf(id);
-            index > -1 ? memberIds.splice(index, 1) : memberIds.push(id);
+            memberIds = removeIfNotPush(memberIds, id);
             return {
                 ...state,
                 one: {
@@ -150,8 +149,7 @@ const lessonsReducer = handleActions(
         [DELETE_MEMBER_FROM_LESSON]: (state, action) => {
             let id = action.payload;
             let memberIds = [...state.one.deleteMemberIds];
-            let index = memberIds.indexOf(id);
-            index > -1 ? memberIds.splice(index, 1) : memberIds.push(id);
+            memberIds = removeIfNotPush(memberIds, id);
             return {
                 ...state,
                 one: {
@@ -164,15 +162,40 @@ const lessonsReducer = handleActions(
             ...state,
             loading: true,
         }),
-        [REQUEST_UPDATE_LESSON_SUCCESS]: (state, action) => ({
-            ...state,
-            loading: false,
-            alert: {
-                isShow: true,
-                message: "업데이트를 성공했습니다.",
-                type: "success",
-            },
-        }),
+        [REQUEST_UPDATE_LESSON_SUCCESS]: (state, action) => {
+            let addMemberIds = state.one.addMemberIds;
+            let delMemberIds = state.one.deleteMemberIds;
+            let lsnMembers = state.one.members;
+            let nonMembers = state.one.nonMembers;
+            lsnMembers = pushElementWithIds(
+                lsnMembers,
+                nonMembers,
+                addMemberIds
+            );
+            nonMembers = pushElementWithIds(
+                nonMembers,
+                lsnMembers,
+                delMemberIds
+            );
+            lsnMembers = removeElementsWithIds(lsnMembers, delMemberIds);
+            nonMembers = removeElementsWithIds(nonMembers, addMemberIds);
+            return {
+                ...state,
+                loading: false,
+                alert: {
+                    isShow: true,
+                    message: "업데이트를 성공했습니다.",
+                    type: "success",
+                },
+                one: {
+                    ...state,
+                    addMemberIds: [],
+                    deleteMemberIds: [],
+                    members: lsnMembers,
+                    nonMembers: nonMembers,
+                },
+            };
+        },
         [SHOW_ALERT]: (state, action) => ({
             ...state,
         }),
@@ -186,5 +209,20 @@ const lessonsReducer = handleActions(
     },
     initLessonsState
 );
+
+const removeIfNotPush = (list, element) => {
+    let index = list.indexOf(element);
+    index > -1 ? list.splice(index, 1) : list.push(element);
+    return list;
+};
+
+const removeElementsWithIds = (lsnMembers, delIds) => {
+    return lsnMembers.filter((member) => !delIds.includes(member.id));
+};
+
+const pushElementWithIds = (lsnMembers, nonMembers, addMemberIds) => {
+    let list = nonMembers.filter((member) => addMemberIds.includes(member.id));
+    return [...lsnMembers, ...list];
+};
 
 export default lessonsReducer;
