@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
     updatePaymentStatus,
@@ -7,9 +7,11 @@ import {
 import { SUCCESS_UPDATE_NEW_PAYMENT } from "../../../redux/payment/paymentType";
 import { Button } from "../../../components";
 import _ from "lodash";
-import axios from "axios";
+import "../attendance/Attendance.scss";
+import "../content.css";
+import { Row } from "antd";
 
-const updateToState = {
+const toggleToState = {
     UNDEFINED: "CARD",
     CARD: "CASH",
     CASH: "CARD",
@@ -24,53 +26,45 @@ const updatingPaymentAPI = {
 export default function PaymentContent({ value, payment }) {
     const members = useSelector((state) => state.payment.payment.members);
     const selectedId = useSelector((state) => state.payment.selected);
-    console.log(">>> 주 클릭 시 PUT /API <<< ");
-    // let cards = [];
-    // let cashs = [];
-    // payment.members &&
-    //     payment.members.forEach((member, index) => {
-    //         // console.log("member :>> ", member.payments);
-    //         var newcards = member.payments.filter(
-    //             (item) => item.state === "CARD"
-    //         );
-    //         var newcashs = member.payments.filter(
-    //             (item) => item.state === "CARD"
-    //         );
-    //         cards = newcards.map((item) => item.id);
-    //         cashs = newcards.map((item) => item.id);
-    // });
-    // console.log("cards :>> ", cards);
-    // console.log("cashs :>> ", cashs);
     const dispatch = useDispatch();
     const headerTags = () => (
         <>
-            <div className="part">name</div>
+            <div className="part lineUpCenter">name</div>
             {Array(12)
                 .fill()
                 .map((each, index) => (
-                    <a className="part" type={index} onClick={updatedWeek}>{`${
-                        index + 1
-                    }월`}</a>
+                    <button
+                        className="each lineUpCenter"
+                        value={index}
+                        onClick={updatedWeek}
+                    >{`${index + 1}월`}</button>
                 ))}
-            <div className="part">all</div>
         </>
     );
     const updatedWeek = (e) => {
         var updatedMembers = [...members];
-        const week = e.target.type;
+        const week = e.target.value;
+        payment.members.forEach((member, index1) => {
+            updatingPaymentAPI[
+                member.payments[week].state
+            ].paymentIds = updatingPaymentAPI[
+                member.payments[week].state
+            ].paymentIds.filter((id) => id !== member.payments[week].id);
+            updatingPaymentAPI[
+                toggleToState[member.payments[week].state]
+            ].paymentIds.push(member.payments[week].id);
+        });
         updatedMembers.forEach(
             (member) =>
                 (member.payments[week].state =
-                    updateToState[member.payments[week].state])
+                    toggleToState[member.payments[week].state])
         );
-
-        //updatingPaymentAPI 여기부터
         dispatch(updatePaymentStatus({ update: updatedMembers }));
     };
     const updatedEach = (e) => {
         const member = e.target.dataset.member;
         const week = e.target.dataset.week;
-        const targetPaymentId = e.target.dataset.id;
+        const targetPaymentId = Number(e.target.dataset.id);
         let updatedMembers = [...members];
         var targetState = updatedMembers[member].payments[week].state;
         updatingPaymentAPI[targetState].paymentIds = updatingPaymentAPI[
@@ -78,14 +72,15 @@ export default function PaymentContent({ value, payment }) {
         ].paymentIds.filter((item) => item !== targetPaymentId);
 
         updatedMembers[member].payments[week].state =
-            updateToState[updatedMembers[member].payments[week].state];
+            toggleToState[updatedMembers[member].payments[week].state];
         updatingPaymentAPI[
             updatedMembers[member].payments[week].state
         ].paymentIds.push(targetPaymentId);
-        console.log("CARD :>> ", updatingPaymentAPI.CARD);
-        console.log("CASH :>> ", updatingPaymentAPI.CASH);
         dispatch(updatePaymentStatus({ update: updatedMembers }));
     };
+    // console.log("CARD :>> ", updatingPaymentAPI.CARD.paymentIds);
+    // console.log("CASH :>> ", updatingPaymentAPI.CASH.paymentIds);
+
     const content = () =>
         members &&
         members.map((member, index1) => (
@@ -94,24 +89,26 @@ export default function PaymentContent({ value, payment }) {
                     <div className="part">{member.name || ""}</div>
                     {member.payments.map((payment, index2) => {
                         return (
-                            <a
-                                className="part"
+                            <button
+                                className="each lineUpCenter"
                                 data-member={index1}
                                 data-week={index2}
                                 data-id={payment.id}
                                 onClick={updatedEach}
                             >
                                 {payment.state}
-                            </a>
+                            </button>
                         );
                     })}
-                    <a className="part">{"all"}</a>
                 </div>
             </>
         ));
 
     // 배열의 인덱스> vs id 값?  >> 로직
+
     const updatePayment = () => {
+        alert("UPDATE!!");
+        // window.location.reload();
         dispatch(
             updateNewPayment({
                 api: {
@@ -121,7 +118,9 @@ export default function PaymentContent({ value, payment }) {
                 actions: {
                     success: SUCCESS_UPDATE_NEW_PAYMENT,
                 },
-            }),
+            })
+        );
+        dispatch(
             updateNewPayment({
                 api: {
                     path: `/lessons/${selectedId}/payments`,
@@ -136,11 +135,13 @@ export default function PaymentContent({ value, payment }) {
     const renderTables = () => {
         return (
             <>
-                <Button
-                    className="btn-register"
-                    onClick={updatePayment}
-                    label="UPDATE"
-                />
+                <Row className="sub-header" span={6}>
+                    <Button
+                        className="btn-register"
+                        onClick={updatePayment}
+                        label="UPDATE"
+                    />
+                </Row>
                 <div className="contentWrapper">
                     <div className="rowsWrapper">{headerTags()}</div>
                     {content()}
@@ -149,13 +150,15 @@ export default function PaymentContent({ value, payment }) {
         );
     };
     // 필요한 화면 render
-    const renderEmpty = () => {
-        return <div>NO MEMBERS</div>;
+
+    const renderMemberEmpty = () => {
+        return <div className="danger lineUpCenter">NO MEMBERS</div>;
     };
+
     // no data 시 화면
     return (
         <div className="contentWrapper">
-            {_.isEmpty(value) ? renderEmpty() : renderTables()}
+            {_.isEmpty(value) ? renderMemberEmpty() : renderTables()}
         </div>
     );
 }

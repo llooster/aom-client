@@ -16,7 +16,6 @@ const MemberRegister = (props) => {
 
     const name = useSelector((state) => state.members.newMember.name);
     const age = useSelector((state) => state.members.newMember.age);
-    const newMember = useSelector((state) => state.members.newMember);
 
     const updateInputValue = (e) => {
         let value = e.target.value;
@@ -27,6 +26,8 @@ const MemberRegister = (props) => {
             case "age":
                 dispatch(updateNewMemberAge({ age: value }));
                 break;
+            default:
+                return;
         }
     };
 

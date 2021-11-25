@@ -3,18 +3,20 @@ import "./Button.scss";
 
 const Button = (props) => {
     const {
-        id,
         className = "",
         type = "primary",
+        id,
+        value,
         label,
         onClick,
     } = props;
 
     return (
-        <button 
-            id={id} 
-            className={[className, "btn", type].join(" ")} 
+        <button
+            className={[className, "btn", type].join(" ")}
+            id={id}
             onClick={onClick}
+            value={value}
         >
             {label}
         </button>

@@ -3,12 +3,13 @@ import {
     REQUEST_LESSON,
     REQUEST_POST_LESSON,
     REQUEST_NON_MEMBER,
-    REQUEST_UPDATE_LESSON
+    REQUEST_UPDATE_LESSON,
 } from "../redux/lesson/lessonTypes";
 import { REQUEST_MEMBER } from "../redux/member/memberTypes";
 import {
     REQUEST_DAY_LESSON,
     REQUEST_LESSON_ATTENDANCE,
+    UPDATE_NEW_ATTENDANCE,
 } from "../redux/attendance/attendanceType";
 import {
     REQUEST_DAY_LESSON_PAYMENT,
@@ -83,15 +84,15 @@ function* rootSaga() {
             REQUEST_DAY_LESSON_PAYMENT,
             REQUEST_LESSON_ATTENDANCE,
             REQUEST_LESSON_PAYMENT,
-            REQUEST_NON_MEMBER
+            REQUEST_NON_MEMBER,
         ],
         fetchRequest
     );
     yield takeEvery(REQUEST_POST_LESSON, postRequest);
-    yield takeEvery([
-        UPDATE_NEW_PAYMENT,
-        REQUEST_UPDATE_LESSON
-    ], putRequest);
+    yield takeEvery(
+        [UPDATE_NEW_PAYMENT, UPDATE_NEW_ATTENDANCE, REQUEST_UPDATE_LESSON],
+        putRequest
+    );
 }
 
 export default rootSaga;

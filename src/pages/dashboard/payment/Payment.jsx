@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Row, Col } from "antd";
 import { Box, V2Calendar } from "../../../components";
 import { useSelector, useDispatch } from "react-redux";
@@ -20,20 +20,11 @@ import {
 import "../attendance/Attendance.scss";
 
 const Container = styled.div`
-    /* box-sizing: border-box; */
     display: grid;
     width: 100%;
     height: 100%;
     color: white;
     min-width: 1000px;
-
-    // grid-template-rows: 10%;
-    // grid-template-columns: 20%;
-    /* Container자식 컴포넌트의 row의 길이 */
-    // grid-template-areas:
-    //     "main main main main"
-    //     "sidebar content content content";
-    /* "sidebar content content content"; */
     text-align: center;
     grid-gap: 5px;
 `;
@@ -43,12 +34,10 @@ const ContentBox = styled.div`
     gap: 0.25rem;
     padding: 0.25rem;
     align-items: center;
-    // grid-area: content;
     justify-content: center;
     padding: 0px 16px;
 `;
 const MainContentBox = styled.div`
-    /* background: rgba(170, 200, 170, 0.2); */
     padding: 0.25rem;
     width: 100%;
     height: 100%;
@@ -67,6 +56,7 @@ export default function Payment() {
     const lessons = useSelector((state) => state.payment.lessons);
     const selected = useSelector((state) => state.payment.selected);
     const payment = useSelector((state) => state.payment.payment);
+    console.log(`lessons`, lessons[0]);
     useEffect(() => {
         dispatch(
             fetchDayLessonRequest({
@@ -86,16 +76,17 @@ export default function Payment() {
 
     const LessonButtonRender = () => (
         <Box>
-            {lessons.map((lesson) => (
-                <Button
-                    key={lesson.id}
-                    className={lesson.id === selected ? "selected" : ""}
-                    id={lesson.id}
-                    onClick={clickLesson}
-                >
-                    {lesson.name}
-                </Button>
-            ))}
+            {lessons &&
+                lessons.map((lesson) => (
+                    <Button
+                        key={lesson.id}
+                        className={lesson.id === selected ? "selected" : ""}
+                        id={lesson.id}
+                        onClick={clickLesson}
+                    >
+                        {lesson.name}
+                    </Button>
+                ))}
         </Box>
     );
     // create lessons button
@@ -136,7 +127,9 @@ export default function Payment() {
     const onSelectDate = (date) => {
         dispatch(updateDate(date));
     };
-
+    const renderLessonEmpty = () => {
+        return <div className="each">NO LESSONS</div>;
+    };
     return (
         <Container>
             <Row className="Attendance">
@@ -147,7 +140,9 @@ export default function Payment() {
                         nextMonth={onNextMonth}
                         onSelect={onSelectDate}
                     />
-                    {LessonButtonRender()}
+                    {lessons[0] === undefined
+                        ? renderLessonEmpty()
+                        : LessonButtonRender()}
                 </Col>
                 <Col className="attendance-content" span={19}>
                     <ContentBox>

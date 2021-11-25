@@ -7,6 +7,7 @@ import {
     REQUEST_SUCCESS_DAY_LESSON,
     REQUEST_FAILURE,
     REQUEST_LESSON_ATTENDANCE_SUCCESS,
+    SUCCESS_UPDATE_NEW_ATTENDANCE,
 } from "./attendanceType";
 import moment from "moment";
 
@@ -62,6 +63,9 @@ const attendanceReducer = handleActions(
             loading: false,
             message: "FAILURE",
             lessons: [],
+        }),
+        [SUCCESS_UPDATE_NEW_ATTENDANCE]: (state, action) => ({
+            ...state,
         }),
     },
     initState

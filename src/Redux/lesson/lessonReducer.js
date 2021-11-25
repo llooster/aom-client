@@ -1,5 +1,5 @@
 import { handleActions } from "redux-actions";
-import { 
+import {
     INIT_FORM,
     UPDATE_LESSON_NAME,
     UPDATE_LESSON_DAY,
@@ -7,8 +7,8 @@ import {
     REGISTER_LESSON,
     ADD_MEMBER_TO_LESSON,
     DELETE_MEMBER_FROM_LESSON,
-    REQUEST_LESSON,  
-    REQUEST_FAILURE_LESSON, 
+    REQUEST_LESSON,
+    REQUEST_FAILURE_LESSON,
     REQUEST_SUCCESS_LESSONS,
     REQUEST_SUCCESS_LESSON_ONE,
     REQUEST_SUCCESS_POST_LESSON,
@@ -19,7 +19,7 @@ import {
     SHOW_ALERT,
     DISABLE_ALERT,
 } from "./lessonTypes";
-import _ from "lodash";
+// import _ from "lodash";
 
 const initialOne = {
     name: "",
@@ -29,14 +29,14 @@ const initialOne = {
     members: [],
     nonMembers: [],
     addMemberIds: [],
-    deleteMemberIds: []
-}
+    deleteMemberIds: [],
+};
 
 const initialAlert = {
     isShow: false,
     message: "",
-    type: "success"
-}
+    type: "success",
+};
 
 const initLessonsState = {
     loading: false,
@@ -58,8 +58,8 @@ const lessonsReducer = handleActions(
             alert: {
                 isShow: true,
                 message: "작업이 완료되지 못했습니다.",
-                type: "warning"
-            }
+                type: "warning",
+            },
         }),
         [REQUEST_SUCCESS_LESSONS]: (state, action) => ({
             ...state,
@@ -75,22 +75,25 @@ const lessonsReducer = handleActions(
                 ...state.one,
                 name: action.payload.name,
                 day: action.payload.day,
-                members: action.payload.members
+                members: action.payload.members,
                 // startTime: action.payload.startTime,
                 // endTime: action.payload.endTime
-            }
+            },
         }),
         [REQUEST_SUCCESS_POST_LESSON]: (state, action) => ({
             ...state,
-            lessons: [...state.lessons, {
-                id: action.payload.id,
-                ...state.one
-            }],
-            one: initialOne
+            lessons: [
+                ...state.lessons,
+                {
+                    id: action.payload.id,
+                    ...state.one,
+                },
+            ],
+            one: initialOne,
         }),
         [INIT_FORM]: (state, action) => ({
             ...state,
-            one: initialOne
+            one: initialOne,
         }),
         [UPDATE_LESSON_NAME]: (state, action) => ({
             ...state,
@@ -127,45 +130,53 @@ const lessonsReducer = handleActions(
                 ...state,
                 one: {
                     ...state.one,
-                    addMemberIds: memberIds
-                }
-            }
+                    addMemberIds: memberIds,
+                },
+            };
         },
         [REQUEST_NON_MEMBER]: (state, action) => ({
             ...state,
-            loading: true
+            loading: true,
         }),
         [REQUEST_NON_MEMBER_SUCCESS]: (state, action) => ({
             ...state,
             loading: false,
             one: {
                 ...state.one,
-                nonMembers: action.payload.members
-            }
+                nonMembers: action.payload.members,
+            },
         }),
         [DELETE_MEMBER_FROM_LESSON]: (state, action) => {
             let id = action.payload;
             let memberIds = [...state.one.deleteMemberIds];
-            memberIds = removeIfNotPush(memberIds, id)
+            memberIds = removeIfNotPush(memberIds, id);
             return {
                 ...state,
                 one: {
                     ...state.one,
-                    deleteMemberIds: memberIds
-                }
-            }
+                    deleteMemberIds: memberIds,
+                },
+            };
         },
         [REQUEST_UPDATE_LESSON]: (state, action) => ({
             ...state,
-            loading: true
+            loading: true,
         }),
         [REQUEST_UPDATE_LESSON_SUCCESS]: (state, action) => {
             let addMemberIds = state.one.addMemberIds;
             let delMemberIds = state.one.deleteMemberIds;
             let lsnMembers = state.one.members;
             let nonMembers = state.one.nonMembers;
-            lsnMembers = pushElementWithIds(lsnMembers, nonMembers, addMemberIds);
-            nonMembers = pushElementWithIds(nonMembers, lsnMembers, delMemberIds);
+            lsnMembers = pushElementWithIds(
+                lsnMembers,
+                nonMembers,
+                addMemberIds
+            );
+            nonMembers = pushElementWithIds(
+                nonMembers,
+                lsnMembers,
+                delMemberIds
+            );
             lsnMembers = removeElementsWithIds(lsnMembers, delMemberIds);
             nonMembers = removeElementsWithIds(nonMembers, addMemberIds);
             return {
@@ -174,28 +185,27 @@ const lessonsReducer = handleActions(
                 alert: {
                     isShow: true,
                     message: "업데이트를 성공했습니다.",
-                    type: "success"
+                    type: "success",
                 },
                 one: {
                     ...state,
                     addMemberIds: [],
                     deleteMemberIds: [],
                     members: lsnMembers,
-                    nonMembers: nonMembers
+                    nonMembers: nonMembers,
                 },
-            }
+            };
         },
         [SHOW_ALERT]: (state, action) => ({
             ...state,
-            
         }),
         [DISABLE_ALERT]: (state, action) => ({
             ...state,
             alert: {
                 isShow: false,
-                message: ""
-            }
-        })
+                message: "",
+            },
+        }),
     },
     initLessonsState
 );
@@ -204,15 +214,15 @@ const removeIfNotPush = (list, element) => {
     let index = list.indexOf(element);
     index > -1 ? list.splice(index, 1) : list.push(element);
     return list;
-}
+};
 
 const removeElementsWithIds = (lsnMembers, delIds) => {
     return lsnMembers.filter((member) => !delIds.includes(member.id));
-}
+};
 
 const pushElementWithIds = (lsnMembers, nonMembers, addMemberIds) => {
     let list = nonMembers.filter((member) => addMemberIds.includes(member.id));
     return [...lsnMembers, ...list];
-}
+};
 
 export default lessonsReducer;

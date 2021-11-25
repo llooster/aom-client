@@ -1,6 +1,4 @@
-import React from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
 
 const ENDPOINT = "http://127.0.0.1:8080";
 
@@ -53,6 +51,6 @@ const getMemberOneAPI = (id) => {
             console.log("ERR : ", err);
         });
 };
-export { postMembersAPI, getMemberOneAPI };
+export { putMembersAPI, postMembersAPI, getMemberOneAPI };
 // export           >>> 다른 파일에서 사용 가능하도록
 // export default   >>> 파일에 하나만 export할 때

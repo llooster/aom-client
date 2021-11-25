@@ -9,7 +9,6 @@ import {
     updateMemberName,
     updateMemberAge,
 } from "../../../redux/member/memberActions";
-import { postMembersAPI } from "../../../apis/members/membersAPI";
 import { REQUEST_MEMBER_ONE } from "../../../redux/member/memberTypes";
 
 const MemberOne = (props) => {
@@ -28,7 +27,6 @@ const MemberOne = (props) => {
             })
         );
     }, []);
-    const id = useSelector((state) => state.members.one.id);
     const name = useSelector((state) => state.members.one.name);
     const age = useSelector((state) => state.members.one.age);
 
@@ -41,6 +39,8 @@ const MemberOne = (props) => {
             case "age":
                 dispatch(updateMemberAge({ age: value }));
                 break;
+            default:
+                return;
         }
     };
     const renderInputs = () => {
