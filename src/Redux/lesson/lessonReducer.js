@@ -188,7 +188,7 @@ const lessonsReducer = handleActions(
                     type: "success",
                 },
                 one: {
-                    ...state,
+                    ...state.one,
                     addMemberIds: [],
                     deleteMemberIds: [],
                     members: lsnMembers,

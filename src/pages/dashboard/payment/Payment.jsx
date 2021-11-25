@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PaymentContent from "./PaymentContent";
 import styled from "styled-components";
 import moment from "moment";
+import "./Payment.scss";
 
 import {
     fetchDayLessonRequest,
@@ -26,19 +27,16 @@ const Container = styled.div`
     color: white;
     min-width: 1000px;
     text-align: center;
-    grid-gap: 5px;
 `;
 
 const ContentBox = styled.div`
     display: flex;
     gap: 0.25rem;
-    padding: 0.25rem;
     align-items: center;
     justify-content: center;
     padding: 0px 16px;
 `;
 const MainContentBox = styled.div`
-    padding: 0.25rem;
     width: 100%;
     height: 100%;
 `;
@@ -49,6 +47,7 @@ const Button = styled.button`
     justify-content: center;
     width: 100%;
 `;
+
 export default function Payment() {
     const dispatch = useDispatch();
     const date = useSelector((state) => state.payment.date);
@@ -132,7 +131,7 @@ export default function Payment() {
     };
     return (
         <Container>
-            <Row className="Attendance">
+            <Row className="Payment">
                 <Col span={5}>
                     <V2Calendar
                         date={date}
@@ -144,7 +143,7 @@ export default function Payment() {
                         ? renderLessonEmpty()
                         : LessonButtonRender()}
                 </Col>
-                <Col className="attendance-content" span={19}>
+                <Col className="payment-content" span={19}>
                     <ContentBox>
                         <MainContentBox>
                             <PaymentContent

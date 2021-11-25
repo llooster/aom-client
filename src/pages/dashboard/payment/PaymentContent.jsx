@@ -1,22 +1,32 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    updatePaymentStatus,
-    updateNewPayment,
-} from "../../../redux/payment/paymentActions";
-import { SUCCESS_UPDATE_NEW_PAYMENT } from "../../../redux/payment/paymentType";
+import { Row, Col } from "antd";
 import { Button } from "../../../components";
+import { updatePaymentStatus, updateNewPayment, } from "../../../redux/payment/paymentActions";
+import { SUCCESS_UPDATE_NEW_PAYMENT } from "../../../redux/payment/paymentType";
 import _ from "lodash";
-import "../attendance/Attendance.scss";
 import "../content.css";
-import { Row } from "antd";
+
+const colors = {
+    CARD: "#8db3f0",
+    CASH: "#8d1fff",
+    UNDEFINED: "#fa7583"
+}
+
+const labels = [
+    { label: "카드", color: colors.CARD },
+    { label: "현금", color: colors.CASH },
+    { label: "미납", color: colors.UNDEFINED },
+];
 
 const toggleToState = {
     UNDEFINED: "CARD",
     CARD: "CASH",
     CASH: "CARD",
 };
+
 const CARD = { state: "CARD", paymentIds: [] };
+
 const updatingPaymentAPI = {
     UNDEFINED: CARD,
     CARD: CARD,
@@ -24,12 +34,15 @@ const updatingPaymentAPI = {
 };
 
 export default function PaymentContent({ value, payment }) {
+    
     const members = useSelector((state) => state.payment.payment.members);
     const selectedId = useSelector((state) => state.payment.selected);
+
     const dispatch = useDispatch();
+
     const headerTags = () => (
         <>
-            <div className="part lineUpCenter">name</div>
+            <div className="part">이름</div>
             {Array(12)
                 .fill()
                 .map((each, index) => (
@@ -41,6 +54,7 @@ export default function PaymentContent({ value, payment }) {
                 ))}
         </>
     );
+
     const updatedWeek = (e) => {
         var updatedMembers = [...members];
         const week = e.target.value;
@@ -61,6 +75,7 @@ export default function PaymentContent({ value, payment }) {
         );
         dispatch(updatePaymentStatus({ update: updatedMembers }));
     };
+
     const updatedEach = (e) => {
         const member = e.target.dataset.member;
         const week = e.target.dataset.week;
@@ -75,12 +90,10 @@ export default function PaymentContent({ value, payment }) {
             toggleToState[updatedMembers[member].payments[week].state];
         updatingPaymentAPI[
             updatedMembers[member].payments[week].state
-        ].paymentIds.push(targetPaymentId);
+        ].paymentIds.push(targetPaymentId);        
         dispatch(updatePaymentStatus({ update: updatedMembers }));
     };
-    // console.log("CARD :>> ", updatingPaymentAPI.CARD.paymentIds);
-    // console.log("CASH :>> ", updatingPaymentAPI.CASH.paymentIds);
-
+    
     const content = () =>
         members &&
         members.map((member, index1) => (
@@ -95,9 +108,8 @@ export default function PaymentContent({ value, payment }) {
                                 data-week={index2}
                                 data-id={payment.id}
                                 onClick={updatedEach}
-                            >
-                                {payment.state}
-                            </button>
+                                style={{background: colors[payment.state]}}
+                            />
                         );
                     })}
                 </div>
@@ -132,22 +144,39 @@ export default function PaymentContent({ value, payment }) {
             })
         );
     };
+
+    const renderLabels = () => {
+
+        return labels.map((item) => {
+            return <div className="label-item">
+                <div className="color" style={{background: item.color}}>
+                </div>
+                <div className="label">
+                    {item.label}
+                </div>
+            </div>
+        })
+    }
+
     const renderTables = () => {
-        return (
-            <>
-                <Row className="sub-header" span={6}>
-                    <Button
-                        className="btn-register"
-                        onClick={updatePayment}
-                        label="UPDATE"
-                    />
-                </Row>
-                <div className="contentWrapper">
+        return <Row>
+                <Col className="content-header" span={24}>
+                    <div className="label-box">
+                        { renderLabels() }
+                    </div>
+                    <div className="button-box">
+                        <Button
+                            className="btn-update"
+                            onClick={updatePayment}
+                            label="UPDATE"
+                        />
+                    </div>
+                </Col>
+                <Col className="contentWrapper">
                     <div className="rowsWrapper">{headerTags()}</div>
                     {content()}
-                </div>
-            </>
-        );
+                </Col>
+            </Row>
     };
     // 필요한 화면 render
 

@@ -1,0 +1,71 @@
+@import "public/styles/Size.scss";
+@import "public/styles/Color.scss";
+
+.Payment {
+    a {
+        color: black;
+    }
+
+    .Box {
+        border: none;
+        padding: 6px 0px;
+
+        .box-body button {
+            border: none;
+            border-radius: 12px;
+            background: none;
+            color: $color-menu-font;
+            padding: 6px 12px;
+            margin-bottom: 6px;
+        }
+
+        .box-body button:hover {
+            cursor: pointer;
+            color: white;
+            font-weight: 700;
+            background-color: #a0afbd;
+        }
+
+        .box-body button.selected {
+            color: white;
+            font-weight: 700;
+            background-color: #a0afbd;
+        }
+        
+    }
+
+    .payment-content {
+        padding-left: 12px;
+        .content-header {
+            display: flex;
+            margin-bottom: 12px;
+            .label-box {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .label-item {
+                    display: flex;
+                    margin-right: 24px;
+                    .color {
+                        width: 24px;
+                        height: 24px;
+                        margin-right: 6px;
+                        border-radius: 6px;
+                    }
+                    .label {
+                        display: flex;
+                        align-items: center;
+                        font-size: 16px;
+                        color: #616161;
+                    }
+                }
+            }
+            .button-box {
+                margin-left: auto;
+                .btn-update {
+                    margin: 0px;
+                }
+            }
+        }
+    }
+}
