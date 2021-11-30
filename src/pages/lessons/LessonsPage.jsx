@@ -16,7 +16,7 @@ const lessonColumns = [
     { title: "End Time", dataIndex: "endTime" },
 ];
 
-const HomePage = () => {
+const LessonPage = () => {
     const lessons = useSelector((state) => state.lessons.lessons);
     const dispatch = useDispatch();
 
@@ -55,4 +55,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default LessonPage;

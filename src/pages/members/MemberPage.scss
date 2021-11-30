@@ -6,7 +6,7 @@
     height: 100%;
     overflow: auto;
     border-radius: $border-radius-page;
-    
+
     padding: 24px;
 
     .header {
@@ -14,6 +14,7 @@
         .title {
             font-size: $font-size-page-title;
             font-weight: $font-weight-page-title;
+            color: rgb(100, 100, 100);
         }
     }
 
@@ -41,7 +42,7 @@
         .footer {
             display: flex;
             justify-content: flex-end;
-            
+
             .btn-modal-add {
                 margin-right: 0px;
             }

@@ -2,17 +2,6 @@ import axios from "axios";
 
 const ENDPOINT = "http://127.0.0.1:8080";
 
-// const getMembersAPI = () => {
-//     axios
-//         .get(`${ENDPOINT}/members`)
-//         .then((res) => {
-//             console.log(res.data.result.members);
-//         })
-//         .catch((err) => {
-//             console.log("ERR : ", err);
-//         });
-// };
-
 const putMembersAPI = (id, name, age) => {
     axios
         .put(`${ENDPOINT}/members/${id}`, {
