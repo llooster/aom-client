@@ -55,7 +55,7 @@ export default function Payment() {
     const lessons = useSelector((state) => state.payment.lessons);
     const selected = useSelector((state) => state.payment.selected);
     const payment = useSelector((state) => state.payment.payment);
-    console.log(`lessons`, lessons[0]);
+    // console.log(`lessons`, lessons[0]);
     useEffect(() => {
         dispatch(
             fetchDayLessonRequest({

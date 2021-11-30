@@ -145,9 +145,10 @@ const LessonRegister = (props) => {
     const renderNonMembers = () => {
         return (
             <Box className="non-members" label="Add Members">
-                {nonMembers.map((member) => {
-                    return nonMemberLabel(member);
-                })}
+                {nonMembers &&
+                    nonMembers.map((member) => {
+                        return nonMemberLabel(member);
+                    })}
             </Box>
         );
     };
