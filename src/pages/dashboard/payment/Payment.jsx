@@ -55,7 +55,6 @@ export default function Payment() {
     const lessons = useSelector((state) => state.payment.lessons);
     const selected = useSelector((state) => state.payment.selected);
     const payment = useSelector((state) => state.payment.payment);
-    // console.log(`lessons`, lessons[0]);
     useEffect(() => {
         dispatch(
             fetchDayLessonRequest({
@@ -129,6 +128,7 @@ export default function Payment() {
     const renderLessonEmpty = () => {
         return <div className="each">NO LESSONS</div>;
     };
+    console.log(`lessons`, lessons);
     return (
         <Container>
             <Row className="Payment">
@@ -139,9 +139,12 @@ export default function Payment() {
                         nextMonth={onNextMonth}
                         onSelect={onSelectDate}
                     />
-                    {lessons[0] === undefined
-                        ? renderLessonEmpty()
-                        : LessonButtonRender()}
+                    {
+                        // lessons[0] === undefined ||
+                        lessons === undefined
+                            ? renderLessonEmpty()
+                            : LessonButtonRender()
+                    }
                 </Col>
                 <Col className="payment-content" span={19}>
                     <ContentBox>

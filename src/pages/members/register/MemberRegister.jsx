@@ -76,7 +76,7 @@ const MemberRegister = (props) => {
                         type="none"
                         label={<Icon icon="back" />}
                     />
-                    <span className="title">Member register</span>
+                    <span className="title"> Member register</span>
                 </Col>
                 <Col className="body" span={24}>
                     {renderInputs()}

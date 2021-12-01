@@ -135,6 +135,7 @@ export default function Attendance() {
     const renderLessonEmpty = () => {
         return <div className="each">NO LESSONS</div>;
     };
+
     return (
         <Container>
             <Row className="Attendance">
