@@ -80,11 +80,11 @@ export default function AttendanceContent({ value, attendance }) {
         ].attendanceIds.push(targetAttendanceId);
         dispatch(updateAttStatus({ update: updatedMembers }));
     };
-    console.log("ABSENT :>> ", updatingAttendanceAPI.ABSENT.attendanceIds);
-    console.log(
-        "ATTENDANCE :>> ",
-        updatingAttendanceAPI.ATTENDANCE.attendanceIds
-    );
+    // console.log("ABSENT :>> ", updatingAttendanceAPI.ABSENT.attendanceIds);
+    // console.log(
+    //     "ATTENDANCE :>> ",
+    //     updatingAttendanceAPI.ATTENDANCE.attendanceIds
+    // );
 
     const content = () =>
         members &&
